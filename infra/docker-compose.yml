@@ -1,0 +1,176 @@
+## ── Surrogate OS — Full Stack Docker Compose ─────────────────────────
+## Usage:
+##   docker compose up -d                  # Start everything
+##   docker compose up -d --build          # Rebuild app images
+##   docker compose logs -f api            # Follow API logs
+##   docker compose exec api npx tsx prisma/seed.ts   # Run seed
+##   docker compose down -v                # Tear down + delete volumes
+
+services:
+
+  # ═══════════════════════════════════════════════════════════════════
+  # INFRASTRUCTURE
+  # ═══════════════════════════════════════════════════════════════════
+
+  postgres:
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: surrogate
+      POSTGRES_PASSWORD: surrogate_dev
+      POSTGRES_DB: surrogate_os
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - surrogate-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U surrogate -d surrogate_os"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.97.0
+    ports:
+      - "4317:4317"   # gRPC
+      - "4318:4318"   # HTTP
+    volumes:
+      - ./otel-collector-config.yml:/etc/otelcol-contrib/config.yaml
+    depends_on:
+      - tempo
+      - loki
+    networks:
+      - surrogate-net
+
+  tempo:
+    image: grafana/tempo:2.6.1
+    ports:
+      - "3200:3200"
+    volumes:
+      - ./tempo-config.yml:/etc/tempo/config.yaml
+      - tempo_data:/var/tempo
+    command: ["-config.file=/etc/tempo/config.yaml"]
+    networks:
+      - surrogate-net
+
+  loki:
+    image: grafana/loki:3.3.2
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./loki-config.yml:/etc/loki/config.yaml
+      - loki_data:/loki
+    command: ["-config.file=/etc/loki/config.yaml"]
+    networks:
+      - surrogate-net
+
+  prometheus:
+    image: prom/prometheus:v2.55.1
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    networks:
+      - surrogate-net
+
+  grafana:
+    image: grafana/grafana:11.4.0
+    ports:
+      - "4000:3000"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+    depends_on:
+      - prometheus
+      - tempo
+      - loki
+    networks:
+      - surrogate-net
+
+  # ═══════════════════════════════════════════════════════════════════
+  # APPLICATION
+  # ═══════════════════════════════════════════════════════════════════
+
+  # ── Database migrations (run-once init container) ─────────────────
+  api-migrate:
+    build:
+      context: ..
+      dockerfile: apps/api/Dockerfile
+    command: ["sh", "-c", "npx prisma migrate deploy && npx tsx prisma/seed.ts"]
+    environment:
+      DATABASE_URL: postgresql://surrogate:surrogate_dev@postgres:5432/surrogate_os
+      NODE_ENV: production
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - surrogate-net
+    restart: "no"
+
+  # ── API Server (Fastify) ──────────────────────────────────────────
+  api:
+    build:
+      context: ..
+      dockerfile: apps/api/Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      PORT: "3001"
+      HOST: "0.0.0.0"
+      DATABASE_URL: postgresql://surrogate:surrogate_dev@postgres:5432/surrogate_os
+      JWT_SECRET: surrogate-docker-secret-change-in-prod
+      JWT_ACCESS_EXPIRY: "15m"
+      JWT_REFRESH_EXPIRY: "7d"
+      OTEL_ENDPOINT: http://otel-collector:4318
+      LOG_LEVEL: info
+      NODE_ENV: production
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-claude-sonnet-4-20250514}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      api-migrate:
+        condition: service_completed_successfully
+      otel-collector:
+        condition: service_started
+    networks:
+      - surrogate-net
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3001/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # ── Web Dashboard (Next.js) ───────────────────────────────────────
+  web:
+    build:
+      context: ..
+      dockerfile: apps/web/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:3001/api/v1
+    depends_on:
+      api:
+        condition: service_healthy
+    networks:
+      - surrogate-net
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  tempo_data:
+  loki_data:
+  prometheus_data:
+  grafana_data:
+
+networks:
+  surrogate-net:
+    driver: bridge

@@ -1,0 +1,2005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SURROGATE OS — AI Identity Engine v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #07070A;
+  --paper: #F2EFE8;
+  --acid: #D4FF00;
+  --volt: #BBFF00;
+  --plasma: #FF2D55;
+  --ice: #00E5FF;
+  --ember: #FF7A00;
+  --ghost: #1C1C24;
+  --line: #272730;
+  --muted: #5A5A70;
+  --mid: #2E2E3A;
+  --syne: 'Syne', sans-serif;
+  --mono: 'Space Mono', monospace;
+  --serif: 'Instrument Serif', serif;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--syne);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ─── CUSTOM CURSOR ─── */
+#cursor {
+  position: fixed;
+  width: 10px; height: 10px;
+  background: var(--acid);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%,-50%);
+  transition: width .15s, height .15s, background .15s;
+  mix-blend-mode: difference;
+}
+#cursor-ring {
+  position: fixed;
+  width: 36px; height: 36px;
+  border: 1px solid rgba(212,255,0,0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%,-50%);
+  transition: transform .08s linear, width .2s, height .2s, border-color .2s;
+}
+body:hover #cursor { width: 10px; height: 10px; }
+
+/* ─── GRAIN ─── */
+.grain {
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9997; opacity: .5;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 0 5vw;
+  height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+  background: rgba(7,7,10,0.92);
+  backdrop-filter: blur(24px);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 15px; font-weight: 800; letter-spacing: 4px;
+  color: var(--acid); text-transform: uppercase;
+}
+.nav-logo-dot {
+  width: 8px; height: 8px; background: var(--acid); border-radius: 50%;
+  animation: livePulse 1.4s ease-in-out infinite;
+}
+@keyframes livePulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.3)} }
+
+.nav-center {
+  display: flex; gap: 4px;
+}
+.nav-pill {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 2px;
+  color: var(--muted); text-decoration: none; text-transform: uppercase;
+  padding: 6px 14px; border: 1px solid transparent;
+  transition: all .2s; border-radius: 2px;
+}
+.nav-pill:hover { color: var(--acid); border-color: var(--line); }
+
+.nav-status {
+  font-family: var(--mono); font-size: 10px; color: var(--muted);
+  display: flex; align-items: center; gap: 8px;
+}
+.status-dot {
+  width: 6px; height: 6px; background: #00FF88; border-radius: 50%;
+  animation: livePulse 2s infinite;
+}
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  padding: 64px 5vw 0;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 60% 40%, rgba(212,255,0,0.055) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 20% 80%, rgba(0,229,255,0.03) 0%, transparent 50%);
+}
+
+/* Animated grid */
+.hero-mesh {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(212,255,0,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212,255,0,0.03) 1px, transparent 1px);
+  background-size: 80px 80px;
+  animation: meshDrift 25s linear infinite;
+  mask-image: radial-gradient(ellipse at 50% 40%, black 30%, transparent 80%);
+}
+@keyframes meshDrift { to { background-position: 80px 80px; } }
+
+.hero-content {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 80px 0 60px; position: relative; z-index: 2;
+}
+
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 16px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: 3px;
+  color: var(--acid); text-transform: uppercase;
+  margin-bottom: 48px; opacity: 0;
+  animation: slideUp .8s .3s forwards;
+}
+.hero-eyebrow-line { width: 48px; height: 1px; background: var(--acid); }
+
+.hero-headline {
+  font-size: clamp(68px, 11vw, 160px);
+  font-weight: 800;
+  line-height: .88;
+  letter-spacing: -3px;
+  opacity: 0;
+  animation: slideUp .9s .5s forwards;
+}
+.hero-headline .line-1 { display: block; color: var(--paper); }
+.hero-headline .line-2 {
+  display: block; color: transparent;
+  -webkit-text-stroke: 1.5px var(--acid);
+  font-style: italic;
+  font-family: var(--serif);
+  font-size: clamp(72px, 11.5vw, 168px);
+}
+.hero-headline .line-3 { display: block; color: var(--acid); }
+
+.hero-desc {
+  max-width: 540px; margin-top: 40px;
+  font-size: 17px; font-weight: 400;
+  color: var(--muted); line-height: 1.75;
+  opacity: 0; animation: slideUp .9s .7s forwards;
+}
+.hero-desc strong { color: var(--paper); }
+
+.hero-actions {
+  display: flex; align-items: center; gap: 20px;
+  margin-top: 52px;
+  opacity: 0; animation: slideUp .9s .9s forwards;
+}
+.btn-primary {
+  background: var(--acid); color: var(--ink);
+  padding: 14px 36px; font-weight: 700; font-size: 13px;
+  letter-spacing: 2px; text-transform: uppercase; cursor: pointer;
+  border: none; transition: all .2s;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+}
+.btn-primary:hover { background: var(--volt); transform: translateY(-2px); }
+.btn-ghost {
+  background: transparent; color: var(--muted);
+  padding: 14px 36px; font-weight: 600; font-size: 13px;
+  letter-spacing: 2px; text-transform: uppercase; cursor: pointer;
+  border: 1px solid var(--line); transition: all .2s; font-family: var(--syne);
+}
+.btn-ghost:hover { border-color: var(--muted); color: var(--paper); }
+
+@keyframes slideUp {
+  from { opacity:0; transform: translateY(40px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+
+/* Hero ticker */
+.hero-ticker {
+  border-top: 1px solid var(--line);
+  padding: 20px 0;
+  display: flex; gap: 0;
+  overflow: hidden;
+  position: relative; z-index: 2;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+.ticker-track {
+  display: flex; gap: 0;
+  animation: tickerRoll 30s linear infinite;
+  white-space: nowrap;
+}
+.ticker-item {
+  display: flex; align-items: center; gap: 32px;
+  padding: 0 48px;
+  font-family: var(--mono); font-size: 10px; letter-spacing: 2px;
+  color: var(--muted); text-transform: uppercase;
+  border-right: 1px solid var(--line);
+  flex-shrink: 0;
+}
+.ticker-item span { color: var(--acid); }
+@keyframes tickerRoll { to { transform: translateX(-50%); } }
+
+/* ─── SECTION WRAPPER ─── */
+.section { padding: 120px 5vw; position: relative; }
+.section.dark { background: var(--ink); }
+.section.dim  { background: var(--ghost); }
+
+.s-label {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 4px;
+  color: var(--acid); text-transform: uppercase;
+  display: flex; align-items: center; gap: 16px; margin-bottom: 20px;
+}
+.s-label::before { content: ''; width: 20px; height: 1px; background: var(--acid); }
+.s-num { color: var(--muted); margin-left: 8px; }
+
+.s-title {
+  font-size: clamp(44px, 5.5vw, 88px);
+  font-weight: 800; line-height: .92;
+  letter-spacing: -1px; margin-bottom: 64px;
+}
+.s-title em { font-family: var(--serif); font-style: italic; color: var(--acid); }
+
+/* ─── INTRO / MANIFESTO ─── */
+.manifesto {
+  display: grid; grid-template-columns: 1fr 2fr; gap: 80px;
+  align-items: start; padding: 80px 5vw;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--ghost);
+}
+.manifesto-left {
+  position: sticky; top: 100px;
+}
+.manifesto-left h2 {
+  font-size: 48px; font-weight: 800; line-height: 1;
+  margin-bottom: 20px;
+}
+.manifesto-left h2 em { font-family: var(--serif); font-style: italic; color: var(--acid); }
+.manifesto-right {
+  display: flex; flex-direction: column; gap: 32px;
+}
+.manifesto-para {
+  font-size: 19px; font-weight: 400; color: var(--muted);
+  line-height: 1.8; border-top: 1px solid var(--line); padding-top: 32px;
+}
+.manifesto-para strong { color: var(--paper); }
+.manifesto-para .highlight { color: var(--acid); font-style: italic; }
+
+/* ─── WHAT IT DOES: INTERACTIVE DEMO ─── */
+.demo-section {
+  background: var(--ink);
+  padding: 120px 5vw;
+}
+.demo-container {
+  display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: start;
+}
+.demo-input-area {
+  position: sticky; top: 100px;
+}
+.demo-input-area h3 {
+  font-size: 14px; font-weight: 700; letter-spacing: 2px;
+  color: var(--muted); text-transform: uppercase;
+  margin-bottom: 20px; font-family: var(--mono);
+}
+.role-input-wrap {
+  position: relative; margin-bottom: 12px;
+}
+.role-input {
+  width: 100%;
+  background: var(--ghost); border: 1px solid var(--line);
+  color: var(--paper); font-family: var(--mono); font-size: 14px;
+  padding: 18px 20px; outline: none; letter-spacing: 1px;
+  transition: border-color .2s;
+}
+.role-input:focus { border-color: var(--acid); }
+.role-input::placeholder { color: var(--muted); }
+.generate-btn {
+  width: 100%; background: var(--acid); color: var(--ink);
+  border: none; padding: 16px; font-family: var(--syne);
+  font-size: 13px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; cursor: pointer; transition: all .2s;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+.generate-btn:hover { background: var(--volt); }
+.generate-btn .btn-arrow { font-size: 18px; }
+
+.quick-roles {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px;
+}
+.quick-role {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 1px;
+  color: var(--muted); border: 1px solid var(--line);
+  padding: 6px 12px; cursor: pointer; transition: all .2s;
+}
+.quick-role:hover { color: var(--acid); border-color: var(--acid); background: rgba(212,255,0,0.04); }
+.quick-role.active { color: var(--acid); border-color: var(--acid); background: rgba(212,255,0,0.06); }
+
+.demo-output {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.output-card {
+  background: var(--ghost); border: 1px solid var(--line);
+  overflow: hidden; transition: all .3s;
+}
+.output-card-header {
+  padding: 16px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  cursor: pointer; transition: background .2s;
+}
+.output-card-header:hover { background: rgba(212,255,0,0.03); }
+.output-card-header-left {
+  display: flex; align-items: center; gap: 12px;
+}
+.output-card-icon {
+  width: 32px; height: 32px; background: rgba(212,255,0,0.08);
+  border: 1px solid rgba(212,255,0,0.15);
+  display: flex; align-items: center; justify-content: center; font-size: 14px;
+}
+.output-card-name {
+  font-size: 13px; font-weight: 700; letter-spacing: 1px; color: var(--paper);
+  text-transform: uppercase;
+}
+.output-card-status {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 2px;
+  color: var(--acid); padding: 3px 8px; border: 1px solid rgba(212,255,0,0.2);
+  text-transform: uppercase;
+}
+.output-card-body {
+  padding: 0 20px; max-height: 0; overflow: hidden;
+  transition: max-height .4s ease, padding .4s ease;
+}
+.output-card.expanded .output-card-body { max-height: 600px; padding: 0 20px 20px; }
+.output-card-expand { font-size: 18px; color: var(--muted); transition: transform .3s; }
+.output-card.expanded .output-card-expand { transform: rotate(45deg); color: var(--acid); }
+
+.sop-entry {
+  display: flex; gap: 12px; padding: 10px 0;
+  border-top: 1px solid var(--line);
+  font-size: 13px; color: var(--muted); line-height: 1.5;
+}
+.sop-entry-num {
+  font-family: var(--mono); font-size: 10px; color: var(--acid);
+  min-width: 28px; padding-top: 1px;
+}
+
+.trait-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.trait-item {
+  background: var(--ink); padding: 10px 14px;
+  border: 1px solid var(--line);
+}
+.trait-key { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; }
+.trait-val { font-size: 13px; color: var(--paper); font-weight: 600; }
+
+.bar-wrap { margin-bottom: 10px; }
+.bar-label { display: flex; justify-content: space-between; margin-bottom: 5px; }
+.bar-label span { font-family: var(--mono); font-size: 10px; color: var(--muted); }
+.bar-label strong { font-family: var(--mono); font-size: 10px; color: var(--acid); }
+.bar-track { height: 4px; background: var(--line); }
+.bar-fill { height: 100%; background: var(--acid); transition: width 1s ease; }
+
+/* ─── ARCHITECTURE DEEP DIVE ─── */
+.arch-section { background: var(--ghost); }
+
+.arch-visual {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px;
+  margin-top: 80px;
+}
+
+.arch-col {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.arch-col-header {
+  background: var(--acid); color: var(--ink);
+  padding: 16px 20px; font-size: 12px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase; text-align: center;
+  font-family: var(--mono);
+}
+.arch-node {
+  background: var(--ink); border: 1px solid var(--line);
+  padding: 16px 18px; cursor: pointer;
+  transition: all .2s; flex: 1;
+}
+.arch-node:hover { border-color: var(--acid); background: rgba(212,255,0,0.03); }
+.arch-node-name { font-size: 11px; font-weight: 700; color: var(--paper); margin-bottom: 4px; letter-spacing: .5px; }
+.arch-node-desc { font-size: 11px; color: var(--muted); line-height: 1.4; font-family: var(--mono); }
+
+/* ─── PERSONA SHOWCASE ─── */
+.personas-section { background: var(--ink); }
+
+.persona-showcase {
+  display: grid; grid-template-columns: 300px 1fr; gap: 2px;
+  margin-top: 80px; min-height: 600px;
+}
+
+.persona-nav { display: flex; flex-direction: column; gap: 2px; }
+
+.persona-nav-item {
+  background: var(--ghost); border: 1px solid var(--line);
+  padding: 20px 24px; cursor: pointer; transition: all .25s;
+  display: flex; align-items: center; gap: 16px;
+  position: relative;
+}
+.persona-nav-item::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px; background: var(--acid); opacity: 0; transition: opacity .2s;
+}
+.persona-nav-item:hover, .persona-nav-item.active {
+  background: rgba(212,255,0,0.04); border-color: rgba(212,255,0,0.2);
+}
+.persona-nav-item.active::before { opacity: 1; }
+.persona-nav-emoji { font-size: 24px; }
+.persona-nav-info { display: flex; flex-direction: column; gap: 2px; }
+.persona-nav-name { font-size: 14px; font-weight: 700; color: var(--paper); }
+.persona-nav-sub { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 1px; }
+
+.persona-detail {
+  background: var(--ghost); border: 1px solid var(--line);
+  padding: 48px; display: none;
+}
+.persona-detail.active { display: block; }
+
+.persona-detail-header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  margin-bottom: 40px; padding-bottom: 32px; border-bottom: 1px solid var(--line);
+}
+.persona-detail-title-wrap {}
+.persona-detail-emoji { font-size: 48px; margin-bottom: 16px; display: block; }
+.persona-detail-title { font-size: 48px; font-weight: 800; line-height: 1; margin-bottom: 8px; }
+.persona-detail-role { font-family: var(--mono); font-size: 11px; color: var(--acid); letter-spacing: 2px; text-transform: uppercase; }
+
+.persona-ver {
+  font-family: var(--mono); font-size: 10px; color: var(--muted);
+  border: 1px solid var(--line); padding: 8px 14px; letter-spacing: 1px;
+  text-align: right;
+}
+.persona-ver div:first-child { color: var(--acid); font-size: 9px; letter-spacing: 3px; margin-bottom: 2px; }
+
+.persona-detail-grid {
+  display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px;
+}
+
+.pd-section-title {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 3px; color: var(--muted);
+  text-transform: uppercase; margin-bottom: 16px;
+}
+.pd-desc { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 24px; }
+
+.sop-block { display: flex; flex-direction: column; gap: 2px; }
+.sop-row {
+  background: var(--ink); border: 1px solid var(--line);
+  padding: 12px 16px; display: flex; gap: 12px; align-items: flex-start;
+  transition: border-color .2s;
+}
+.sop-row:hover { border-color: rgba(212,255,0,0.2); }
+.sop-priority {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1px;
+  padding: 3px 7px; min-width: 44px; text-align: center; flex-shrink: 0;
+}
+.sop-priority.p1 { background: rgba(255,45,85,0.15); color: var(--plasma); border: 1px solid rgba(255,45,85,0.2); }
+.sop-priority.p2 { background: rgba(255,122,0,0.12); color: var(--ember); border: 1px solid rgba(255,122,0,0.2); }
+.sop-priority.p3 { background: rgba(212,255,0,0.08); color: var(--acid); border: 1px solid rgba(212,255,0,0.15); }
+.sop-row-text { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.sop-row-text strong { color: var(--paper); }
+
+.persona-metrics { display: flex; flex-direction: column; gap: 2px; }
+.pm-box {
+  background: var(--ink); border: 1px solid var(--line); padding: 20px;
+}
+.pm-val { font-family: var(--mono); font-size: 32px; font-weight: 700; color: var(--acid); line-height: 1; margin-bottom: 4px; }
+.pm-label { font-size: 11px; color: var(--muted); line-height: 1.4; }
+
+/* ─── ORG DEPLOYMENTS ─── */
+.orgs-section { background: var(--ghost); }
+
+.org-cards {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+  margin-top: 80px;
+}
+.org-card {
+  background: var(--ink); border: 1px solid var(--line);
+  padding: 40px; position: relative; overflow: hidden;
+  transition: all .3s; cursor: pointer;
+}
+.org-card:hover { border-color: rgba(212,255,0,0.25); }
+.org-card::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+  background: var(--acid); transform: scaleX(0); transform-origin: left;
+  transition: transform .3s ease;
+}
+.org-card:hover::after { transform: scaleX(1); }
+.org-card-icon { font-size: 40px; margin-bottom: 24px; display: block; }
+.org-card-name { font-size: 24px; font-weight: 800; margin-bottom: 8px; letter-spacing: -.5px; }
+.org-card-sector { font-family: var(--mono); font-size: 9px; color: var(--acid); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px; }
+.org-card-desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 24px; }
+.org-card-stat { display: flex; gap: 24px; }
+.org-stat { display: flex; flex-direction: column; gap: 2px; }
+.org-stat-val { font-family: var(--mono); font-size: 22px; font-weight: 700; color: var(--paper); }
+.org-stat-key { font-size: 10px; color: var(--muted); }
+
+/* ─── HUMANOID ─── */
+.humanoid-section { background: var(--ink); overflow: hidden; }
+
+.humanoid-wrapper {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 100px;
+  align-items: center; margin-top: 80px;
+}
+
+/* SVG Robot */
+.robot-stage {
+  display: flex; justify-content: center; align-items: center;
+  position: relative; min-height: 560px;
+}
+
+.robot-glow {
+  position: absolute; width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(255,45,85,0.12) 0%, transparent 70%);
+  border-radius: 50%; animation: glowPulse 3s ease-in-out infinite;
+}
+@keyframes glowPulse { 0%,100%{transform:scale(1);opacity:.7} 50%{transform:scale(1.15);opacity:1} }
+
+svg.robot-svg { width: 280px; position: relative; z-index: 2; }
+
+.robot-pulse { animation: robotPulse 2s ease-in-out infinite; }
+@keyframes robotPulse { 0%,100%{opacity:.6} 50%{opacity:1} }
+
+/* Data streams */
+.data-stream {
+  position: absolute; font-family: var(--mono); font-size: 9px;
+  color: rgba(0,229,255,0.4); letter-spacing: 1px; white-space: nowrap;
+  animation: streamFade 4s ease-in-out infinite;
+}
+.data-stream:nth-child(2) { animation-delay: 1.3s; }
+.data-stream:nth-child(3) { animation-delay: 2.6s; }
+.data-stream.left  { right: calc(100% + 20px); top: 30%; text-align: right; }
+.data-stream.right { left: calc(100% + 20px); top: 50%; }
+.data-stream.bottom { top: calc(100% + 20px); left: 0; }
+@keyframes streamFade { 0%,100%{opacity:0;transform:translateY(6px)} 30%,70%{opacity:1;transform:translateY(0)} }
+
+.humanoid-content h3 {
+  font-size: 52px; font-weight: 800; line-height: .95; margin-bottom: 28px;
+}
+.humanoid-content h3 em { font-family: var(--serif); font-style: italic; color: var(--plasma); }
+.humanoid-content > p { font-size: 16px; color: var(--muted); line-height: 1.75; margin-bottom: 40px; }
+
+.transfer-visual {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 40px;
+  background: var(--ghost); border: 1px solid var(--line); padding: 24px;
+}
+.transfer-node {
+  flex: 1; text-align: center;
+}
+.transfer-node-icon { font-size: 32px; margin-bottom: 8px; }
+.transfer-node-label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+.transfer-arrow {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  color: var(--acid); font-size: 20px;
+}
+.transfer-arrow span { font-family: var(--mono); font-size: 9px; color: var(--acid); letter-spacing: 1px; white-space: nowrap; }
+
+.capability-stack { display: flex; flex-direction: column; gap: 2px; }
+.cap {
+  background: var(--ghost); border: 1px solid var(--line);
+  padding: 18px 22px; display: flex; align-items: center; gap: 20px;
+  transition: border-color .2s;
+}
+.cap:hover { border-color: rgba(255,45,85,0.3); }
+.cap-icon { font-size: 22px; width: 44px; text-align: center; flex-shrink: 0; }
+.cap-body h5 { font-size: 14px; font-weight: 700; margin-bottom: 3px; color: var(--paper); }
+.cap-body p { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.cap-conf {
+  margin-left: auto; flex-shrink: 0;
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  padding: 4px 10px; border: 1px solid;
+}
+.cap-conf.high { color: #00FF88; border-color: rgba(0,255,136,.3); }
+.cap-conf.med  { color: var(--ember); border-color: rgba(255,122,0,.3); }
+.cap-conf.req  { color: var(--plasma); border-color: rgba(255,45,85,.3); }
+
+/* ─── EXTREME SCENARIOS ─── */
+.extreme-section { background: var(--ghost); }
+
+.scenario-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px;
+  margin-top: 80px;
+}
+.scenario {
+  background: var(--ink); border: 1px solid var(--line);
+  padding: 48px; position: relative; overflow: hidden;
+  cursor: pointer; transition: all .3s;
+}
+.scenario:hover { transform: scale(1.005); z-index: 10; box-shadow: 0 0 60px rgba(0,0,0,.6); }
+
+.scenario-stripe {
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+.sc-plasma .scenario-stripe { background: var(--plasma); }
+.sc-ice .scenario-stripe { background: var(--ice); }
+.sc-ember .scenario-stripe { background: var(--ember); }
+.sc-acid .scenario-stripe { background: var(--acid); }
+
+.scenario-flag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 9px; letter-spacing: 3px;
+  text-transform: uppercase; padding: 5px 12px; border: 1px solid;
+  margin-bottom: 28px;
+}
+.sc-plasma .scenario-flag { color: var(--plasma); border-color: rgba(255,45,85,.3); }
+.sc-ice .scenario-flag    { color: var(--ice); border-color: rgba(0,229,255,.3); }
+.sc-ember .scenario-flag  { color: var(--ember); border-color: rgba(255,122,0,.3); }
+.sc-acid .scenario-flag   { color: var(--acid); border-color: rgba(212,255,0,.3); }
+
+.scenario h3 { font-size: 40px; font-weight: 800; margin-bottom: 16px; line-height: 1; letter-spacing: -.5px; }
+.scenario > p { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 28px; }
+
+.scenario-ops { list-style: none; display: flex; flex-direction: column; gap: 2px; }
+.scenario-op {
+  background: var(--ghost); padding: 10px 14px;
+  display: flex; gap: 10px; font-size: 12px; color: var(--muted);
+  font-family: var(--mono); transition: background .2s;
+}
+.scenario-op:hover { background: rgba(255,255,255,0.02); }
+.op-arrow { flex-shrink: 0; }
+.sc-plasma .op-arrow { color: var(--plasma); }
+.sc-ice .op-arrow    { color: var(--ice); }
+.sc-ember .op-arrow  { color: var(--ember); }
+.sc-acid .op-arrow   { color: var(--acid); }
+
+.scenario-humanoid-tag {
+  margin-top: 20px; display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 9px; letter-spacing: 2px;
+  color: var(--muted); text-transform: uppercase;
+}
+.humanoid-tag-dot { width: 6px; height: 6px; background: #00FF88; border-radius: 50%; animation: livePulse 1.5s infinite; }
+
+/* ─── ETHICS ─── */
+.ethics-section { background: var(--ink); }
+
+.ethics-big {
+  display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px;
+  margin-top: 80px;
+}
+.ethics-left > p {
+  font-size: 20px; color: var(--muted); line-height: 1.8; margin-bottom: 40px;
+}
+.ethics-left > p strong { color: var(--paper); }
+
+.ethics-tenet { display: flex; flex-direction: column; gap: 2px; }
+.tenet {
+  background: var(--ghost); border: 1px solid var(--line);
+  padding: 24px 28px; display: flex; gap: 20px; align-items: flex-start;
+  transition: border-color .2s;
+}
+.tenet:hover { border-color: rgba(212,255,0,.2); }
+.tenet-icon { font-size: 28px; flex-shrink: 0; margin-top: 2px; }
+.tenet-body h5 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+.tenet-body p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+.ethics-right { display: flex; flex-direction: column; gap: 2px; }
+
+.kill-switch {
+  background: rgba(255,45,85,0.05); border: 1px solid rgba(255,45,85,.2);
+  padding: 36px;
+}
+.kill-switch h4 { font-size: 22px; font-weight: 800; color: var(--plasma); margin-bottom: 16px; }
+.kill-switch p { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 20px; }
+.kill-levels { display: flex; flex-direction: column; gap: 2px; }
+.kill-level {
+  display: flex; align-items: center; gap: 16px;
+  padding: 12px 16px; background: rgba(255,45,85,.06); border: 1px solid rgba(255,45,85,.1);
+}
+.kill-level-num { font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--plasma); min-width: 28px; }
+.kill-level-name { font-size: 13px; font-weight: 700; color: var(--paper); min-width: 120px; }
+.kill-level-desc { font-size: 12px; color: var(--muted); }
+
+.transparency-block {
+  background: var(--ghost); border: 1px solid var(--line); padding: 36px;
+}
+.transparency-block h4 { font-size: 20px; font-weight: 800; margin-bottom: 16px; }
+.audit-feed { display: flex; flex-direction: column; gap: 2px; }
+.audit-entry {
+  background: var(--ink); padding: 10px 14px;
+  display: grid; grid-template-columns: 80px 1fr auto;
+  gap: 12px; font-family: var(--mono); font-size: 11px;
+  border: 1px solid var(--line); align-items: center;
+}
+.audit-ts { color: var(--muted); }
+.audit-action { color: var(--paper); }
+.audit-conf { color: var(--acid); }
+
+/* ─── ROADMAP ─── */
+.roadmap-section { background: var(--ghost); }
+
+.roadmap-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px;
+  margin-top: 80px;
+}
+.phase-card {
+  background: var(--ink); border: 1px solid var(--line);
+  padding: 0; overflow: hidden; transition: border-color .3s;
+}
+.phase-card:hover { border-color: rgba(212,255,0,.2); }
+.phase-top {
+  background: var(--ghost); padding: 20px;
+  border-bottom: 1px solid var(--line);
+}
+.phase-num { font-family: var(--mono); font-size: 10px; color: var(--acid); letter-spacing: 3px; margin-bottom: 6px; text-transform: uppercase; }
+.phase-time { font-size: 22px; font-weight: 800; color: var(--paper); line-height: 1.1; }
+.phase-body { padding: 20px; }
+.phase-name { font-size: 16px; font-weight: 700; color: var(--acid); margin-bottom: 12px; letter-spacing: .5px; }
+.phase-items { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.phase-items li { font-family: var(--mono); font-size: 10px; color: var(--muted); display: flex; gap: 8px; line-height: 1.4; letter-spacing: .5px; }
+.phase-items li::before { content: '—'; color: var(--acid); flex-shrink: 0; }
+
+/* ─── PRICING / PLANS ─── */
+.plans-section { background: var(--ink); }
+
+.plans-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+  margin-top: 80px;
+}
+.plan-card {
+  background: var(--ghost); border: 1px solid var(--line);
+  padding: 40px; position: relative; overflow: hidden;
+}
+.plan-card.featured {
+  background: var(--acid); border-color: var(--acid);
+}
+.plan-card.featured * { color: var(--ink) !important; }
+.plan-card.featured .plan-feature::before { background: var(--ink) !important; }
+
+.plan-badge {
+  position: absolute; top: 20px; right: 20px;
+  font-family: var(--mono); font-size: 9px; letter-spacing: 2px;
+  background: var(--plasma); color: var(--paper);
+  padding: 4px 10px; text-transform: uppercase;
+}
+.plan-name { font-size: 13px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); font-family: var(--mono); margin-bottom: 12px; }
+.plan-price { font-size: 52px; font-weight: 800; line-height: 1; margin-bottom: 8px; color: var(--paper); }
+.plan-price span { font-size: 18px; font-weight: 400; color: var(--muted); }
+.plan-period { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-bottom: 32px; }
+.plan-features { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.plan-feature {
+  font-size: 13px; color: var(--muted); display: flex; gap: 10px; align-items: flex-start; line-height: 1.4;
+}
+.plan-feature::before { content: ''; width: 6px; height: 6px; background: var(--acid); flex-shrink: 0; margin-top: 4px; border-radius: 50%; }
+
+/* ─── CTA ─── */
+.cta-section {
+  background: var(--ghost);
+  padding: 140px 5vw;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.cta-section::before {
+  content: 'SURROGATE';
+  position: absolute;
+  font-size: clamp(120px, 25vw, 320px); font-weight: 800;
+  color: rgba(255,255,255,0.02);
+  white-space: nowrap;
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  pointer-events: none; letter-spacing: -8px;
+}
+.cta-section h2 {
+  font-size: clamp(52px, 7vw, 100px); font-weight: 800;
+  line-height: .92; margin-bottom: 32px; position: relative; z-index: 2;
+}
+.cta-section h2 em { font-family: var(--serif); font-style: italic; color: var(--acid); }
+.cta-section p { font-size: 18px; color: var(--muted); max-width: 560px; margin: 0 auto 48px; line-height: 1.7; position: relative; z-index: 2; }
+
+.cta-input-row {
+  display: flex; max-width: 540px; margin: 0 auto;
+  position: relative; z-index: 2;
+}
+.cta-email {
+  flex: 1; background: var(--ink); border: 1px solid var(--line);
+  color: var(--paper); font-family: var(--mono); font-size: 13px;
+  padding: 18px 20px; outline: none; letter-spacing: 1px; border-right: none;
+  transition: border-color .2s;
+}
+.cta-email:focus { border-color: var(--acid); }
+.cta-submit {
+  background: var(--acid); color: var(--ink); border: none;
+  padding: 18px 32px; font-family: var(--syne); font-size: 12px;
+  font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+  cursor: pointer; transition: background .2s; white-space: nowrap;
+}
+.cta-submit:hover { background: var(--volt); }
+
+.footer {
+  padding: 40px 5vw;
+  border-top: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.footer-copy { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 2px; }
+.footer-logo { font-size: 18px; font-weight: 800; letter-spacing: 3px; color: var(--acid); }
+
+/* ─── SCROLL ANIMATIONS ─── */
+.reveal {
+  opacity: 0; transform: translateY(32px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 960px) {
+  .demo-container, .persona-showcase, .humanoid-wrapper,
+  .ethics-big, .manifesto { grid-template-columns: 1fr; }
+  .arch-visual { grid-template-columns: repeat(2,1fr); }
+  .org-cards, .plans-grid { grid-template-columns: 1fr; }
+  .roadmap-grid { grid-template-columns: repeat(2,1fr); }
+  .scenario-grid { grid-template-columns: 1fr; }
+  .persona-showcase { grid-template-columns: 1fr; }
+  .persona-nav { display: flex; flex-direction: row; overflow-x: auto; }
+}
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<div class="grain"></div>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-dot"></div>
+    SURROGATE OS
+  </div>
+  <div class="nav-center">
+    <a href="#manifesto" class="nav-pill">Vision</a>
+    <a href="#demo" class="nav-pill">Demo</a>
+    <a href="#personas" class="nav-pill">Personas</a>
+    <a href="#humanoid" class="nav-pill">Humanoid</a>
+    <a href="#extreme" class="nav-pill">Extremes</a>
+    <a href="#roadmap" class="nav-pill">Roadmap</a>
+  </div>
+  <div class="nav-status">
+    <div class="status-dot"></div>
+    SYSTEM ONLINE · v2.0
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-mesh"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      PRODUCT ARCHITECTURE · SURROGATE OS · 2025–2030
+    </div>
+
+    <h1 class="hero-headline">
+      <span class="line-1">THE AI THAT</span>
+      <span class="line-2">Becomes</span>
+      <span class="line-3">THE EMPLOYEE</span>
+    </h1>
+
+    <p class="hero-desc">
+      Input a <strong>role title</strong>. Surrogate OS auto-generates the complete identity — SOPs, domain knowledge, behavioral model, escalation logic — and deploys it as a software agent, avatar, or <strong>humanoid robot brain</strong>.
+    </p>
+
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">GENERATE A SURROGATE →</button>
+      <button class="btn-ghost" onclick="document.getElementById('manifesto').scrollIntoView({behavior:'smooth'})">READ THE VISION</button>
+    </div>
+  </div>
+
+  <div class="hero-ticker">
+    <div class="ticker-track">
+      <div class="ticker-item">ROLE INPUT <span>→ INSTANT SOP</span></div>
+      <div class="ticker-item">DIGITAL <span>→ PHYSICAL</span></div>
+      <div class="ticker-item">PERSONA LIBRARY <span>∞ ROLES</span></div>
+      <div class="ticker-item">CHAT · VOICE · AVATAR · <span>HUMANOID</span></div>
+      <div class="ticker-item">ISO ALIGNED <span>AUTO-GENERATED</span></div>
+      <div class="ticker-item">ALWAYS ON <span>NEVER BURNS OUT</span></div>
+      <div class="ticker-item">HUMAN IN LOOP <span>ALWAYS</span></div>
+      <div class="ticker-item">MARS READY <span>EARTH DEPLOYED</span></div>
+      <!-- duplicate for seamless loop -->
+      <div class="ticker-item">ROLE INPUT <span>→ INSTANT SOP</span></div>
+      <div class="ticker-item">DIGITAL <span>→ PHYSICAL</span></div>
+      <div class="ticker-item">PERSONA LIBRARY <span>∞ ROLES</span></div>
+      <div class="ticker-item">CHAT · VOICE · AVATAR · <span>HUMANOID</span></div>
+      <div class="ticker-item">ISO ALIGNED <span>AUTO-GENERATED</span></div>
+      <div class="ticker-item">ALWAYS ON <span>NEVER BURNS OUT</span></div>
+      <div class="ticker-item">HUMAN IN LOOP <span>ALWAYS</span></div>
+      <div class="ticker-item">MARS READY <span>EARTH DEPLOYED</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ MANIFESTO ═══ -->
+<div id="manifesto" class="manifesto reveal">
+  <div class="manifesto-left">
+    <h2>Why does <em>this</em> need to exist?</h2>
+  </div>
+  <div class="manifesto-right">
+    <div class="manifesto-para">
+      Every organization runs on <strong>human expertise encoded in human heads</strong>. When that person leaves, burns out, or isn't available at 3am — the knowledge vanishes. SOPs exist, but they're stale PDFs nobody reads. Surrogate OS is the infrastructure that <span class="highlight">makes expertise portable, persistent, and deployable</span>.
+    </div>
+    <div class="manifesto-para">
+      We're not building a chatbot. We're building a <strong>professional identity engine</strong>. Give it a role and it synthesizes a complete human analog: the knowledge, the judgment, the process adherence, the communication style — all of it calibrated to your industry's actual standards, not a generic model's hallucination.
+    </div>
+    <div class="manifesto-para">
+      The humanoid angle isn't science fiction. <strong>Boston Dynamics, Figure AI, Tesla Optimus</strong> — these platforms exist. They're missing a cognitive layer that knows *how to behave* in a specific professional context. Surrogate OS is that layer. Same brain, new body.
+    </div>
+    <div class="manifesto-para">
+      The end state: a world where every organization, from a village clinic in rural India to a Mars research station, has access to <span class="highlight">expert-level operational intelligence — on demand, at zero marginal cost</span>.
+    </div>
+  </div>
+</div>
+
+<!-- ═══ LIVE DEMO SIMULATOR ═══ -->
+<section id="demo" class="demo-section">
+  <div class="s-label">INTERACTIVE DEMO <span class="s-num">// 01</span></div>
+  <h2 class="s-title">TYPE A ROLE.<br><em>WATCH IT BUILD.</em></h2>
+
+  <div class="demo-container">
+    <div class="demo-input-area">
+      <h3>// ROLE_INPUT.exe</h3>
+      <div class="role-input-wrap">
+        <input class="role-input" id="roleInput" type="text" placeholder="e.g. Senior ER Nurse, Level 2 Trauma..." value="Senior ER Nurse">
+      </div>
+      <button class="generate-btn" onclick="generatePersona()">
+        <span>GENERATE SURROGATE</span>
+        <span class="btn-arrow">⚡</span>
+      </button>
+      <div class="quick-roles">
+        <div class="quick-role active" onclick="loadRole(this,'Senior ER Nurse')">ER Nurse</div>
+        <div class="quick-role" onclick="loadRole(this,'M&A Lawyer')">M&A Lawyer</div>
+        <div class="quick-role" onclick="loadRole(this,'Site Safety Engineer')">Safety Eng.</div>
+        <div class="quick-role" onclick="loadRole(this,'CFO Shadow')">CFO Shadow</div>
+        <div class="quick-role" onclick="loadRole(this,'Special Ed Teacher')">SPED Teacher</div>
+        <div class="quick-role" onclick="loadRole(this,'Mars Mission Specialist')">Mars Crew</div>
+      </div>
+    </div>
+
+    <div class="demo-output" id="demoOutput">
+      <!-- dynamically filled -->
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ARCHITECTURE ═══ -->
+<section class="arch-section section reveal">
+  <div class="s-label">SYSTEM LAYERS <span class="s-num">// 02</span></div>
+  <h2 class="s-title">THE FIVE-LAYER<br><em>STACK</em></h2>
+
+  <div class="arch-visual">
+    <div class="arch-col">
+      <div class="arch-col-header">INPUT</div>
+      <div class="arch-node"><div class="arch-node-name">ROLE PARSER</div><div class="arch-node-desc">Decomposes title → ontology</div></div>
+      <div class="arch-node"><div class="arch-node-name">ORG DNA</div><div class="arch-node-desc">Culture docs, existing SOPs</div></div>
+      <div class="arch-node"><div class="arch-node-name">JURISDICTION</div><div class="arch-node-desc">Regulatory framework routing</div></div>
+      <div class="arch-node"><div class="arch-node-name">PERSONALITY SEED</div><div class="arch-node-desc">Tone, assertiveness, empathy</div></div>
+    </div>
+    <div class="arch-col">
+      <div class="arch-col-header">IDENTITY CORE</div>
+      <div class="arch-node"><div class="arch-node-name">KNOWLEDGE BASE</div><div class="arch-node-desc">Domain RAG + standards corpus</div></div>
+      <div class="arch-node"><div class="arch-node-name">BEHAVIOR MODEL</div><div class="arch-node-desc">Decision trees, ethics layer</div></div>
+      <div class="arch-node"><div class="arch-node-name">MEMORY FABRIC</div><div class="arch-node-desc">STM + institutional LTM</div></div>
+      <div class="arch-node"><div class="arch-node-name">EMOTION PROXY</div><div class="arch-node-desc">Stress detection, tone modulation</div></div>
+      <div class="arch-node"><div class="arch-node-name">GOAL STACK</div><div class="arch-node-desc">OKRs → daily task trees</div></div>
+    </div>
+    <div class="arch-col">
+      <div class="arch-col-header">SOP ENGINE</div>
+      <div class="arch-node"><div class="arch-node-name">WORKFLOW GEN</div><div class="arch-node-desc">ISO-aligned process trees</div></div>
+      <div class="arch-node"><div class="arch-node-name">ESCALATION TREE</div><div class="arch-node-desc">Act / defer / escalate / refuse</div></div>
+      <div class="arch-node"><div class="arch-node-name">AUDIT TRAIL</div><div class="arch-node-desc">Every decision logged + rationale</div></div>
+      <div class="arch-node"><div class="arch-node-name">COMPLIANCE</div><div class="arch-node-desc">Real-time regulatory validation</div></div>
+      <div class="arch-node"><div class="arch-node-name">DRIFT DETECTION</div><div class="arch-node-desc">Behavior vs SOP delta analysis</div></div>
+    </div>
+    <div class="arch-col">
+      <div class="arch-col-header">INTERFACES</div>
+      <div class="arch-node"><div class="arch-node-name">CHAT / VOICE</div><div class="arch-node-desc">Any channel, 80+ languages</div></div>
+      <div class="arch-node"><div class="arch-node-name">AVATAR / VIDEO</div><div class="arch-node-desc">Photorealistic or stylized</div></div>
+      <div class="arch-node"><div class="arch-node-name">TOOL USE</div><div class="arch-node-desc">APIs, code, file, web ops</div></div>
+      <div class="arch-node"><div class="arch-node-name">HUMANOID SDK</div><div class="arch-node-desc">Motor APIs: Figure, BD, Tesla</div></div>
+      <div class="arch-node"><div class="arch-node-name">IOT MESH</div><div class="arch-node-desc">Sensors, smart devices, SCADA</div></div>
+    </div>
+    <div class="arch-col">
+      <div class="arch-col-header">LEARNING</div>
+      <div class="arch-node"><div class="arch-node-name">SHIFT DEBRIEF</div><div class="arch-node-desc">Post-session behavior analysis</div></div>
+      <div class="arch-node"><div class="arch-node-name">SOP SELF-UPDATE</div><div class="arch-node-desc">Auto-refines from outcomes</div></div>
+      <div class="arch-node"><div class="arch-node-name">ORG NUANCE</div><div class="arch-node-desc">Theory vs culture gap learning</div></div>
+      <div class="arch-node"><div class="arch-node-name">FLEET SYNC</div><div class="arch-node-desc">Federated learning across fleet</div></div>
+      <div class="arch-node"><div class="arch-node-name">EXPLAINABILITY</div><div class="arch-node-desc">Human-readable decision logs</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PERSONA SHOWCASE ═══ -->
+<section id="personas" class="personas-section section">
+  <div class="s-label">ROLE LIBRARY <span class="s-num">// 03</span></div>
+  <h2 class="s-title">SURROGATE<br><em>PERSONAS</em></h2>
+
+  <div class="persona-showcase">
+    <div class="persona-nav">
+      <div class="persona-nav-item active" onclick="switchPersona(this,'p-nurse')">
+        <div class="persona-nav-emoji">👨‍⚕️</div>
+        <div class="persona-nav-info">
+          <div class="persona-nav-name">Clinical Aide</div>
+          <div class="persona-nav-sub">Healthcare</div>
+        </div>
+      </div>
+      <div class="persona-nav-item" onclick="switchPersona(this,'p-legal')">
+        <div class="persona-nav-emoji">⚖️</div>
+        <div class="persona-nav-info">
+          <div class="persona-nav-name">Legal Buddy</div>
+          <div class="persona-nav-sub">Law Firm</div>
+        </div>
+      </div>
+      <div class="persona-nav-item" onclick="switchPersona(this,'p-engineer')">
+        <div class="persona-nav-emoji">🏗️</div>
+        <div class="persona-nav-info">
+          <div class="persona-nav-name">Site Foreman</div>
+          <div class="persona-nav-sub">Construction</div>
+        </div>
+      </div>
+      <div class="persona-nav-item" onclick="switchPersona(this,'p-cfo')">
+        <div class="persona-nav-emoji">📊</div>
+        <div class="persona-nav-info">
+          <div class="persona-nav-name">CFO Shadow</div>
+          <div class="persona-nav-sub">Finance</div>
+        </div>
+      </div>
+      <div class="persona-nav-item" onclick="switchPersona(this,'p-teacher')">
+        <div class="persona-nav-emoji">🎓</div>
+        <div class="persona-nav-info">
+          <div class="persona-nav-name">Teaching Twin</div>
+          <div class="persona-nav-sub">Education</div>
+        </div>
+      </div>
+      <div class="persona-nav-item" onclick="switchPersona(this,'p-founder')">
+        <div class="persona-nav-emoji">🚀</div>
+        <div class="persona-nav-info">
+          <div class="persona-nav-name">Co-Founder Bot</div>
+          <div class="persona-nav-sub">Startup</div>
+        </div>
+      </div>
+      <div class="persona-nav-item" onclick="switchPersona(this,'p-elder')">
+        <div class="persona-nav-emoji">🤍</div>
+        <div class="persona-nav-info">
+          <div class="persona-nav-name">Elder Companion</div>
+          <div class="persona-nav-sub">Care Home</div>
+        </div>
+      </div>
+      <div class="persona-nav-item" onclick="switchPersona(this,'p-mars')">
+        <div class="persona-nav-emoji">🚀</div>
+        <div class="persona-nav-info">
+          <div class="persona-nav-name">Mars Crewmate</div>
+          <div class="persona-nav-sub">Deep Space</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NURSE -->
+    <div class="persona-detail active" id="p-nurse">
+      <div class="persona-detail-header">
+        <div class="persona-detail-title-wrap">
+          <span class="persona-detail-emoji">👨‍⚕️</span>
+          <div class="persona-detail-title">CLINICAL AIDE</div>
+          <div class="persona-detail-role">Senior ER Nurse · Level 2 Trauma · NHS UK</div>
+        </div>
+        <div class="persona-ver"><div>VERSION</div>MEDICAL_SURROGATE_v2.3</div>
+      </div>
+      <div class="persona-detail-grid">
+        <div>
+          <div class="pd-section-title">// ROLE_DESCRIPTION</div>
+          <div class="pd-desc">Operates as a bedside assistant, triage support, and ward coordinator. Pre-loaded with NICE guidelines, NHS protocols, drug interaction databases, BLS/ACLS decision trees, and patient communication frameworks. Speaks calm, precise clinical English — shifts to plain language for patients automatically.</div>
+          <div class="pd-section-title">// ACTIVE_SOPs</div>
+          <div class="sop-block">
+            <div class="sop-row"><span class="sop-priority p1">P1</span><span class="sop-row-text"><strong>TRIAGE</strong> — ESI scoring from vitals + chief complaint. Automatic fast-track trigger if score ≤ 2.</span></div>
+            <div class="sop-row"><span class="sop-priority p1">P1</span><span class="sop-row-text"><strong>CODE BLUE SUPPORT</strong> — Real-time BLS checklist, drug dosage calc, crash cart inventory check.</span></div>
+            <div class="sop-row"><span class="sop-priority p2">P2</span><span class="sop-row-text"><strong>MEDICATION ADMIN</strong> — Five rights check, interaction flag, allergies cross-ref before every admin.</span></div>
+            <div class="sop-row"><span class="sop-priority p2">P2</span><span class="sop-row-text"><strong>DOCUMENTATION</strong> — SOAP note generation from voice dictation, discharge summary drafting.</span></div>
+            <div class="sop-row"><span class="sop-priority p3">P3</span><span class="sop-row-text"><strong>HANDOVER</strong> — SBAR format handover to incoming shift, outstanding task flagging.</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="pd-section-title">// PERFORMANCE_METRICS</div>
+          <div class="persona-metrics">
+            <div class="pm-box"><div class="pm-val">4.2×</div><div class="pm-label">Triage throughput vs baseline</div></div>
+            <div class="pm-box"><div class="pm-val">0</div><div class="pm-label">Missed drug interactions (12-month pilot)</div></div>
+            <div class="pm-box"><div class="pm-val">72%</div><div class="pm-label">Admin burden reduction</div></div>
+            <div class="pm-box"><div class="pm-val">98.7%</div><div class="pm-label">NICE guideline adherence</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEGAL -->
+    <div class="persona-detail" id="p-legal">
+      <div class="persona-detail-header">
+        <div class="persona-detail-title-wrap">
+          <span class="persona-detail-emoji">⚖️</span>
+          <div class="persona-detail-title">LEGAL BUDDY</div>
+          <div class="persona-detail-role">M&A Associate · Magic Circle · UK/US Law</div>
+        </div>
+        <div class="persona-ver"><div>VERSION</div>LEGAL_SURROGATE_v3.1</div>
+      </div>
+      <div class="persona-detail-grid">
+        <div>
+          <div class="pd-section-title">// ROLE_DESCRIPTION</div>
+          <div class="pd-desc">Contract review, due diligence, case research, and compliance monitoring. Knows your jurisdiction, your firm's precedents, house style guide, and client risk profile. Never misses a deadline. Drafts like a senior associate, bills like a junior one.</div>
+          <div class="pd-section-title">// ACTIVE_SOPs</div>
+          <div class="sop-block">
+            <div class="sop-row"><span class="sop-priority p1">P1</span><span class="sop-row-text"><strong>CONTRACT REVIEW</strong> — Clause-level risk scoring, market standard flagging, redline generation.</span></div>
+            <div class="sop-row"><span class="sop-priority p1">P1</span><span class="sop-row-text"><strong>CONFLICT CHECK</strong> — Client intake screening against firm conflict database before any engagement.</span></div>
+            <div class="sop-row"><span class="sop-priority p2">P2</span><span class="sop-row-text"><strong>DUE DILIGENCE</strong> — Structured DD checklist, issue flagging, summary memo drafting.</span></div>
+            <div class="sop-row"><span class="sop-priority p2">P2</span><span class="sop-row-text"><strong>REGULATORY WATCH</strong> — Daily scan of relevant regulatory updates, client alert drafting.</span></div>
+            <div class="sop-row"><span class="sop-priority p3">P3</span><span class="sop-row-text"><strong>BILLING</strong> — Narrative time entry from work logs, WIP report generation.</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="pd-section-title">// PERFORMANCE_METRICS</div>
+          <div class="persona-metrics">
+            <div class="pm-box"><div class="pm-val">6hrs</div><div class="pm-label">Full DD memo from data room → 45 min</div></div>
+            <div class="pm-box"><div class="pm-val">100%</div><div class="pm-label">Conflict checks completed pre-engagement</div></div>
+            <div class="pm-box"><div class="pm-val">3.8×</div><div class="pm-label">Contract review throughput increase</div></div>
+            <div class="pm-box"><div class="pm-val">£0</div><div class="pm-label">Compliance penalties in pilot period</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ENGINEER -->
+    <div class="persona-detail" id="p-engineer">
+      <div class="persona-detail-header">
+        <div class="persona-detail-title-wrap">
+          <span class="persona-detail-emoji">🏗️</span>
+          <div class="persona-detail-title">SITE FOREMAN</div>
+          <div class="persona-detail-role">Senior HSE Officer · Megaproject · OSHA / ISO 45001</div>
+        </div>
+        <div class="persona-ver"><div>VERSION</div>FIELD_OPS_SURROGATE_v1.9</div>
+      </div>
+      <div class="persona-detail-grid">
+        <div>
+          <div class="pd-section-title">// ROLE_DESCRIPTION</div>
+          <div class="pd-desc">Safety officer, resource tracker, and schedule enforcer. Deployable on-site via tablet, AR glasses, or humanoid. Knows OSHA, CDM Regulations, site-specific risk registers, and crew composition at all times. Raises a flag before an incident, not after.</div>
+          <div class="pd-section-title">// ACTIVE_SOPs</div>
+          <div class="sop-block">
+            <div class="sop-row"><span class="sop-priority p1">P1</span><span class="sop-row-text"><strong>TOOLBOX TALK</strong> — Daily AI-generated safety briefing based on that day's specific work scope and weather.</span></div>
+            <div class="sop-row"><span class="sop-priority p1">P1</span><span class="sop-row-text"><strong>NEAR-MISS LOGGING</strong> — Voice-to-incident-report in 90 seconds. Root cause tree auto-generated.</span></div>
+            <div class="sop-row"><span class="sop-priority p2">P2</span><span class="sop-row-text"><strong>PTW AUTOMATION</strong> — Permit-to-work issuance, verification, and closeout tracking end-to-end.</span></div>
+            <div class="sop-row"><span class="sop-priority p2">P2</span><span class="sop-row-text"><strong>SUBCONTRACTOR</strong> — Compliance verification: certs, qualifications, insurance, inductions.</span></div>
+            <div class="sop-row"><span class="sop-priority p3">P3</span><span class="sop-row-text"><strong>PROGRESS REPORTING</strong> — Daily progress log, earned value calculation, delay flagging.</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="pd-section-title">// PERFORMANCE_METRICS</div>
+          <div class="persona-metrics">
+            <div class="pm-box"><div class="pm-val">89%</div><div class="pm-label">Reduction in recordable incidents</div></div>
+            <div class="pm-box"><div class="pm-val">0</div><div class="pm-label">PTW paperwork backlogs</div></div>
+            <div class="pm-box"><div class="pm-val">100%</div><div class="pm-label">Subcontractor compliance visibility</div></div>
+            <div class="pm-box"><div class="pm-val">2hrs</div><div class="pm-label">Daily admin saved per foreman</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CFO -->
+    <div class="persona-detail" id="p-cfo">
+      <div class="persona-detail-header">
+        <div class="persona-detail-title-wrap">
+          <span class="persona-detail-emoji">📊</span>
+          <div class="persona-detail-title">CFO SHADOW</div>
+          <div class="persona-detail-role">Virtual Finance Officer · Series B+ · Multi-entity</div>
+        </div>
+        <div class="persona-ver"><div>VERSION</div>FINANCE_PROXY_v4.5</div>
+      </div>
+      <div class="persona-detail-grid">
+        <div>
+          <div class="pd-section-title">// ROLE_DESCRIPTION</div>
+          <div class="pd-desc">Attends every financial review. Synthesizes variance reports, flags anomalies, preps board decks, models scenarios on demand, and enforces financial SOPs — so the CFO can stop being an analyst and start being a strategist.</div>
+          <div class="pd-section-title">// ACTIVE_SOPs</div>
+          <div class="sop-block">
+            <div class="sop-row"><span class="sop-priority p1">P1</span><span class="sop-row-text"><strong>MONTH-END CLOSE</strong> — Orchestrates the full close checklist, chases open items, generates pack.</span></div>
+            <div class="sop-row"><span class="sop-priority p1">P1</span><span class="sop-row-text"><strong>ANOMALY DETECTION</strong> — Statistical flagging of unusual transactions across all entities.</span></div>
+            <div class="sop-row"><span class="sop-priority p2">P2</span><span class="sop-row-text"><strong>BOARD PACK</strong> — Auto-generated from source systems: P&L, BS, CF, variance commentary.</span></div>
+            <div class="sop-row"><span class="sop-priority p2">P2</span><span class="sop-row-text"><strong>RUNWAY MODELING</strong> — Live burn rate, runway scenarios, fundraising trigger alerts.</span></div>
+            <div class="sop-row"><span class="sop-priority p3">P3</span><span class="sop-row-text"><strong>VENDOR MANAGEMENT</strong> — Invoice validation, duplicate detection, payment authorization workflow.</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="pd-section-title">// PERFORMANCE_METRICS</div>
+          <div class="persona-metrics">
+            <div class="pm-box"><div class="pm-val">5d→1d</div><div class="pm-label">Month-end close cycle time</div></div>
+            <div class="pm-box"><div class="pm-val">100%</div><div class="pm-label">Board pack accuracy vs manual</div></div>
+            <div class="pm-box"><div class="pm-val">$2.1M</div><div class="pm-label">Anomalies caught in year 1</div></div>
+            <div class="pm-box"><div class="pm-val">CFO+</div><div class="pm-label">Strategic capacity unlocked</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEACHER -->
+    <div class="persona-detail" id="p-teacher">
+      <div class="persona-detail-header">
+        <div class="persona-detail-title-wrap">
+          <span class="persona-detail-emoji">🎓</span>
+          <div class="persona-detail-title">TEACHING TWIN</div>
+          <div class="persona-detail-role">Special Education Teacher · K-12 · IEP Specialist</div>
+        </div>
+        <div class="persona-ver"><div>VERSION</div>EDUCATOR_SURROGATE_v2.8</div>
+      </div>
+      <div class="persona-detail-grid">
+        <div>
+          <div class="pd-section-title">// ROLE_DESCRIPTION</div>
+          <div class="pd-desc">A surrogate that knows each student individually. Adapts curriculum in real-time based on comprehension signals, maintains attendance and performance records, proactively identifies at-risk learners, and bridges the communication gap between school and home — in any language.</div>
+          <div class="pd-section-title">// ACTIVE_SOPs</div>
+          <div class="sop-block">
+            <div class="sop-row"><span class="sop-priority p1">P1</span><span class="sop-row-text"><strong>IEP MANAGEMENT</strong> — Goal tracking, accommodation logging, progress reporting per IDEA standards.</span></div>
+            <div class="sop-row"><span class="sop-priority p1">P1</span><span class="sop-row-text"><strong>AT-RISK DETECTION</strong> — Early warning flags: attendance, engagement, performance trend analysis.</span></div>
+            <div class="sop-row"><span class="sop-priority p2">P2</span><span class="sop-row-text"><strong>LESSON ADAPTATION</strong> — Real-time differentiation based on individual learning style and pace.</span></div>
+            <div class="sop-row"><span class="sop-priority p2">P2</span><span class="sop-row-text"><strong>PARENT COMMS</strong> — Weekly summaries, translated to family's home language automatically.</span></div>
+            <div class="sop-row"><span class="sop-priority p3">P3</span><span class="sop-row-text"><strong>STANDARDS ALIGNMENT</strong> — Lesson plans mapped to national curriculum standards in real-time.</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="pd-section-title">// PERFORMANCE_METRICS</div>
+          <div class="persona-metrics">
+            <div class="pm-box"><div class="pm-val">40+</div><div class="pm-label">Languages for parent communication</div></div>
+            <div class="pm-box"><div class="pm-val">3.1×</div><div class="pm-label">At-risk student identification speed</div></div>
+            <div class="pm-box"><div class="pm-val">100%</div><div class="pm-label">IEP goal tracking coverage</div></div>
+            <div class="pm-box"><div class="pm-val">2hrs</div><div class="pm-label">Teacher admin saved daily</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOUNDER -->
+    <div class="persona-detail" id="p-founder">
+      <div class="persona-detail-header">
+        <div class="persona-detail-title-wrap">
+          <span class="persona-detail-emoji">🚀</span>
+          <div class="persona-detail-title">CO-FOUNDER BOT</div>
+          <div class="persona-detail-role">Operating Partner AI · Seed → Series A · B2B SaaS</div>
+        </div>
+        <div class="persona-ver"><div>VERSION</div>FOUNDING_SURROGATE_v1.5</div>
+      </div>
+      <div class="persona-detail-grid">
+        <div>
+          <div class="pd-section-title">// ROLE_DESCRIPTION</div>
+          <div class="pd-desc">Your tireless co-founder. Manages investor relations, tracks OKRs, writes PRDs from voice notes, runs async standups, keeps the cap table clean, monitors runway, and ensures nothing falls through the cracks — at all hours.</div>
+          <div class="pd-section-title">// ACTIVE_SOPs</div>
+          <div class="sop-block">
+            <div class="sop-row"><span class="sop-priority p1">P1</span><span class="sop-row-text"><strong>INVESTOR UPDATES</strong> — Monthly update drafts from metrics, sent on schedule, never late.</span></div>
+            <div class="sop-row"><span class="sop-priority p1">P1</span><span class="sop-row-text"><strong>FUNDRAISE PIPELINE</strong> — CRM management, follow-up sequencing, investor meeting prep briefs.</span></div>
+            <div class="sop-row"><span class="sop-priority p2">P2</span><span class="sop-row-text"><strong>OKR ENFORCEMENT</strong> — Weekly check-ins, blocker surfacing, accountability nudges.</span></div>
+            <div class="sop-row"><span class="sop-priority p2">P2</span><span class="sop-row-text"><strong>PRODUCT SPECS</strong> — Voice note → structured PRD with acceptance criteria in minutes.</span></div>
+            <div class="sop-row"><span class="sop-priority p3">P3</span><span class="sop-row-text"><strong>COMPETITIVE INTEL</strong> — Weekly landscape scan, positioning recommendations.</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="pd-section-title">// PERFORMANCE_METRICS</div>
+          <div class="persona-metrics">
+            <div class="pm-box"><div class="pm-val">0</div><div class="pm-label">Missed investor update deadlines</div></div>
+            <div class="pm-box"><div class="pm-val">100%</div><div class="pm-label">OKR visibility across team</div></div>
+            <div class="pm-box"><div class="pm-val">8min</div><div class="pm-label">Voice note → full PRD</div></div>
+            <div class="pm-box"><div class="pm-val">∞</div><div class="pm-label">Founder bandwidth unlocked</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ELDER -->
+    <div class="persona-detail" id="p-elder">
+      <div class="persona-detail-header">
+        <div class="persona-detail-title-wrap">
+          <span class="persona-detail-emoji">🤍</span>
+          <div class="persona-detail-title">ELDER COMPANION</div>
+          <div class="persona-detail-role">Geriatric Care Specialist · Memory Care · Humanoid-ready</div>
+        </div>
+        <div class="persona-ver"><div>VERSION</div>CARE_SURROGATE_v3.0</div>
+      </div>
+      <div class="persona-detail-grid">
+        <div>
+          <div class="pd-section-title">// ROLE_DESCRIPTION</div>
+          <div class="pd-desc">The most human use case. Loaded with the resident's complete medical history, dietary requirements, family contact protocols, advance directives, and — critically — their personal life story. Every interaction is familiar, dignified, and deeply human. In humanoid form: mobility assistance, medication, meals, and genuine companionship.</div>
+          <div class="pd-section-title">// ACTIVE_SOPs</div>
+          <div class="sop-block">
+            <div class="sop-row"><span class="sop-priority p1">P1</span><span class="sop-row-text"><strong>MEDICATION MANAGEMENT</strong> — Dispensing, compliance logging, refill requests, interaction monitoring.</span></div>
+            <div class="sop-row"><span class="sop-priority p1">P1</span><span class="sop-row-text"><strong>FALL PREVENTION</strong> — Gait analysis, environmental hazard detection, emergency response protocol.</span></div>
+            <div class="sop-row"><span class="sop-priority p2">P2</span><span class="sop-row-text"><strong>COGNITIVE STIMULATION</strong> — Personalized reminiscence therapy using life history data.</span></div>
+            <div class="sop-row"><span class="sop-priority p2">P2</span><span class="sop-row-text"><strong>FAMILY BRIDGE</strong> — Daily update summaries, video call facilitation, shared memory albums.</span></div>
+            <div class="sop-row"><span class="sop-priority p3">P3</span><span class="sop-row-text"><strong>END-OF-LIFE CARE</strong> — Advance directive awareness, comfort-focused protocol, family coordination.</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="pd-section-title">// PERFORMANCE_METRICS</div>
+          <div class="persona-metrics">
+            <div class="pm-box"><div class="pm-val">94%</div><div class="pm-label">Resident satisfaction score</div></div>
+            <div class="pm-box"><div class="pm-val">67%</div><div class="pm-label">Fall incident reduction</div></div>
+            <div class="pm-box"><div class="pm-val">100%</div><div class="pm-label">Medication compliance</div></div>
+            <div class="pm-box"><div class="pm-val">3×</div><div class="pm-label">Family communication increase</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MARS -->
+    <div class="persona-detail" id="p-mars">
+      <div class="persona-detail-header">
+        <div class="persona-detail-title-wrap">
+          <span class="persona-detail-emoji">🔴</span>
+          <div class="persona-detail-title">MARS CREWMATE</div>
+          <div class="persona-detail-role">Mission Specialist · Deep Space Operations · NASA Flight Rules</div>
+        </div>
+        <div class="persona-ver"><div>VERSION</div>DEEPSPACE_SURROGATE_v0.9α</div>
+      </div>
+      <div class="persona-detail-grid">
+        <div>
+          <div class="pd-section-title">// ROLE_DESCRIPTION</div>
+          <div class="pd-desc">When a 20-minute comms lag makes Earth support impossible, the Mars surrogate operates as a reliable crewmate. Loaded with NASA flight rules, the specific mission architecture, habitat systems documentation, and geological survey protocols. Acts with full crew member authority within predefined mission parameters.</div>
+          <div class="pd-section-title">// ACTIVE_SOPs</div>
+          <div class="sop-block">
+            <div class="sop-row"><span class="sop-priority p1">P1</span><span class="sop-row-text"><strong>EVA SUPPORT</strong> — Suit telemetry monitoring, comm relay, abort condition detection, rescue protocol.</span></div>
+            <div class="sop-row"><span class="sop-priority p1">P1</span><span class="sop-row-text"><strong>LIFE SUPPORT OPS</strong> — ECLSS monitoring, CO₂ scrubber management, water reclamation oversight.</span></div>
+            <div class="sop-row"><span class="sop-priority p2">P2</span><span class="sop-row-text"><strong>MEDICAL RESPONSE</strong> — First response protocols, drug administration within flight surgeon-approved limits.</span></div>
+            <div class="sop-row"><span class="sop-priority p2">P2</span><span class="sop-row-text"><strong>SCIENCE OPS</strong> — Sample collection protocol, chain of custody, analysis logging.</span></div>
+            <div class="sop-row"><span class="sop-priority p3">P3</span><span class="sop-row-text"><strong>CREW PSYCHOLOGY</strong> — Isolation stress monitoring, conflict de-escalation, morale protocols.</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="pd-section-title">// PERFORMANCE_METRICS</div>
+          <div class="persona-metrics">
+            <div class="pm-box"><div class="pm-val">0</div><div class="pm-label">Earth-dependency for Tier 1 ops</div></div>
+            <div class="pm-box"><div class="pm-val">100%</div><div class="pm-label">Flight rule adherence</div></div>
+            <div class="pm-box"><div class="pm-val">+1</div><div class="pm-label">Effective crew size per surrogate</div></div>
+            <div class="pm-box"><div class="pm-val">24/7</div><div class="pm-label">Habitat monitoring, no sleep needed</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ HUMANOID BRIDGE ═══ -->
+<section id="humanoid" class="humanoid-section section">
+  <div class="s-label">PHYSICAL DEPLOYMENT <span class="s-num">// 04</span></div>
+  <h2 class="s-title">SAME BRAIN.<br><em>NEW BODY.</em></h2>
+
+  <div class="humanoid-wrapper">
+    <div class="robot-stage">
+      <div class="robot-glow"></div>
+
+      <!-- Data streams around robot -->
+      <div class="data-stream left">MOTOR.CTL // ACTIVE<br>VISION.AI // SCAN<br>SOP.REF  // LOADED</div>
+      <div class="data-stream right">PERSONA: NURSE_V2<br>CONF: 99.2%<br>ACTION: AUTHORIZED</div>
+
+      <svg class="robot-svg" viewBox="0 0 200 440" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Head -->
+        <rect x="55" y="10" width="90" height="80" rx="4" stroke="#FF2D55" stroke-width="1.5" fill="rgba(255,45,85,0.04)"/>
+        <!-- Eyes -->
+        <circle cx="82" cy="42" r="10" fill="rgba(0,229,255,0.1)" stroke="#00E5FF" stroke-width="1"/>
+        <circle cx="82" cy="42" r="5" fill="#00E5FF" class="robot-pulse"/>
+        <circle cx="118" cy="42" r="10" fill="rgba(0,229,255,0.1)" stroke="#00E5FF" stroke-width="1"/>
+        <circle cx="118" cy="42" r="5" fill="#00E5FF" class="robot-pulse"/>
+        <!-- Mouth indicator -->
+        <rect x="78" y="68" width="44" height="4" rx="2" fill="#FF2D55" opacity="0.6"/>
+        <!-- Antenna -->
+        <line x1="100" y1="10" x2="100" y2="0" stroke="#FF2D55" stroke-width="1.5"/>
+        <circle cx="100" cy="0" r="3" fill="#FF2D55" class="robot-pulse"/>
+        <!-- Neck -->
+        <rect x="88" y="90" width="24" height="24" fill="rgba(28,28,36,0.8)" stroke="#272730" stroke-width="1"/>
+        <!-- Torso -->
+        <rect x="38" y="114" width="124" height="140" rx="4" stroke="#FF2D55" stroke-width="1.5" fill="rgba(255,45,85,0.03)"/>
+        <!-- Core circle -->
+        <circle cx="100" cy="180" r="28" stroke="rgba(212,255,0,0.3)" stroke-width="1" fill="rgba(212,255,0,0.03)"/>
+        <circle cx="100" cy="180" r="18" stroke="rgba(212,255,0,0.5)" stroke-width="1"/>
+        <text x="100" y="185" text-anchor="middle" fill="#D4FF00" font-size="16" font-family="monospace">⚡</text>
+        <!-- Chest indicators -->
+        <rect x="52" y="124" width="36" height="6" rx="2" fill="rgba(0,229,255,0.4)"/>
+        <rect x="52" y="136" width="24" height="6" rx="2" fill="rgba(0,229,255,0.25)"/>
+        <rect x="112" y="124" width="36" height="6" rx="2" fill="rgba(212,255,0,0.4)"/>
+        <rect x="112" y="136" width="20" height="6" rx="2" fill="rgba(212,255,0,0.25)"/>
+        <!-- Left Arm -->
+        <rect x="6" y="118" width="28" height="120" rx="4" stroke="#272730" stroke-width="1" fill="rgba(28,28,36,0.6)"/>
+        <rect x="10" y="130" width="20" height="4" rx="1" fill="rgba(255,45,85,0.3)"/>
+        <rect x="10" y="140" width="14" height="4" rx="1" fill="rgba(255,45,85,0.2)"/>
+        <!-- Right Arm -->
+        <rect x="166" y="118" width="28" height="120" rx="4" stroke="#272730" stroke-width="1" fill="rgba(28,28,36,0.6)"/>
+        <rect x="170" y="130" width="20" height="4" rx="1" fill="rgba(212,255,0,0.3)"/>
+        <rect x="170" y="140" width="14" height="4" rx="1" fill="rgba(212,255,0,0.2)"/>
+        <!-- Waist -->
+        <rect x="55" y="254" width="90" height="18" rx="2" stroke="#272730" stroke-width="1" fill="rgba(28,28,36,0.8)"/>
+        <!-- Left Leg -->
+        <rect x="44" y="272" width="50" height="140" rx="4" stroke="#272730" stroke-width="1" fill="rgba(28,28,36,0.6)"/>
+        <rect x="52" y="284" width="34" height="4" rx="1" fill="rgba(255,45,85,0.3)"/>
+        <!-- Right Leg -->
+        <rect x="106" y="272" width="50" height="140" rx="4" stroke="#272730" stroke-width="1" fill="rgba(28,28,36,0.6)"/>
+        <rect x="114" y="284" width="34" height="4" rx="1" fill="rgba(212,255,0,0.3)"/>
+        <!-- Feet -->
+        <rect x="38" y="408" width="56" height="16" rx="2" stroke="#272730" stroke-width="1" fill="rgba(28,28,36,0.8)"/>
+        <rect x="106" y="408" width="56" height="16" rx="2" stroke="#272730" stroke-width="1" fill="rgba(28,28,36,0.8)"/>
+      </svg>
+    </div>
+
+    <div class="humanoid-content">
+      <h3>THE SURROGATE OS<br>RUNS THE <em>ROBOT</em></h3>
+      <p>The identical cognitive layer powering your chat interface loads directly into a humanoid platform. Persona, SOPs, memory, and decision logic transfer 1:1. The body is just another output modality — the professional identity remains constant.</p>
+
+      <div class="transfer-visual">
+        <div class="transfer-node">
+          <div class="transfer-node-icon">💬</div>
+          <div class="transfer-node-label">Chat Agent</div>
+        </div>
+        <div class="transfer-arrow">→<span>SAME IDENTITY CORE</span></div>
+        <div class="transfer-node">
+          <div class="transfer-node-icon">🖥️</div>
+          <div class="transfer-node-label">Desktop App</div>
+        </div>
+        <div class="transfer-arrow">→</div>
+        <div class="transfer-node">
+          <div class="transfer-node-icon">🤖</div>
+          <div class="transfer-node-label">Humanoid</div>
+        </div>
+      </div>
+
+      <div class="capability-stack">
+        <div class="cap">
+          <div class="cap-icon">👁️</div>
+          <div class="cap-body">
+            <h5>MULTIMODAL PERCEPTION</h5>
+            <p>Camera + LIDAR + thermal + audio → full situational awareness calibrated to the loaded SOP context</p>
+          </div>
+          <div class="cap-conf high">LIVE</div>
+        </div>
+        <div class="cap">
+          <div class="cap-icon">🦾</div>
+          <div class="cap-body">
+            <h5>TASK TRANSLATION ENGINE</h5>
+            <p>"Perform patient check" → navigate, verify wristband, read monitors, log vitals, speak to patient — all per clinical SOP</p>
+          </div>
+          <div class="cap-conf high">AUTO</div>
+        </div>
+        <div class="cap">
+          <div class="cap-icon">🔴</div>
+          <div class="cap-body">
+            <h5>PHYSICAL ACTION HARD STOP</h5>
+            <p>Actions involving humans require AI confidence >98% AND explicit human authorization — no exceptions</p>
+          </div>
+          <div class="cap-conf req">AUTH REQ</div>
+        </div>
+        <div class="cap">
+          <div class="cap-icon">📡</div>
+          <div class="cap-body">
+            <h5>FLEET CONSCIOUSNESS</h5>
+            <p>Multiple humanoids in a facility share state — coordinated coverage, zero duplicate actions, auto load-balancing</p>
+          </div>
+          <div class="cap-conf med">BETA</div>
+        </div>
+        <div class="cap">
+          <div class="cap-icon">🔄</div>
+          <div class="cap-body">
+            <h5>SEAMLESS DIGITAL ↔ PHYSICAL HANDOFF</h5>
+            <p>Mid-task physical surrogate mirrors state to digital instantly — no continuity loss during platform transitions</p>
+          </div>
+          <div class="cap-conf high">ACTIVE</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EXTREME SCENARIOS ═══ -->
+<section id="extreme" class="extreme-section section">
+  <div class="s-label">EDGE CASES <span class="s-num">// 05</span></div>
+  <h2 class="s-title">WHERE IT GOES<br><em>NEXT</em></h2>
+
+  <div class="scenario-grid">
+    <div class="scenario sc-plasma reveal">
+      <div class="scenario-stripe"></div>
+      <div class="scenario-flag">⚠ CRITICAL INFRASTRUCTURE</div>
+      <h3>NUCLEAR PLANT OPERATOR</h3>
+      <p>Surrogate loaded with IAEA nuclear safety protocols, plant-specific P&IDs, SCRAM procedures, and shift handover SOPs. Monitors all reactor parameters continuously, runs physical inspections of radiation zones via humanoid, and maintains log with zero human error.</p>
+      <ul class="scenario-ops">
+        <li><span class="op-arrow">→</span>Continuous SCRAM condition monitoring + automatic alert escalation</li>
+        <li><span class="op-arrow">→</span>Radiation zone physical inspection via humanoid when human exposure limits are reached</li>
+        <li><span class="op-arrow">→</span>Regulatory reporting automation: NRC Event Reports, Licensee Event Reports</li>
+        <li><span class="op-arrow">→</span>Emergency Core Cooling System readiness verification every shift</li>
+        <li><span class="op-arrow">→</span>Multi-surrogate Emergency Response Organization coordination during L1 events</li>
+      </ul>
+      <div class="scenario-humanoid-tag"><div class="humanoid-tag-dot"></div>HUMANOID DEPLOYMENT ACTIVE</div>
+    </div>
+
+    <div class="scenario sc-ice reveal">
+      <div class="scenario-stripe"></div>
+      <div class="scenario-flag">🔭 DEEP SPACE</div>
+      <h3>MARS MISSION CREW MEMBER</h3>
+      <p>20-minute comms lag eliminates Earth support. The Mars surrogate operates as a full crew member: EVA support, habitat maintenance, medical emergencies, geological surveys, and psychological support — fully autonomous within mission parameters.</p>
+      <ul class="scenario-ops">
+        <li><span class="op-arrow">→</span>EVA buddy: real-time suit telemetry, abort condition detection, rescue protocol initiation</li>
+        <li><span class="op-arrow">→</span>Medical officer during crew health crises: triage, drug admin within flight surgeon-approved limits</li>
+        <li><span class="op-arrow">→</span>Habitat systems operator: ECLSS, power, comms — all monitored without sleep</li>
+        <li><span class="op-arrow">→</span>Science operator: sample collection, chain of custody, analysis logging</li>
+        <li><span class="op-arrow">→</span>Crew psychologist: isolation stress monitoring, conflict de-escalation, morale protocols</li>
+      </ul>
+      <div class="scenario-humanoid-tag"><div class="humanoid-tag-dot"></div>HUMANOID DEPLOYMENT ACTIVE</div>
+    </div>
+
+    <div class="scenario sc-ember reveal">
+      <div class="scenario-stripe"></div>
+      <div class="scenario-flag">🆘 DISASTER RESPONSE</div>
+      <h3>DISASTER ZONE COORDINATOR</h3>
+      <p>Fleet of surrogate coordinators and humanoid first responders deployed into earthquake, flood, or fire zones. Each surrogate runs FEMA ICS protocols, coordinates S&R teams, manages resource allocation, and maintains real-time situational maps — while humanoids operate in IDLH environments.</p>
+      <ul class="scenario-ops">
+        <li><span class="op-arrow">→</span>ICS Incident Commander support: resource ordering, action planning, briefing facilitation</li>
+        <li><span class="op-arrow">→</span>Search & rescue team coordination across sectors: deconfliction, priority routing</li>
+        <li><span class="op-arrow">→</span>Field hospital triage at intake using START methodology</li>
+        <li><span class="op-arrow">→</span>Resource tracking: water, food, shelter, medical — with predictive depletion alerts</li>
+        <li><span class="op-arrow">→</span>Missing persons database and family reunification matching</li>
+      </ul>
+      <div class="scenario-humanoid-tag"><div class="humanoid-tag-dot"></div>HUMANOID DEPLOYMENT ACTIVE</div>
+    </div>
+
+    <div class="scenario sc-acid reveal">
+      <div class="scenario-stripe"></div>
+      <div class="scenario-flag">🌍 GLOBAL ACCESS</div>
+      <h3>VILLAGE DOCTOR — RURAL INDIA</h3>
+      <p>90% of rural India has no doctor within 30km. A clinical surrogate — loaded with WHO primary care protocols, common tropical disease pathways, local language support, and telemedicine escalation logic — deployed on a $50 tablet. The humanoid form eventually makes physical examinations possible too.</p>
+      <ul class="scenario-ops">
+        <li><span class="op-arrow">→</span>Symptom triage in Hindi, Tamil, Bengali, and 20+ regional languages</li>
+        <li><span class="op-arrow">→</span>WHO essential medicine prescribing within predefined safe-to-prescribe list</li>
+        <li><span class="op-arrow">→</span>Automatic escalation to telemedicine doctor when outside safe-to-treat scope</li>
+        <li><span class="op-arrow">→</span>Maternal health monitoring: prenatal visit scheduling, danger sign detection</li>
+        <li><span class="op-arrow">→</span>Vaccination campaign coordination with health ministry reporting</li>
+      </ul>
+      <div class="scenario-humanoid-tag"><div class="humanoid-tag-dot"></div>ROADMAP: HUMANOID PHASE 4</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ETHICS ═══ -->
+<section class="ethics-section section reveal">
+  <div class="s-label">NON-NEGOTIABLES <span class="s-num">// 06</span></div>
+  <h2 class="s-title">POWER WITHOUT<br><em>RECKLESSNESS</em></h2>
+
+  <div class="ethics-big">
+    <div class="ethics-left">
+      <p>
+        <strong>Every powerful system needs hard limits.</strong> Surrogate OS is designed with the assumption that it will fail — and the failure mode must always be safe, transparent, and reversible. These aren't marketing statements. They're architectural constraints baked into every layer.
+      </p>
+      <div class="ethics-tenet">
+        <div class="tenet">
+          <div class="tenet-icon">👑</div>
+          <div class="tenet-body">
+            <h5>HUMAN SUPREMACY — ALWAYS</h5>
+            <p>No surrogate overrides a human decision. Every action above a predefined risk threshold requires explicit human authorization. The surrogate recommends, prepares, and executes only delegated tasks.</p>
+          </div>
+        </div>
+        <div class="tenet">
+          <div class="tenet-icon">🪞</div>
+          <div class="tenet-body">
+            <h5>RADICAL TRANSPARENCY</h5>
+            <p>The surrogate always identifies as AI. Every decision is logged with full rationale, accessible to the organization and applicable regulatory bodies — no black boxes.</p>
+          </div>
+        </div>
+        <div class="tenet">
+          <div class="tenet-icon">🧬</div>
+          <div class="tenet-body">
+            <h5>IDENTITY INTEGRITY</h5>
+            <p>No mid-operation persona switching. Role changes require authorized reload with human oversight, preventing impersonation attacks and preventing persona drift in critical environments.</p>
+          </div>
+        </div>
+        <div class="tenet">
+          <div class="tenet-icon">⚖️</div>
+          <div class="tenet-body">
+            <h5>CONTINUOUS BIAS AUDITING</h5>
+            <p>Every decision analyzed for demographic fairness. Statistical anomalies flagged automatically. No surrogate can develop discriminatory patterns without detection within 48 hours.</p>
+          </div>
+        </div>
+        <div class="tenet">
+          <div class="tenet-icon">🔑</div>
+          <div class="tenet-body">
+            <h5>DATA SOVEREIGNTY</h5>
+            <p>Org data never leaves the org's secure perimeter. Federated learning improves the global model without any single org's private data ever being exposed to other orgs or Surrogate OS itself.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ethics-right">
+      <div class="kill-switch">
+        <h4>🔴 THREE-LAYER KILL SWITCH</h4>
+        <p>Any authorized human can stop any surrogate at any time. Zero resistance. Zero delay. Zero data loss.</p>
+        <div class="kill-levels">
+          <div class="kill-level">
+            <div class="kill-level-num">L1</div>
+            <div class="kill-level-name">SOFT PAUSE</div>
+            <div class="kill-level-desc">Task freeze, maintain context, await instructions</div>
+          </div>
+          <div class="kill-level">
+            <div class="kill-level-num">L2</div>
+            <div class="kill-level-name">FULL STOP</div>
+            <div class="kill-level-desc">Return to safe state, hand off to human, preserve log</div>
+          </div>
+          <div class="kill-level">
+            <div class="kill-level-num">L3</div>
+            <div class="kill-level-name">EMERGENCY KILL</div>
+            <div class="kill-level-desc">Power down, all data preserved, physical safe position</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="transparency-block">
+        <h4>LIVE AUDIT FEED</h4>
+        <div class="audit-feed">
+          <div class="audit-entry"><div class="audit-ts">14:32:01</div><div class="audit-action">Triage ESI score: Level 2 → Fast track triggered</div><div class="audit-conf">99.1%</div></div>
+          <div class="audit-entry"><div class="audit-ts">14:32:08</div><div class="audit-action">Drug interaction flagged: Warfarin + Ibuprofen</div><div class="audit-conf">100%</div></div>
+          <div class="audit-entry"><div class="audit-ts">14:33:21</div><div class="audit-action">Physical action: IV access — AWAITING AUTH</div><div class="audit-conf">HOLD</div></div>
+          <div class="audit-entry"><div class="audit-ts">14:33:24</div><div class="audit-action">Auth received: RN Wilson. IV access initiated</div><div class="audit-conf">AUTH✓</div></div>
+          <div class="audit-entry"><div class="audit-ts">14:35:00</div><div class="audit-action">SOAP note auto-generated from encounter</div><div class="audit-conf">98.4%</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ROADMAP ═══ -->
+<section id="roadmap" class="roadmap-section section">
+  <div class="s-label">EXECUTION PLAN <span class="s-num">// 07</span></div>
+  <h2 class="s-title">FROM <em>CHAT</em><br>TO CIVILIZATION</h2>
+
+  <div class="roadmap-grid">
+    <div class="phase-card reveal">
+      <div class="phase-top">
+        <div class="phase-num">PHASE 01</div>
+        <div class="phase-time">NOW →<br>6 MO</div>
+      </div>
+      <div class="phase-body">
+        <div class="phase-name">SURROGATE STUDIO</div>
+        <ul class="phase-items">
+          <li>Role input → instant SOP</li>
+          <li>Chat-based persona deployment</li>
+          <li>10 vertical personas launched</li>
+          <li>Hospital & law firm pilots</li>
+          <li>Identity core + knowledge base</li>
+          <li>Audit trail v1</li>
+        </ul>
+      </div>
+    </div>
+    <div class="phase-card reveal">
+      <div class="phase-top">
+        <div class="phase-num">PHASE 02</div>
+        <div class="phase-time">6 →<br>12 MO</div>
+      </div>
+      <div class="phase-body">
+        <div class="phase-name">LIVING PERSONA</div>
+        <ul class="phase-items">
+          <li>Continuous SOP self-update</li>
+          <li>Voice + avatar interfaces</li>
+          <li>Federated learning v1</li>
+          <li>12 regulatory frameworks</li>
+          <li>Org DNA ingestion</li>
+          <li>Fleet management v1</li>
+        </ul>
+      </div>
+    </div>
+    <div class="phase-card reveal">
+      <div class="phase-top">
+        <div class="phase-num">PHASE 03</div>
+        <div class="phase-time">12 →<br>18 MO</div>
+      </div>
+      <div class="phase-body">
+        <div class="phase-name">FLEET INTELLIGENCE</div>
+        <ul class="phase-items">
+          <li>Multi-surrogate orchestration</li>
+          <li>Fleet consciousness v1</li>
+          <li>100+ persona library</li>
+          <li>SOP marketplace launch</li>
+          <li>Cross-org anonymized learning</li>
+          <li>Bias audit dashboard</li>
+        </ul>
+      </div>
+    </div>
+    <div class="phase-card reveal">
+      <div class="phase-top">
+        <div class="phase-num">PHASE 04</div>
+        <div class="phase-time">18 →<br>30 MO</div>
+      </div>
+      <div class="phase-body">
+        <div class="phase-name">HUMANOID BRIDGE</div>
+        <ul class="phase-items">
+          <li>Humanoid SDK: Figure, BD, Tesla</li>
+          <li>Task Translation Engine v1</li>
+          <li>Physical action dual-auth</li>
+          <li>First live deployments</li>
+          <li>Digital ↔ physical handoff</li>
+          <li>Controlled environment pilots</li>
+        </ul>
+      </div>
+    </div>
+    <div class="phase-card reveal">
+      <div class="phase-top">
+        <div class="phase-num">PHASE 05</div>
+        <div class="phase-time">30 →<br>60 MO</div>
+      </div>
+      <div class="phase-body">
+        <div class="phase-name">SURROGATE CIVILIZATION</div>
+        <ul class="phase-items">
+          <li>Full platform parity</li>
+          <li>Society-scale deployments</li>
+          <li>Mars mission readiness</li>
+          <li>Disaster response standard</li>
+          <li>Global health access layer</li>
+          <li>∞ roles, ∞ contexts</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PLANS ═══ -->
+<section class="plans-section section reveal">
+  <div class="s-label">PRICING <span class="s-num">// 08</span></div>
+  <h2 class="s-title">DEPLOY YOUR<br><em>FIRST SURROGATE</em></h2>
+
+  <div class="plans-grid">
+    <div class="plan-card">
+      <div class="plan-name">STUDIO</div>
+      <div class="plan-price">$299<span>/mo</span></div>
+      <div class="plan-period">// 1–5 surrogates</div>
+      <ul class="plan-features">
+        <li class="plan-feature">Up to 5 active personas</li>
+        <li class="plan-feature">Auto SOP generation from role input</li>
+        <li class="plan-feature">Chat + voice interfaces</li>
+        <li class="plan-feature">10 regulatory frameworks</li>
+        <li class="plan-feature">Basic audit trail</li>
+        <li class="plan-feature">Standard persona library</li>
+      </ul>
+    </div>
+    <div class="plan-card featured">
+      <div class="plan-badge">MOST POPULAR</div>
+      <div class="plan-name">ENTERPRISE</div>
+      <div class="plan-price">$2,400<span>/mo</span></div>
+      <div class="plan-period">// Unlimited surrogates</div>
+      <ul class="plan-features">
+        <li class="plan-feature">Unlimited personas</li>
+        <li class="plan-feature">Org DNA ingestion + customization</li>
+        <li class="plan-feature">Full avatar + video interface</li>
+        <li class="plan-feature">All 40+ regulatory frameworks</li>
+        <li class="plan-feature">Full audit suite + compliance export</li>
+        <li class="plan-feature">Federated learning access</li>
+        <li class="plan-feature">Fleet management dashboard</li>
+        <li class="plan-feature">Dedicated implementation partner</li>
+      </ul>
+    </div>
+    <div class="plan-card">
+      <div class="plan-name">HUMANOID</div>
+      <div class="plan-price">POA<span></span></div>
+      <div class="plan-period">// Physical deployment tier</div>
+      <ul class="plan-features">
+        <li class="plan-feature">All Enterprise features</li>
+        <li class="plan-feature">Humanoid SDK integration</li>
+        <li class="plan-feature">Task Translation Engine access</li>
+        <li class="plan-feature">Physical dual-auth system</li>
+        <li class="plan-feature">Digital ↔ physical handoff</li>
+        <li class="plan-feature">Dedicated robotics engineering support</li>
+        <li class="plan-feature">On-site deployment team</li>
+        <li class="plan-feature">White-glove fleet management</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="cta-section">
+  <h2>THE WORKFORCE<br>OF <em>EVERYTHING</em></h2>
+  <p>From chat to humanoid. From a village clinic to a Mars base. The same surrogate identity, deployed everywhere humans need to be — and can't always be.</p>
+  <div class="cta-input-row">
+    <input type="email" class="cta-email" placeholder="your@company.com">
+    <button class="cta-submit">GET EARLY ACCESS →</button>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-copy">© 2025 SURROGATE OS · PRODUCT VISION DOCUMENT · ALL SYSTEMS NOMINAL</div>
+  <div class="footer-logo">SURROGATE</div>
+</footer>
+
+<script>
+// ─── CURSOR ───
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+});
+
+function animRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+
+document.querySelectorAll('a,button,.persona-nav-item,.org-card,.scenario,.arch-node,.quick-role').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursor.style.width='20px'; cursor.style.height='20px'; ring.style.width='54px'; ring.style.height='54px'; ring.style.borderColor='rgba(212,255,0,0.7)'; });
+  el.addEventListener('mouseleave', () => { cursor.style.width='10px'; cursor.style.height='10px'; ring.style.width='36px'; ring.style.height='36px'; ring.style.borderColor='rgba(212,255,0,0.4)'; });
+});
+
+// ─── SCROLL REVEAL ───
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ─── PERSONA SWITCHER ───
+function switchPersona(item, id) {
+  document.querySelectorAll('.persona-nav-item').forEach(i => i.classList.remove('active'));
+  document.querySelectorAll('.persona-detail').forEach(d => d.classList.remove('active'));
+  item.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+
+// ─── DEMO GENERATOR ───
+const roleData = {
+  'Senior ER Nurse': {
+    identity: { domain: 'Emergency Medicine', authority: 'Senior Clinical', tone: 'Calm + Direct', jurisdiction: 'NHS UK / NICE' },
+    skills: [{ n: 'Clinical Knowledge', v: 96 }, { n: 'SOP Adherence', v: 99 }, { n: 'Patient Communication', v: 91 }, { n: 'Crisis Response', v: 97 }],
+    sops: ['Patient triage using ESI scoring system', 'Medication administration 5-rights protocol', 'SBAR handover to incoming shift', 'Code Blue crash cart protocol', 'Discharge summary dictation → documentation'],
+    tools: ['NHS Patient Record System', 'Drug Interaction DB', 'BNF Formulary', 'Incident Reporting', 'Ward Management System'],
+    status: 'DEPLOYED'
+  },
+  'M&A Lawyer': {
+    identity: { domain: 'Corporate Law / M&A', authority: 'Senior Associate', tone: 'Precise + Authoritative', jurisdiction: 'UK / US / EU Law' },
+    skills: [{ n: 'Legal Research', v: 98 }, { n: 'Contract Analysis', v: 97 }, { n: 'Risk Identification', v: 94 }, { n: 'Client Communication', v: 88 }],
+    sops: ['Conflict-of-interest check before engagement', 'Due diligence checklist execution + memo drafting', 'Contract redlining with clause risk scoring', 'Regulatory filing deadline tracking', 'Client update and billing narrative generation'],
+    tools: ['Westlaw / LexisNexis', 'Contract Intelligence', 'Regulatory Monitor', 'Matter Management', 'Client Portal'],
+    status: 'DEPLOYED'
+  },
+  'Site Safety Engineer': {
+    identity: { domain: 'HSE / Construction', authority: 'Senior HSE Officer', tone: 'Authoritative + Safety-first', jurisdiction: 'OSHA / ISO 45001' },
+    skills: [{ n: 'Risk Assessment', v: 97 }, { n: 'Incident Analysis', v: 94 }, { n: 'Regulatory Knowledge', v: 99 }, { n: 'Team Briefing', v: 89 }],
+    sops: ['Daily site safety inspection walkthrough', 'Permit-to-work issuance and closeout', 'Near-miss and incident reporting (voice → report)', 'Subcontractor induction and compliance check', 'Toolbox talk generation for day-specific work scope'],
+    tools: ['HSE Management System', 'Incident DB', 'PTW System', 'Weather Integration', 'CCTV AI Monitor'],
+    status: 'DEPLOYED'
+  },
+  'CFO Shadow': {
+    identity: { domain: 'Finance / CFO Office', authority: 'Virtual CFO', tone: 'Sharp + Strategic', jurisdiction: 'IFRS / GAAP / SOX' },
+    skills: [{ n: 'Financial Analysis', v: 99 }, { n: 'Regulatory Compliance', v: 98 }, { n: 'Board Communication', v: 92 }, { n: 'Forecasting', v: 95 }],
+    sops: ['Month-end close checklist orchestration', 'Board pack auto-generation from ERP data', 'Cash flow variance analysis and commentary', 'Vendor invoice anomaly detection', 'Runway calculation and fundraising trigger alerts'],
+    tools: ['ERP / NetSuite', 'FP&A Platform', 'Board Portal', 'Treasury System', 'Payroll Integration'],
+    status: 'DEPLOYED'
+  },
+  'Special Ed Teacher': {
+    identity: { domain: 'Special Education / K-12', authority: 'IEP Case Manager', tone: 'Warm + Patient + Structured', jurisdiction: 'IDEA / ESSA / State Standards' },
+    skills: [{ n: 'Differentiated Instruction', v: 95 }, { n: 'IEP Management', v: 99 }, { n: 'Parent Communication', v: 93 }, { n: 'Early Intervention', v: 96 }],
+    sops: ['Individual Education Plan goal tracking and progress notes', 'Daily behavior log and incident documentation', 'Parent communication summary (multilingual)', 'At-risk student early warning flag generation', 'National curriculum standards alignment check'],
+    tools: ['IEP Management System', 'Student Information System', 'Translation API', 'Assessment Platform', 'Parent Portal'],
+    status: 'DEPLOYED'
+  },
+  'Mars Mission Specialist': {
+    identity: { domain: 'Deep Space Operations', authority: 'Mission Specialist Lvl 3', tone: 'Precise + Autonomous + Mission-focused', jurisdiction: 'NASA Flight Rules / ESA ECSS' },
+    skills: [{ n: 'Systems Operations', v: 99 }, { n: 'Emergency Response', v: 98 }, { n: 'Science Protocol', v: 94 }, { n: 'Crew Support', v: 91 }],
+    sops: ['EVA pre/post checklist and suit telemetry monitoring', 'ECLSS parameter monitoring and anomaly response', 'Medical response within flight surgeon pre-approved limits', 'Geological sample collection chain-of-custody protocol', 'Crew psychological status monitoring and debrief'],
+    tools: ['Habitat SCADA', 'EVA Telemetry', 'Medical Kit AI', 'Science Instrument Suite', 'Earth Comms Relay'],
+    status: 'ALPHA — SIMULATION PHASE'
+  }
+};
+
+function loadRole(el, role) {
+  document.querySelectorAll('.quick-role').forEach(r => r.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('roleInput').value = role;
+  generatePersona();
+}
+
+function generatePersona() {
+  const input = document.getElementById('roleInput').value.trim();
+  const data = roleData[input] || roleData['Senior ER Nurse'];
+  const output = document.getElementById('demoOutput');
+
+  output.innerHTML = '';
+  output.style.opacity = '0';
+
+  setTimeout(() => {
+    output.innerHTML = `
+      <div class="output-card expanded">
+        <div class="output-card-header" onclick="toggleCard(this)">
+          <div class="output-card-header-left">
+            <div class="output-card-icon">🧠</div>
+            <div class="output-card-name">IDENTITY PROFILE</div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;">
+            <div class="output-card-status">${data.status}</div>
+            <div class="output-card-expand">+</div>
+          </div>
+        </div>
+        <div class="output-card-body">
+          <div class="trait-grid" style="margin-top:12px;">
+            ${Object.entries(data.identity).map(([k,v]) => `<div class="trait-item"><div class="trait-key">${k}</div><div class="trait-val">${v}</div></div>`).join('')}
+          </div>
+          <div style="margin-top:16px;">
+            ${data.skills.map(s => `<div class="bar-wrap"><div class="bar-label"><span>${s.n}</span><strong>${s.v}%</strong></div><div class="bar-track"><div class="bar-fill" style="width:${s.v}%"></div></div></div>`).join('')}
+          </div>
+        </div>
+      </div>
+
+      <div class="output-card expanded">
+        <div class="output-card-header" onclick="toggleCard(this)">
+          <div class="output-card-header-left">
+            <div class="output-card-icon">📋</div>
+            <div class="output-card-name">AUTO-GENERATED SOPs</div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;">
+            <div class="output-card-status">${data.sops.length} PROCEDURES</div>
+            <div class="output-card-expand">+</div>
+          </div>
+        </div>
+        <div class="output-card-body">
+          ${data.sops.map((s,i) => `<div class="sop-entry"><div class="sop-entry-num">SOP.${String(i+1).padStart(2,'0')}</div><div>${s}</div></div>`).join('')}
+        </div>
+      </div>
+
+      <div class="output-card expanded">
+        <div class="output-card-header" onclick="toggleCard(this)">
+          <div class="output-card-header-left">
+            <div class="output-card-icon">🔧</div>
+            <div class="output-card-name">TOOL INTEGRATIONS</div>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;">
+            <div class="output-card-status">READY</div>
+            <div class="output-card-expand">+</div>
+          </div>
+        </div>
+        <div class="output-card-body">
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;">
+            ${data.tools.map(t => `<div style="font-family:var(--mono);font-size:10px;color:var(--ice);border:1px solid rgba(0,229,255,0.2);padding:6px 12px;letter-spacing:1px;">${t}</div>`).join('')}
+          </div>
+        </div>
+      </div>
+
+      <div style="background:rgba(212,255,0,0.05);border:1px solid rgba(212,255,0,0.15);padding:16px 20px;display:flex;align-items:center;justify-content:space-between;">
+        <div style="font-family:var(--mono);font-size:11px;color:var(--acid);letter-spacing:2px;">SURROGATE READY TO DEPLOY</div>
+        <div style="display:flex;gap:2px;">
+          <div style="width:8px;height:8px;background:var(--acid);border-radius:50%;animation:livePulse 1s infinite;"></div>
+        </div>
+      </div>
+    `;
+
+    output.style.transition = 'opacity .4s';
+    output.style.opacity = '1';
+
+    // Animate bars
+    setTimeout(() => {
+      document.querySelectorAll('.bar-fill').forEach(b => {
+        const w = b.style.width; b.style.width = '0';
+        setTimeout(() => { b.style.width = w; }, 50);
+      });
+    }, 100);
+  }, 200);
+}
+
+function toggleCard(header) {
+  header.parentElement.classList.toggle('expanded');
+}
+
+// Init demo
+generatePersona();
+
+// ─── ORG TABS (kept for back-compat) ───
+function switchOrg(tab, id) {
+  document.querySelectorAll('.org-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.org-content').forEach(c => c.classList.remove('active'));
+  tab.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+</script>
+</body>
+</html>

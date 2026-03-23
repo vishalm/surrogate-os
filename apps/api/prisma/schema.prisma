@@ -1,0 +1,49 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum UserRole {
+  OWNER
+  ADMIN
+  MEMBER
+}
+
+enum OrgPlan {
+  STUDIO
+  ENTERPRISE
+  HUMANOID
+}
+
+model Org {
+  id         String   @id @default(uuid())
+  name       String
+  slug       String   @unique
+  plan       OrgPlan  @default(STUDIO)
+  settings   Json     @default("{}")
+  schemaName String   @unique @map("schema_name")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+  users      User[]
+
+  @@map("orgs")
+}
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  name         String
+  passwordHash String   @map("password_hash")
+  orgId        String   @map("org_id")
+  role         UserRole @default(MEMBER)
+  refreshToken String?  @map("refresh_token")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  org          Org      @relation(fields: [orgId], references: [id], onDelete: Cascade)
+
+  @@map("users")
+}

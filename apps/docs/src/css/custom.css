@@ -1,0 +1,371 @@
+/* ===== Surrogate OS — Custom Theme ===== */
+
+/* ===== LIGHT MODE ===== */
+:root {
+  --ifm-color-primary: #4f46e5;
+  --ifm-color-primary-dark: #4338ca;
+  --ifm-color-primary-darker: #3730a3;
+  --ifm-color-primary-darkest: #312e81;
+  --ifm-color-primary-light: #6366f1;
+  --ifm-color-primary-lighter: #818cf8;
+  --ifm-color-primary-lightest: #a5b4fc;
+
+  --ifm-font-family-base: "Inter", system-ui, -apple-system, sans-serif;
+  --ifm-font-family-monospace: "JetBrains Mono", "Fira Code", monospace;
+  --ifm-code-font-size: 90%;
+  --ifm-heading-font-weight: 700;
+  --ifm-line-height-base: 1.75;
+
+  --sos-card-bg: #ffffff;
+  --sos-card-border: rgba(79, 70, 229, 0.12);
+  --sos-card-hover-border: rgba(79, 70, 229, 0.35);
+  --sos-card-hover-shadow: rgba(79, 70, 229, 0.1);
+  --sos-card-title: #4f46e5;
+  --sos-card-description: #4b5563;
+  --sos-arch-bg: #f8f7ff;
+  --sos-arch-border: rgba(79, 70, 229, 0.15);
+  --sos-arch-text: #1e1b4b;
+  --sos-stat-gradient-start: #4f46e5;
+  --sos-stat-gradient-end: #7c3aed;
+  --sos-stat-label: #6b7280;
+  --sos-badge-bg: rgba(79, 70, 229, 0.08);
+  --sos-badge-color: #4f46e5;
+  --sos-badge-border: rgba(79, 70, 229, 0.2);
+  --sos-hero-bg: #f8f7ff;
+  --sos-hero-subtitle: #4b5563;
+  --sos-section-muted: #6b7280;
+  --sos-icon-bg: rgba(79, 70, 229, 0.08);
+  --sos-icon-color: #4f46e5;
+  --sos-announcement-bg: #4f46e5;
+  --sos-announcement-text: #ffffff;
+}
+
+/* ===== DARK MODE ===== */
+[data-theme="dark"] {
+  --ifm-color-primary: #818cf8;
+  --ifm-color-primary-dark: #6366f1;
+  --ifm-color-primary-darker: #4f46e5;
+  --ifm-color-primary-darkest: #4338ca;
+  --ifm-color-primary-light: #a5b4fc;
+  --ifm-color-primary-lighter: #c7d2fe;
+  --ifm-color-primary-lightest: #e0e7ff;
+
+  --ifm-background-color: #0a0a0f;
+  --ifm-background-surface-color: #111118;
+  --ifm-navbar-background-color: #0a0a0f;
+  --ifm-footer-background-color: #060609;
+
+  --sos-card-bg: rgba(17, 17, 24, 0.6);
+  --sos-card-border: rgba(99, 102, 241, 0.15);
+  --sos-card-hover-border: rgba(99, 102, 241, 0.4);
+  --sos-card-hover-shadow: rgba(99, 102, 241, 0.12);
+  --sos-card-title: #a5b4fc;
+  --sos-card-description: #9ca3af;
+  --sos-arch-bg: rgba(17, 17, 24, 0.8);
+  --sos-arch-border: rgba(99, 102, 241, 0.2);
+  --sos-arch-text: #e0e0e0;
+  --sos-stat-gradient-start: #818cf8;
+  --sos-stat-gradient-end: #a78bfa;
+  --sos-stat-label: #9ca3af;
+  --sos-badge-bg: rgba(99, 102, 241, 0.15);
+  --sos-badge-color: #a5b4fc;
+  --sos-badge-border: rgba(99, 102, 241, 0.3);
+  --sos-hero-bg: #0d0d14;
+  --sos-hero-subtitle: #9ca3af;
+  --sos-section-muted: #9ca3af;
+  --sos-icon-bg: rgba(99, 102, 241, 0.12);
+  --sos-icon-color: #a5b4fc;
+  --sos-announcement-bg: #0a0a0a;
+  --sos-announcement-text: #e0e0e0;
+}
+
+/* ===== Navbar ===== */
+.navbar {
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--sos-card-border);
+}
+
+.navbar__title {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* ===== Hero Section ===== */
+.hero-banner {
+  position: relative;
+  overflow: hidden;
+  background: var(--sos-hero-bg);
+  padding: 6rem 0 4rem;
+  text-align: center;
+}
+
+.hero__title {
+  font-size: 4rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  background: linear-gradient(135deg, var(--sos-stat-gradient-start) 0%, var(--ifm-color-primary) 40%, var(--sos-stat-gradient-end) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero__subtitle {
+  font-size: 1.35rem;
+  line-height: 1.7;
+  color: var(--sos-hero-subtitle);
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* ===== Features Grid ===== */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 4rem 0;
+}
+
+.feature-card {
+  position: relative;
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid var(--sos-card-border);
+  background: var(--sos-card-bg);
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  border-color: var(--sos-card-hover-border);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px var(--sos-card-hover-shadow);
+}
+
+.feature-card__icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--sos-icon-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.feature-card__icon svg {
+  width: 24px;
+  height: 24px;
+  color: var(--sos-icon-color);
+  stroke: var(--sos-icon-color);
+  fill: none;
+}
+
+.feature-card__title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--sos-card-title);
+}
+
+.feature-card__description {
+  font-size: 0.95rem;
+  color: var(--sos-card-description);
+  line-height: 1.65;
+}
+
+/* ===== Architecture Diagram ===== */
+.architecture-block {
+  background: var(--sos-arch-bg);
+  border: 1px solid var(--sos-arch-border);
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 2rem 0;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.85rem;
+  overflow-x: auto;
+}
+
+.architecture-block pre {
+  margin: 0;
+  color: var(--sos-arch-text);
+}
+
+/* ===== Stats Bar ===== */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  padding: 3rem 0;
+  text-align: center;
+}
+
+.stat-item__number {
+  font-size: 2.5rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--sos-stat-gradient-start), var(--sos-stat-gradient-end));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+}
+
+.stat-item__label {
+  font-size: 0.85rem;
+  color: var(--sos-stat-label);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 0.25rem;
+}
+
+/* ===== Callout / Admonition Enhancements ===== */
+.alert--info {
+  border-left-color: var(--ifm-color-primary);
+}
+
+/* ===== Blockquotes ===== */
+blockquote {
+  border-left: 4px solid var(--ifm-color-primary);
+  background: var(--sos-badge-bg);
+  padding: 1rem 1.5rem;
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+}
+
+/* ===== Tables ===== */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table thead th {
+  background: var(--sos-badge-bg);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+}
+
+table tbody tr:hover {
+  background: var(--sos-badge-bg);
+}
+
+/* ===== Code Blocks ===== */
+.prism-code {
+  border-radius: 12px !important;
+  border: 1px solid var(--sos-card-border) !important;
+}
+
+/* ===== Roadmap Timeline ===== */
+.roadmap-phase {
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 2rem;
+  border-left: 3px solid var(--ifm-color-primary);
+}
+
+.roadmap-phase::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: 0;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--ifm-color-primary);
+  border: 3px solid var(--ifm-background-color);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .hero__title {
+    font-size: 2.5rem;
+  }
+
+  .hero__subtitle {
+    font-size: 1.1rem;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .stats-bar {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ===== Glow Effect Background ===== */
+.glow-bg {
+  position: relative;
+}
+
+[data-theme="dark"] .glow-bg::before {
+  content: "";
+  position: absolute;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(
+    circle,
+    rgba(99, 102, 241, 0.15) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ===== Pill Badges ===== */
+.badge--alpha {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: var(--sos-badge-bg);
+  color: var(--sos-badge-color);
+  border: 1px solid var(--sos-badge-border);
+}
+
+/* ===== Smooth scroll ===== */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ===== Announcement Bar ===== */
+div[class*="announcementBar"] {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* ===== CTA Section ===== */
+.cta-section {
+  padding: 4rem 0;
+  text-align: center;
+  background: var(--sos-hero-bg);
+}
+
+/* ===== Outline button in light mode ===== */
+:root .button--outline {
+  color: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
+}
+
+/* ===== Hero outline button: always light text ===== */
+.hero-banner .button--outline {
+  color: var(--sos-card-title);
+  border-color: var(--sos-card-border);
+}
+
+[data-theme="dark"] .hero-banner .button--outline {
+  color: #e0e7ff;
+  border-color: rgba(99, 102, 241, 0.4);
+}
+
+[data-theme="dark"] .hero-banner .button--outline:hover {
+  background: rgba(99, 102, 241, 0.1);
+}
