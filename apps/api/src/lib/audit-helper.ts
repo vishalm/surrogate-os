@@ -22,7 +22,7 @@ export async function createAuditEntry(
   await tenantManager.executeInTenant(
     orgSlug,
     `INSERT INTO audit_entries (surrogate_id, user_id, action, details, previous_hash, hash, created_at)
-     VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+     VALUES ($1::uuid, $2::uuid, $3, $4::jsonb, $5, $6, $7)`,
     [input.surrogateId, input.userId, input.action, JSON.stringify(input.details), previousHash, hash, now],
   );
 }

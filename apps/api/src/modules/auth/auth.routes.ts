@@ -1,5 +1,5 @@
 import type { FastifyInstance, FastifyPluginCallback } from 'fastify';
-import fp from 'fastify-plugin';
+
 import type { PrismaClient } from '@prisma/client';
 import { createUserSchema, createOrgSchema, loginSchema, UserRole } from '@surrogate-os/shared';
 import { z } from 'zod';
@@ -103,7 +103,4 @@ const authRoutesCallback: FastifyPluginCallback<AuthRoutesOptions> = (
   done();
 };
 
-export const authRoutes = fp(authRoutesCallback, {
-  name: 'auth-routes',
-  fastify: '5.x',
-});
+export const authRoutes = authRoutesCallback;

@@ -6,11 +6,16 @@ interface CardProps {
   header?: ReactNode;
   className?: string;
   padding?: boolean;
+  onClick?: () => void;
 }
 
-export function Card({ children, header, className, padding = true }: CardProps) {
+export function Card({ children, header, className, padding = true, onClick }: CardProps) {
   return (
     <div
+      role={onClick ? 'button' : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      onClick={onClick}
+      onKeyDown={onClick ? (e) => { if (e.key === 'Enter' || e.key === ' ') onClick(); } : undefined}
       className={clsx(
         'rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-card)]',
         className,

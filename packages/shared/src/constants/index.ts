@@ -40,6 +40,38 @@ export enum AuditAction {
   ESCALATION_TRIGGERED = 'ESCALATION_TRIGGERED',
   DECISION_MADE = 'DECISION_MADE',
   OVERRIDE_APPLIED = 'OVERRIDE_APPLIED',
+  SESSION_STARTED = 'SESSION_STARTED',
+  SESSION_COMPLETED = 'SESSION_COMPLETED',
+  DEBRIEF_GENERATED = 'DEBRIEF_GENERATED',
+  SOP_PROPOSAL_CREATED = 'SOP_PROPOSAL_CREATED',
+  SOP_PROPOSAL_APPROVED = 'SOP_PROPOSAL_APPROVED',
+  SOP_PROPOSAL_REJECTED = 'SOP_PROPOSAL_REJECTED',
+  DOCUMENT_UPLOADED = 'DOCUMENT_UPLOADED',
+  DOCUMENT_PROCESSED = 'DOCUMENT_PROCESSED',
+  MEMORY_CREATED = 'MEMORY_CREATED',
+  MEMORY_PROMOTED = 'MEMORY_PROMOTED',
+  MEMORY_ARCHIVED = 'MEMORY_ARCHIVED',
+  HANDOFF_INITIATED = 'HANDOFF_INITIATED',
+  HANDOFF_ACCEPTED = 'HANDOFF_ACCEPTED',
+  HANDOFF_REJECTED = 'HANDOFF_REJECTED',
+  PERSONA_TEMPLATE_CREATED = 'PERSONA_TEMPLATE_CREATED',
+  PERSONA_TEMPLATE_UPDATED = 'PERSONA_TEMPLATE_UPDATED',
+  PERSONA_TEMPLATE_DELETED = 'PERSONA_TEMPLATE_DELETED',
+  MARKETPLACE_LISTING_PUBLISHED = 'MARKETPLACE_LISTING_PUBLISHED',
+  MARKETPLACE_SOP_INSTALLED = 'MARKETPLACE_SOP_INSTALLED',
+  BIAS_CHECK_TRIGGERED = 'BIAS_CHECK_TRIGGERED',
+  BIAS_CHECK_COMPLETED = 'BIAS_CHECK_COMPLETED',
+  FEDERATION_CONTRIBUTION_CREATED = 'FEDERATION_CONTRIBUTION_CREATED',
+  FEDERATION_INSIGHTS_APPLIED = 'FEDERATION_INSIGHTS_APPLIED',
+  FEDERATION_OPT_IN = 'FEDERATION_OPT_IN',
+  FEDERATION_OPT_OUT = 'FEDERATION_OPT_OUT',
+  HUMANOID_DEVICE_REGISTERED = 'HUMANOID_DEVICE_REGISTERED',
+  HUMANOID_DEVICE_STATUS_CHANGED = 'HUMANOID_DEVICE_STATUS_CHANGED',
+  HUMANOID_KILL_SWITCH_TRIGGERED = 'HUMANOID_KILL_SWITCH_TRIGGERED',
+  COMPLIANCE_CHECK_RUN = 'COMPLIANCE_CHECK_RUN',
+  SOP_SIGNED = 'SOP_SIGNED',
+  SOP_SIGNATURE_VERIFIED = 'SOP_SIGNATURE_VERIFIED',
+  COMPLIANCE_REPORT_GENERATED = 'COMPLIANCE_REPORT_GENERATED',
 }
 
 export enum SurrogateInterface {
@@ -50,6 +82,49 @@ export enum SurrogateInterface {
   HUMANOID = 'HUMANOID',
   IOT = 'IOT',
 }
+
+export const SessionStatus = { ACTIVE: 'ACTIVE', COMPLETED: 'COMPLETED', ABANDONED: 'ABANDONED' } as const;
+export type SessionStatus = (typeof SessionStatus)[keyof typeof SessionStatus];
+
+export const ProposalStatus = { PENDING: 'PENDING', APPROVED: 'APPROVED', REJECTED: 'REJECTED', SUPERSEDED: 'SUPERSEDED' } as const;
+export type ProposalStatus = (typeof ProposalStatus)[keyof typeof ProposalStatus];
+
+export const DocumentStatus = { PROCESSING: 'PROCESSING', READY: 'READY', FAILED: 'FAILED' } as const;
+export type DocumentStatus = (typeof DocumentStatus)[keyof typeof DocumentStatus];
+
+export const MemoryType = { STM: 'STM', LTM: 'LTM' } as const;
+export type MemoryType = (typeof MemoryType)[keyof typeof MemoryType];
+
+export const MemorySource = { DEBRIEF: 'DEBRIEF', PATTERN_DETECTION: 'PATTERN_DETECTION', MANUAL: 'MANUAL', SOP_EXECUTION: 'SOP_EXECUTION' } as const;
+export type MemorySource = (typeof MemorySource)[keyof typeof MemorySource];
+
+export const HandoffType = { DIGITAL_TO_DIGITAL: 'DIGITAL_TO_DIGITAL', DIGITAL_TO_HUMAN: 'DIGITAL_TO_HUMAN', HUMAN_TO_DIGITAL: 'HUMAN_TO_DIGITAL' } as const;
+export type HandoffType = (typeof HandoffType)[keyof typeof HandoffType];
+
+export const HandoffStatus = { INITIATED: 'INITIATED', ACCEPTED: 'ACCEPTED', REJECTED: 'REJECTED', EXPIRED: 'EXPIRED' } as const;
+export type HandoffStatus = (typeof HandoffStatus)[keyof typeof HandoffStatus];
+
+export const PersonaTemplateStatus = { DRAFT: 'DRAFT', PUBLISHED: 'PUBLISHED', ARCHIVED: 'ARCHIVED' } as const;
+export type PersonaTemplateStatus = (typeof PersonaTemplateStatus)[keyof typeof PersonaTemplateStatus];
+
+export const MarketplaceListingStatus = { DRAFT: 'DRAFT', PUBLISHED: 'PUBLISHED', SUSPENDED: 'SUSPENDED', REMOVED: 'REMOVED' } as const;
+export type MarketplaceListingStatus = (typeof MarketplaceListingStatus)[keyof typeof MarketplaceListingStatus];
+
+export const BiasCheckStatus = { PENDING: 'PENDING', COMPLETED: 'COMPLETED', FAILED: 'FAILED' } as const;
+export type BiasCheckStatus = (typeof BiasCheckStatus)[keyof typeof BiasCheckStatus];
+
+export const ExecutionStatus = {
+  RUNNING: 'RUNNING',
+  PAUSED: 'PAUSED',
+  AWAITING_INPUT: 'AWAITING_INPUT',
+  AWAITING_ESCALATION: 'AWAITING_ESCALATION',
+  COMPLETED: 'COMPLETED',
+  ABORTED: 'ABORTED',
+} as const;
+export type ExecutionStatus = (typeof ExecutionStatus)[keyof typeof ExecutionStatus];
+
+export const FederationContributionStatus = { ACTIVE: 'ACTIVE', REVOKED: 'REVOKED' } as const;
+export type FederationContributionStatus = (typeof FederationContributionStatus)[keyof typeof FederationContributionStatus];
 
 export enum SOPNodeType {
   INFORMATION_GATHER = 'INFORMATION_GATHER',

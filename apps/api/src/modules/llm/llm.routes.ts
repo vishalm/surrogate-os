@@ -1,12 +1,10 @@
 import type { FastifyInstance, FastifyPluginCallback } from 'fastify';
-import fp from 'fastify-plugin';
 import type { PrismaClient } from '@prisma/client';
 import { z } from 'zod';
-import { LLMService } from './llm.service.js';
+import { LLMService, LLM_PROVIDERS } from './llm.service.js';
 import type { TenantManager } from '../../tenancy/tenant-manager.js';
-import { ValidationError, InternalError } from '../../lib/errors.js';
+import { ValidationError } from '../../lib/errors.js';
 import { authGuard } from '../../middleware/auth.js';
-import { config } from '../../config/index.js';
 
 interface LLMRoutesOptions {
   prisma: PrismaClient;
@@ -26,18 +24,20 @@ const llmRoutesCallback: FastifyPluginCallback<LLMRoutesOptions> = (
   const llmService = new LLMService(opts.prisma, opts.tenantManager);
   const guard = authGuard(opts.prisma);
 
-  // POST /generate-sop — generate an SOP using Claude
+  // GET /providers — list available LLM providers and their config fields
+  fastify.get(
+    '/providers',
+    { preHandler: [guard] },
+    async (_request, reply) => {
+      return reply.send({ success: true, data: LLM_PROVIDERS, error: null });
+    },
+  );
+
+  // POST /generate-sop — generate an SOP using the configured LLM provider
   fastify.post(
     '/generate-sop',
     { preHandler: [guard] },
     async (request, reply) => {
-      // Check API key is configured
-      if (!config.ANTHROPIC_API_KEY) {
-        throw new InternalError(
-          'LLM service is not configured. Set ANTHROPIC_API_KEY environment variable.',
-        );
-      }
-
       const parsed = generateSOPBodySchema.safeParse(request.body);
       if (!parsed.success) {
         throw new ValidationError('Validation failed', {
@@ -59,7 +59,4 @@ const llmRoutesCallback: FastifyPluginCallback<LLMRoutesOptions> = (
   done();
 };
 
-export const llmRoutes = fp(llmRoutesCallback, {
-  name: 'llm-routes',
-  fastify: '5.x',
-});
+export const llmRoutes = llmRoutesCallback;

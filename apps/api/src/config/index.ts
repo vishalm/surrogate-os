@@ -14,6 +14,7 @@ const configSchema = z.object({
     .enum(['trace', 'debug', 'info', 'warn', 'error', 'fatal', 'silent'])
     .default('info'),
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
+  CORS_ORIGIN: z.string().default(''),
   ANTHROPIC_API_KEY: z.string().default(''),
   ANTHROPIC_MODEL: z.string().default('claude-sonnet-4-20250514'),
 });

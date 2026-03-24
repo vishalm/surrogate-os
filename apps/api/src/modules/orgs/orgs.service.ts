@@ -87,6 +87,76 @@ export class OrgService {
     }));
   }
 
+  async getSettings(orgId: string): Promise<Record<string, unknown>> {
+    const org = await this.prisma.org.findUnique({ where: { id: orgId } });
+    if (!org) throw new NotFoundError('Organization not found');
+    const settings = (org.settings ?? {}) as Record<string, unknown>;
+    return this.maskSettings(settings);
+  }
+
+  async updateSettings(
+    orgId: string,
+    input: Record<string, unknown>,
+  ): Promise<Record<string, unknown>> {
+    const org = await this.prisma.org.findUnique({ where: { id: orgId } });
+    if (!org) throw new NotFoundError('Organization not found');
+
+    const merged = { ...((org.settings ?? {}) as Record<string, unknown>) };
+
+    // Allowed settings keys (whitelisted to prevent injection)
+    const ALLOWED_KEYS = [
+      'llmProvider', 'llmModel', 'llmApiKey', 'llmEndpoint',
+      'llmApiVersion', 'llmDeploymentName', 'llmMaxTokens', 'llmTemperature',
+      'defaultDomain', 'defaultJurisdiction',
+      'embeddingProvider', 'embeddingModel', 'embeddingApiKey', 'embeddingEndpoint',
+    ];
+
+    for (const key of ALLOWED_KEYS) {
+      if (input[key] !== undefined) {
+        merged[key] = input[key] || null;
+      }
+    }
+
+    const updated = await this.prisma.org.update({
+      where: { id: orgId },
+      data: { settings: merged },
+    });
+
+    return this.maskSettings((updated.settings ?? {}) as Record<string, unknown>);
+  }
+
+  /**
+   * Get raw (unmasked) settings for internal use (e.g., LLM service).
+   */
+  async getRawSettings(orgId: string): Promise<Record<string, unknown>> {
+    const org = await this.prisma.org.findUnique({ where: { id: orgId } });
+    if (!org) throw new NotFoundError('Organization not found');
+    return (org.settings ?? {}) as Record<string, unknown>;
+  }
+
+  private maskSettings(settings: Record<string, unknown>): Record<string, unknown> {
+    const masked = { ...settings };
+    if (masked.llmApiKey && typeof masked.llmApiKey === 'string') {
+      const key = masked.llmApiKey;
+      masked.llmApiKey = key.length > 12
+        ? key.slice(0, 8) + '...' + key.slice(-4)
+        : '********';
+      masked.llmApiKeySet = true;
+    } else {
+      masked.llmApiKeySet = false;
+    }
+    if (masked.embeddingApiKey && typeof masked.embeddingApiKey === 'string') {
+      const key = masked.embeddingApiKey;
+      masked.embeddingApiKey = key.length > 12
+        ? key.slice(0, 8) + '...' + key.slice(-4)
+        : '********';
+      masked.embeddingApiKeySet = true;
+    } else {
+      masked.embeddingApiKeySet = false;
+    }
+    return masked;
+  }
+
   async removeMember(
     orgId: string,
     memberId: string,

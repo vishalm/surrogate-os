@@ -1,5 +1,4 @@
 import type { FastifyInstance, FastifyPluginCallback } from 'fastify';
-import fp from 'fastify-plugin';
 import type { PrismaClient } from '@prisma/client';
 import { createSOPSchema, paginationSchema, SOPStatus } from '@surrogate-os/shared';
 import { z } from 'zod';
@@ -42,25 +41,6 @@ const sopRoutesCallback: FastifyPluginCallback<SOPRoutesOptions> = (
       if (query.status) filters.status = query.status;
 
       const result = await sopService.listAll(request.tenant!, pagination, filters);
-      return reply.send({ success: true, data: result, error: null });
-    },
-  );
-
-  // GET /surrogates/:surrogateId/sops — list SOPs for a surrogate
-  fastify.get<{ Params: { surrogateId: string } }>(
-    '/surrogates/:surrogateId/sops',
-    { preHandler: [guard] },
-    async (request, reply) => {
-      const paginationParsed = paginationSchema.safeParse(request.query);
-      const pagination = parsePagination(
-        paginationParsed.success ? paginationParsed.data : {},
-      );
-
-      const result = await sopService.listBySurrogate(
-        request.tenant!,
-        request.params.surrogateId,
-        pagination,
-      );
       return reply.send({ success: true, data: result, error: null });
     },
   );
@@ -143,7 +123,4 @@ const sopRoutesCallback: FastifyPluginCallback<SOPRoutesOptions> = (
   done();
 };
 
-export const sopRoutes = fp(sopRoutesCallback, {
-  name: 'sop-routes',
-  fastify: '5.x',
-});
+export const sopRoutes = sopRoutesCallback;

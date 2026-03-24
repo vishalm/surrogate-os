@@ -1,5 +1,5 @@
 import type { FastifyInstance, FastifyPluginCallback } from 'fastify';
-import fp from 'fastify-plugin';
+
 import type { PrismaClient } from '@prisma/client';
 import { updateOrgSchema, UserRole } from '@surrogate-os/shared';
 import { OrgService } from './orgs.service.js';
@@ -57,6 +57,31 @@ const orgRoutesCallback: FastifyPluginCallback<OrgRoutesOptions> = (
     },
   );
 
+  // GET /me/settings — get org settings (API keys masked)
+  fastify.get(
+    '/me/settings',
+    {
+      preHandler: [guard, requireRole([UserRole.OWNER, UserRole.ADMIN])],
+    },
+    async (request, reply) => {
+      const settings = await orgService.getSettings(request.tenant!.orgId);
+      return reply.send({ success: true, data: settings, error: null });
+    },
+  );
+
+  // PATCH /me/settings — update org settings
+  fastify.patch(
+    '/me/settings',
+    {
+      preHandler: [guard, requireRole([UserRole.OWNER, UserRole.ADMIN])],
+    },
+    async (request, reply) => {
+      const input = request.body as Record<string, unknown>;
+      const settings = await orgService.updateSettings(request.tenant!.orgId, input);
+      return reply.send({ success: true, data: settings, error: null });
+    },
+  );
+
   // DELETE /me/members/:id — remove a member
   fastify.delete<{ Params: { id: string } }>(
     '/me/members/:id',
@@ -76,7 +101,4 @@ const orgRoutesCallback: FastifyPluginCallback<OrgRoutesOptions> = (
   done();
 };
 
-export const orgRoutes = fp(orgRoutesCallback, {
-  name: 'org-routes',
-  fastify: '5.x',
-});
+export const orgRoutes = orgRoutesCallback;

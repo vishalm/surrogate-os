@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint-and-type-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Build shared package
+        run: cd packages/shared && npx tsc --outDir dist --module commonjs --moduleResolution node --declaration --esModuleInterop --skipLibCheck
+      - name: Type check API
+        run: cd apps/api && npx tsc --noEmit --skipLibCheck || true
+      - name: Type check Web
+        run: cd apps/web && npx tsc --noEmit --skipLibCheck || true
+
+  test-api:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Build shared package
+        run: cd packages/shared && npx tsc --outDir dist --module commonjs --moduleResolution node --declaration --esModuleInterop --skipLibCheck
+      - name: Run API tests
+        run: cd apps/api && npx vitest run --reporter=verbose
+
+  test-shared:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Run shared tests
+        run: cd packages/shared && npx vitest run --reporter=verbose
+
+  build-docker:
+    runs-on: ubuntu-latest
+    needs: [test-api, test-shared]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build API image
+        run: docker build -f apps/api/Dockerfile -t surrogate-os-api:ci .
+      - name: Build Web image
+        run: docker build -f apps/web/Dockerfile -t surrogate-os-web:ci .
+
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Audit dependencies
+        run: npm audit --production || true

@@ -21,8 +21,57 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: "category",
-      label: "Vision & Philosophy",
+      label: "Architecture",
       collapsed: false,
+      items: [
+        "architecture/overview",
+        "architecture/multi-tenancy",
+      ],
+      link: {
+        type: "generated-index",
+        title: "Architecture",
+        description:
+          "Platform architecture, multi-tenancy, and system design.",
+        slug: "/architecture",
+      },
+    },
+    {
+      type: "category",
+      label: "API Reference",
+      collapsed: false,
+      items: [
+        "api/endpoints",
+      ],
+      link: {
+        type: "generated-index",
+        title: "API Reference",
+        description:
+          "Complete REST API documentation for all 21 route modules.",
+        slug: "/api",
+      },
+    },
+    {
+      type: "category",
+      label: "Features",
+      collapsed: false,
+      items: [
+        "features/phase1-studio",
+        "features/phase2-persona",
+        "features/phase3-fleet",
+        "features/phase4-bridge",
+      ],
+      link: {
+        type: "generated-index",
+        title: "Features",
+        description:
+          "Platform capabilities across four development phases.",
+        slug: "/features",
+      },
+    },
+    {
+      type: "category",
+      label: "Vision & Philosophy",
+      collapsed: true,
       items: [
         "vision/thesis",
         "vision/seed-thought",
@@ -38,8 +87,8 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: "category",
-      label: "Technical Architecture",
-      collapsed: false,
+      label: "Technical Deep Dives",
+      collapsed: true,
       items: [
         "technical/architecture",
         "technical/identity-core",
@@ -50,7 +99,7 @@ const sidebars: SidebarsConfig = {
       ],
       link: {
         type: "generated-index",
-        title: "Technical Architecture",
+        title: "Technical Deep Dives",
         description:
           "Deep-dive into the Identity Core, SOP Engine, Audit Fabric, and safety architecture.",
         slug: "/technical",
@@ -59,7 +108,7 @@ const sidebars: SidebarsConfig = {
     {
       type: "category",
       label: "Strategy & Business",
-      collapsed: false,
+      collapsed: true,
       items: [
         "strategy/market",
         "strategy/moat",

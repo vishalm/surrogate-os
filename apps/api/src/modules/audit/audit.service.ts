@@ -87,7 +87,7 @@ export class AuditService {
       `INSERT INTO audit_entries
          (surrogate_id, user_id, action, details, rationale, confidence,
           human_auth_required, previous_hash, hash, created_at)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+       VALUES ($1::uuid, $2::uuid, $3, $4::jsonb, $5, $6, $7, $8, $9, $10)
        RETURNING *`,
       [
         input.surrogateId ?? null,
@@ -116,7 +116,7 @@ export class AuditService {
     let paramIndex = 1;
 
     if (filters.surrogateId) {
-      whereClauses.push(`surrogate_id = $${paramIndex++}`);
+      whereClauses.push(`surrogate_id = $${paramIndex++}::uuid`);
       params.push(filters.surrogateId);
     }
     if (filters.action) {
@@ -176,12 +176,12 @@ export class AuditService {
       // Get the date range from the start and end entries
       const startRows = await this.tenantManager.executeInTenant<AuditRow[]>(
         tenant.orgSlug,
-        `SELECT * FROM audit_entries WHERE id = $1`,
+        `SELECT * FROM audit_entries WHERE id = $1::uuid`,
         [startId],
       );
       const endRows = await this.tenantManager.executeInTenant<AuditRow[]>(
         tenant.orgSlug,
-        `SELECT * FROM audit_entries WHERE id = $1`,
+        `SELECT * FROM audit_entries WHERE id = $1::uuid`,
         [endId],
       );
 
@@ -193,7 +193,7 @@ export class AuditService {
     } else if (startId) {
       const startRows = await this.tenantManager.executeInTenant<AuditRow[]>(
         tenant.orgSlug,
-        `SELECT * FROM audit_entries WHERE id = $1`,
+        `SELECT * FROM audit_entries WHERE id = $1::uuid`,
         [startId],
       );
       if (startRows.length === 0) throw new NotFoundError('Start audit entry not found');

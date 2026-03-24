@@ -33,6 +33,22 @@ import { sopRoutes } from './modules/sops/sops.routes.js';
 import { auditRoutes } from './modules/audit/audit.routes.js';
 import { statsRoutes } from './modules/stats/stats.routes.js';
 import { llmRoutes } from './modules/llm/llm.routes.js';
+import { orgDNARoutes } from './modules/org-dna/org-dna.routes.js';
+import { memoryRoutes } from './modules/memory/memory.routes.js';
+import { debriefRoutes } from './modules/debriefs/debriefs.routes.js';
+import { proposalRoutes } from './modules/proposals/proposals.routes.js';
+import { fleetRoutes } from './modules/fleet/fleet.routes.js';
+import { handoffRoutes } from './modules/handoffs/handoffs.routes.js';
+import { personaRoutes } from './modules/personas/personas.routes.js';
+import { marketplaceRoutes } from './modules/marketplace/marketplace.routes.js';
+import { biasRoutes } from './modules/bias/bias.routes.js';
+import { humanoidRoutes } from './modules/humanoid/humanoid.routes.js';
+import { federationRoutes } from './modules/federation/federation.routes.js';
+import { apiKeyRoutes } from './modules/apikeys/apikeys.routes.js';
+import { webhookRoutes } from './modules/webhooks/webhooks.routes.js';
+import { notificationRoutes } from './modules/notifications/notifications.routes.js';
+import { complianceRoutes } from './modules/compliance/compliance.routes.js';
+import { executionRoutes } from './modules/execution/execution.routes.js';
 
 export async function buildApp(): Promise<FastifyInstance> {
   const prisma = new PrismaClient({
@@ -55,8 +71,14 @@ export async function buildApp(): Promise<FastifyInstance> {
   app.setErrorHandler(errorHandler);
 
   // Register core plugins
+  // CORS: In production, use explicit CORS_ORIGIN (comma-separated list).
+  // In development/test, allow all origins.
+  const corsOrigin = config.CORS_ORIGIN
+    ? config.CORS_ORIGIN.split(',').map((o) => o.trim())
+    : true;
+
   await app.register(cors, {
-    origin: config.NODE_ENV === 'production' ? false : true,
+    origin: corsOrigin,
     credentials: true,
   });
 
@@ -154,6 +176,83 @@ export async function buildApp(): Promise<FastifyInstance> {
       });
       await apiV1.register(llmRoutes, {
         prefix: '/llm',
+        prisma,
+        tenantManager,
+      });
+      await apiV1.register(orgDNARoutes, {
+        prefix: '/org-dna',
+        prisma,
+        tenantManager,
+      });
+      await apiV1.register(memoryRoutes, {
+        prefix: '/memory',
+        prisma,
+        tenantManager,
+      });
+      await apiV1.register(debriefRoutes, {
+        prefix: '/debriefs',
+        prisma,
+        tenantManager,
+      });
+      await apiV1.register(proposalRoutes, {
+        prefix: '/proposals',
+        prisma,
+        tenantManager,
+      });
+      await apiV1.register(fleetRoutes, {
+        prefix: '/fleet',
+        prisma,
+        tenantManager,
+      });
+      await apiV1.register(handoffRoutes, {
+        prefix: '/handoffs',
+        prisma,
+        tenantManager,
+      });
+      await apiV1.register(personaRoutes, {
+        prefix: '/personas',
+        prisma,
+        tenantManager,
+      });
+      await apiV1.register(marketplaceRoutes, {
+        prefix: '/marketplace',
+        prisma,
+        tenantManager,
+      });
+      await apiV1.register(biasRoutes, {
+        prefix: '/bias',
+        prisma,
+        tenantManager,
+      });
+      await apiV1.register(humanoidRoutes, {
+        prefix: '/humanoid',
+        prisma,
+        tenantManager,
+      });
+      await apiV1.register(federationRoutes, {
+        prefix: '/federation',
+        prisma,
+        tenantManager,
+      });
+      await apiV1.register(apiKeyRoutes, {
+        prefix: '/api-keys',
+        prisma,
+      });
+      await apiV1.register(webhookRoutes, {
+        prefix: '/webhooks',
+        prisma,
+      });
+      await apiV1.register(notificationRoutes, {
+        prefix: '/notifications',
+        prisma,
+      });
+      await apiV1.register(complianceRoutes, {
+        prefix: '/compliance',
+        prisma,
+        tenantManager,
+      });
+      await apiV1.register(executionRoutes, {
+        prefix: '/executions',
         prisma,
         tenantManager,
       });

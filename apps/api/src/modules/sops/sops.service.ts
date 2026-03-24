@@ -77,7 +77,7 @@ export class SOPService {
     let paramIndex = 1;
 
     if (filters?.surrogateId) {
-      whereClauses.push(`surrogate_id = $${paramIndex++}`);
+      whereClauses.push(`surrogate_id = $${paramIndex++}::uuid`);
       params.push(filters.surrogateId);
     }
     if (filters?.status) {
@@ -121,7 +121,7 @@ export class SOPService {
   async getById(tenant: TenantContext, id: string) {
     const rows = await this.tenantManager.executeInTenant<SOPRow[]>(
       tenant.orgSlug,
-      `SELECT * FROM sops WHERE id = $1`,
+      `SELECT * FROM sops WHERE id = $1::uuid`,
       [id],
     );
 
@@ -140,7 +140,7 @@ export class SOPService {
     // Determine version number
     const maxVersionRows = await this.tenantManager.executeInTenant<{ max_version: number }[]>(
       tenant.orgSlug,
-      `SELECT COALESCE(MAX(version), 0) as max_version FROM sops WHERE surrogate_id = $1`,
+      `SELECT COALESCE(MAX(version), 0) as max_version FROM sops WHERE surrogate_id = $1::uuid`,
       [input.surrogateId],
     );
     const newVersion = (maxVersionRows[0]?.max_version ?? 0) + 1;
@@ -150,7 +150,7 @@ export class SOPService {
     const rows = await this.tenantManager.executeInTenant<SOPRow[]>(
       tenant.orgSlug,
       `INSERT INTO sops (surrogate_id, version, title, description, graph, hash, previous_version_id)
-       VALUES ($1, $2, $3, $4, $5, $6, $7)
+       VALUES ($1::uuid, $2, $3, $4, $5::jsonb, $6, $7)
        RETURNING *`,
       [
         input.surrogateId,
@@ -184,7 +184,7 @@ export class SOPService {
 
     const existingRows = await this.tenantManager.executeInTenant<SOPRow[]>(
       tenant.orgSlug,
-      `SELECT * FROM sops WHERE id = $1`,
+      `SELECT * FROM sops WHERE id = $1::uuid`,
       [sopId],
     );
 
@@ -192,7 +192,7 @@ export class SOPService {
       previousVersion = existingRows[0];
       const maxVersionRows = await this.tenantManager.executeInTenant<{ max_version: number }[]>(
         tenant.orgSlug,
-        `SELECT COALESCE(MAX(version), 0) as max_version FROM sops WHERE surrogate_id = $1`,
+        `SELECT COALESCE(MAX(version), 0) as max_version FROM sops WHERE surrogate_id = $1::uuid`,
         [input.surrogateId],
       );
       newVersion = (maxVersionRows[0]?.max_version ?? 0) + 1;
@@ -203,7 +203,7 @@ export class SOPService {
     const rows = await this.tenantManager.executeInTenant<SOPRow[]>(
       tenant.orgSlug,
       `INSERT INTO sops (surrogate_id, version, title, description, graph, hash, previous_version_id)
-       VALUES ($1, $2, $3, $4, $5, $6, $7)
+       VALUES ($1::uuid, $2, $3, $4, $5::jsonb, $6, $7)
        RETURNING *`,
       [
         input.surrogateId,
@@ -255,7 +255,7 @@ export class SOPService {
 
     const rows = await this.tenantManager.executeInTenant<SOPRow[]>(
       tenant.orgSlug,
-      `UPDATE sops SET ${setClauses.join(', ')} WHERE id = $${paramIndex} RETURNING *`,
+      `UPDATE sops SET ${setClauses.join(', ')} WHERE id = $${paramIndex}::uuid RETURNING *`,
       params,
     );
 
@@ -296,7 +296,7 @@ export class SOPService {
     await this.tenantManager.executeInTenant(
       tenant.orgSlug,
       `INSERT INTO audit_entries (surrogate_id, user_id, action, details, previous_hash, hash, created_at)
-       VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+       VALUES ($1::uuid, $2::uuid, $3, $4::jsonb, $5, $6, $7)`,
       [
         input.surrogateId,
         input.userId,

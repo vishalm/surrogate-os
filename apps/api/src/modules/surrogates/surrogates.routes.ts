@@ -1,5 +1,5 @@
 import type { FastifyInstance, FastifyPluginCallback } from 'fastify';
-import fp from 'fastify-plugin';
+
 import type { PrismaClient } from '@prisma/client';
 import {
   createSurrogateSchema,
@@ -113,7 +113,4 @@ const surrogateRoutesCallback: FastifyPluginCallback<SurrogateRoutesOptions> = (
   done();
 };
 
-export const surrogateRoutes = fp(surrogateRoutesCallback, {
-  name: 'surrogate-routes',
-  fastify: '5.x',
-});
+export const surrogateRoutes = surrogateRoutesCallback;

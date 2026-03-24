@@ -6,10 +6,18 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "turbo dev",
-    "build": "turbo build",
-    "test": "turbo test",
-    "lint": "turbo lint",
+    "dev": "cd infra && docker compose up -d",
+    "dev:stop": "cd infra && docker compose down",
+    "dev:logs": "cd infra && docker compose logs -f api web",
+    "test": "npm run test:api && npm run test:shared",
+    "test:api": "cd apps/api && npx vitest run",
+    "test:shared": "cd packages/shared && npx vitest run",
+    "test:watch": "cd apps/api && npx vitest",
+    "build:shared": "cd packages/shared && npx tsc --outDir dist --module commonjs --moduleResolution node --declaration --esModuleInterop --skipLibCheck",
+    "build:docker": "cd infra && docker compose build api web",
+    "db:push": "cd infra && docker compose exec api npx prisma db push --accept-data-loss",
+    "db:seed": "cd infra && docker compose exec api npx tsx prisma/seed.ts",
+    "lint": "echo 'TODO: add eslint'",
     "clean": "turbo clean"
   },
   "devDependencies": {

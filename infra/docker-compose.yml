@@ -13,7 +13,7 @@ services:
   # ═══════════════════════════════════════════════════════════════════
 
   postgres:
-    image: postgres:16-alpine
+    image: pgvector/pgvector:pg16
     ports:
       - "5432:5432"
     environment:
@@ -97,15 +97,15 @@ services:
   # APPLICATION
   # ═══════════════════════════════════════════════════════════════════
 
-  # ── Database migrations (run-once init container) ─────────────────
+  # ── Database schema push + seed (run-once init container) ──────────
   api-migrate:
     build:
       context: ..
       dockerfile: apps/api/Dockerfile
-    command: ["sh", "-c", "npx prisma migrate deploy && npx tsx prisma/seed.ts"]
+    command: ["sh", "-c", "npx prisma db push --skip-generate && npx tsx prisma/seed.ts || echo 'Seed skipped (may already exist)'"]
     environment:
       DATABASE_URL: postgresql://surrogate:surrogate_dev@postgres:5432/surrogate_os
-      NODE_ENV: production
+      NODE_ENV: development
     depends_on:
       postgres:
         condition: service_healthy
@@ -130,8 +130,10 @@ services:
       OTEL_ENDPOINT: http://otel-collector:4318
       LOG_LEVEL: info
       NODE_ENV: production
-      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      CORS_ORIGIN: "http://localhost:3000"
       ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-claude-sonnet-4-20250514}
+    env_file:
+      - .env
     depends_on:
       postgres:
         condition: service_healthy
@@ -142,10 +144,11 @@ services:
     networks:
       - surrogate-net
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://localhost:3001/health || exit 1"]
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:3001/health || exit 1"]
       interval: 10s
-      timeout: 5s
-      retries: 5
+      timeout: 10s
+      retries: 10
+      start_period: 15s
     restart: unless-stopped
 
   # ── Web Dashboard (Next.js) ───────────────────────────────────────

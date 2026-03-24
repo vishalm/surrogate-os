@@ -1,5 +1,4 @@
 import type { FastifyInstance, FastifyPluginCallback } from 'fastify';
-import fp from 'fastify-plugin';
 import type { PrismaClient } from '@prisma/client';
 import { StatsService } from './stats.service.js';
 import type { TenantManager } from '../../tenancy/tenant-manager.js';
@@ -31,7 +30,4 @@ const statsRoutesCallback: FastifyPluginCallback<StatsRoutesOptions> = (
   done();
 };
 
-export const statsRoutes = fp(statsRoutesCallback, {
-  name: 'stats-routes',
-  fastify: '5.x',
-});
+export const statsRoutes = statsRoutesCallback;

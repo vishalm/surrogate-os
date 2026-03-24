@@ -7,18 +7,43 @@ import { clsx } from 'clsx';
 import {
   LayoutDashboard,
   Bot,
-  FileText,
-  Shield,
+  GitBranch,
+  ScrollText,
   Settings,
   LogOut,
+  Database,
+  Brain,
+  ClipboardList,
+  GitPullRequest,
+  Radar,
+  Store,
+  UserCog,
+  ShieldCheck,
+  ShieldAlert,
+  Cpu,
+  Network,
+  Play,
 } from 'lucide-react';
 import { AuthProvider, useAuth, isAuthenticated, getUserFromToken } from '@/lib/auth';
+import { NotificationBell } from '@/components/notification-bell';
 
 const navItems = [
   { label: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
+  { label: 'Fleet', href: '/fleet', icon: Radar },
   { label: 'Surrogates', href: '/surrogates', icon: Bot },
-  { label: 'SOPs', href: '/sops', icon: FileText },
-  { label: 'Audit Log', href: '/audit', icon: Shield },
+  { label: 'SOPs', href: '/sops', icon: GitBranch },
+  { label: 'Executions', href: '/executions', icon: Play },
+  { label: 'Audit Log', href: '/audit', icon: ScrollText },
+  { label: 'Org DNA', href: '/org-dna', icon: Database },
+  { label: 'Memory', href: '/memory', icon: Brain },
+  { label: 'Debriefs', href: '/debriefs', icon: ClipboardList },
+  { label: 'Proposals', href: '/proposals', icon: GitPullRequest },
+  { label: 'Personas', href: '/personas', icon: UserCog },
+  { label: 'Marketplace', href: '/marketplace', icon: Store },
+  { label: 'Bias Audit', href: '/bias', icon: ShieldCheck },
+  { label: 'Compliance', href: '/compliance', icon: ShieldAlert },
+  { label: 'Humanoid', href: '/humanoid', icon: Cpu },
+  { label: 'Federation', href: '/federation', icon: Network },
   { label: 'Settings', href: '/settings', icon: Settings },
 ];
 
@@ -106,7 +131,7 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
       {/* Main */}
       <main className="ml-60 flex-1">
         {/* Top bar */}
-        <header className="sticky top-0 z-20 flex h-14 items-center border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 px-6 backdrop-blur-sm">
+        <header className="sticky top-0 z-20 flex h-14 items-center justify-between border-b border-[var(--color-border)] bg-[var(--color-bg)]/80 px-6 backdrop-blur-sm">
           <div className="flex items-center gap-2 text-sm">
             <span className="text-[var(--color-text-muted)]">
               {user?.orgId ? 'Organization' : ''}
@@ -124,6 +149,9 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
                 </span>
               </>
             )}
+          </div>
+          <div className="flex items-center gap-2">
+            <NotificationBell />
           </div>
         </header>
 

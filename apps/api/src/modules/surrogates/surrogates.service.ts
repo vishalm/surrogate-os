@@ -53,7 +53,7 @@ export class SurrogateService {
     const rows = await this.tenantManager.executeInTenant<SurrogateRow[]>(
       tenant.orgSlug,
       `INSERT INTO surrogates (role_title, domain, jurisdiction, config)
-       VALUES ($1, $2, $3, $4)
+       VALUES ($1, $2, $3, $4::jsonb)
        RETURNING *`,
       [
         input.roleTitle,
@@ -106,7 +106,7 @@ export class SurrogateService {
   async getById(tenant: TenantContext, id: string) {
     const rows = await this.tenantManager.executeInTenant<SurrogateRow[]>(
       tenant.orgSlug,
-      `SELECT * FROM surrogates WHERE id = $1`,
+      `SELECT * FROM surrogates WHERE id = $1::uuid`,
       [id],
     );
 
@@ -147,7 +147,7 @@ export class SurrogateService {
       params.push(input.status);
     }
     if (input.config !== undefined) {
-      setClauses.push(`config = $${paramIndex++}`);
+      setClauses.push(`config = $${paramIndex++}::jsonb`);
       params.push(JSON.stringify(input.config));
     }
 
@@ -157,7 +157,7 @@ export class SurrogateService {
 
     const rows = await this.tenantManager.executeInTenant<SurrogateRow[]>(
       tenant.orgSlug,
-      `UPDATE surrogates SET ${setClauses.join(', ')} WHERE id = $${paramIndex} RETURNING *`,
+      `UPDATE surrogates SET ${setClauses.join(', ')} WHERE id = $${paramIndex}::uuid RETURNING *`,
       params,
     );
 
@@ -179,7 +179,7 @@ export class SurrogateService {
     // Soft delete: set status to ARCHIVED
     const rows = await this.tenantManager.executeInTenant<SurrogateRow[]>(
       tenant.orgSlug,
-      `UPDATE surrogates SET status = $1, updated_at = now() WHERE id = $2 RETURNING *`,
+      `UPDATE surrogates SET status = $1, updated_at = now() WHERE id = $2::uuid RETURNING *`,
       [SurrogateStatus.ARCHIVED, id],
     );
 
@@ -217,7 +217,7 @@ export class SurrogateService {
     await this.tenantManager.executeInTenant(
       tenant.orgSlug,
       `INSERT INTO audit_entries (surrogate_id, user_id, action, details, previous_hash, hash, created_at)
-       VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+       VALUES ($1::uuid, $2::uuid, $3, $4::jsonb, $5, $6, $7)`,
       [
         input.surrogateId,
         input.userId,

@@ -28,7 +28,13 @@ model Org {
   schemaName String   @unique @map("schema_name")
   createdAt  DateTime @default(now()) @map("created_at")
   updatedAt  DateTime @updatedAt @map("updated_at")
-  users      User[]
+  users                User[]
+  marketplaceListings      MarketplaceListing[]
+  federationContributions  FederationContribution[]
+  federationSettings       FederationSettings?
+  apiKeys              ApiKey[]
+  webhooks             Webhook[]
+  notifications        Notification[]
 
   @@map("orgs")
 }
@@ -43,7 +49,142 @@ model User {
   refreshToken String?  @map("refresh_token")
   createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @updatedAt @map("updated_at")
-  org          Org      @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  org           Org      @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  notifications Notification[]
 
   @@map("users")
+}
+
+model MarketplaceListing {
+  id             String   @id @default(uuid())
+  orgId          String   @map("org_id")
+  sopTitle       String   @map("sop_title")
+  sopDescription String   @map("sop_description")
+  sopGraph       Json     @map("sop_graph")
+  domain         String
+  category       String?
+  tags           String[] @default([])
+  price          Float    @default(0)
+  currency       String   @default("USD")
+  status         String   @default("DRAFT")
+  installCount   Int      @default(0) @map("install_count")
+  avgRating      Float?   @map("avg_rating")
+  reviewCount    Int      @default(0) @map("review_count")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+  reviews        MarketplaceReview[]
+  org            Org      @relation(fields: [orgId], references: [id])
+  @@map("marketplace_listings")
+}
+
+model MarketplaceReview {
+  id        String   @id @default(uuid())
+  listingId String   @map("listing_id")
+  orgId     String   @map("org_id")
+  userId    String   @map("user_id")
+  rating    Int
+  comment   String?
+  createdAt DateTime @default(now()) @map("created_at")
+  listing   MarketplaceListing @relation(fields: [listingId], references: [id])
+  @@unique([listingId, orgId])
+  @@map("marketplace_reviews")
+}
+
+model FederationContribution {
+  id             String   @id @default(uuid())
+  orgId          String   @map("org_id")
+  domain         String
+  category       String?
+  dataHash       String   @map("data_hash")
+  anonymizedData Json     @map("anonymized_data")
+  privacyEpsilon Float    @map("privacy_epsilon")
+  recordCount    Int      @map("record_count")
+  status         String   @default("ACTIVE")
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  org            Org      @relation(fields: [orgId], references: [id])
+
+  @@map("federation_contributions")
+}
+
+model FederationSettings {
+  id            String   @id @default(uuid())
+  orgId         String   @unique @map("org_id")
+  optedIn       Boolean  @default(false) @map("opted_in")
+  privacyBudget Float    @default(10.0) @map("privacy_budget")
+  budgetUsed    Float    @default(0.0) @map("budget_used")
+  domains       String[] @default([])
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  org           Org      @relation(fields: [orgId], references: [id])
+
+  @@map("federation_settings")
+}
+
+model ApiKey {
+  id          String    @id @default(uuid())
+  orgId       String    @map("org_id")
+  name        String
+  keyHash     String    @map("key_hash")
+  keyPrefix   String    @map("key_prefix")
+  scopes      String[]  @default([])
+  lastUsedAt  DateTime? @map("last_used_at")
+  expiresAt   DateTime? @map("expires_at")
+  revokedAt   DateTime? @map("revoked_at")
+  createdBy   String    @map("created_by")
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  org         Org       @relation(fields: [orgId], references: [id])
+
+  @@map("api_keys")
+}
+
+model Webhook {
+  id          String    @id @default(uuid())
+  orgId       String    @map("org_id")
+  url         String
+  events      String[]
+  secret      String
+  active      Boolean   @default(true)
+  createdBy   String    @map("created_by")
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  org         Org       @relation(fields: [orgId], references: [id])
+  deliveries  WebhookDelivery[]
+
+  @@map("webhooks")
+}
+
+model WebhookDelivery {
+  id          String    @id @default(uuid())
+  webhookId   String    @map("webhook_id")
+  event       String
+  payload     Json
+  statusCode  Int?      @map("status_code")
+  response    String?
+  attempts    Int       @default(0)
+  deliveredAt DateTime? @map("delivered_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  webhook     Webhook   @relation(fields: [webhookId], references: [id])
+
+  @@map("webhook_deliveries")
+}
+
+model Notification {
+  id          String    @id @default(uuid())
+  orgId       String    @map("org_id")
+  userId      String    @map("user_id")
+  type        String
+  title       String
+  message     String
+  metadata    Json?
+  readAt      DateTime? @map("read_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  org         Org       @relation(fields: [orgId], references: [id])
+  user        User      @relation(fields: [userId], references: [id])
+
+  @@map("notifications")
 }

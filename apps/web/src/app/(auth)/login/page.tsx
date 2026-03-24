@@ -8,8 +8,9 @@ import { apiClient } from '@/lib/api';
 import { setTokens } from '@/lib/auth';
 
 interface LoginResponse {
-  accessToken: string;
-  refreshToken: string;
+  user: { id: string; email: string; name: string; role: string };
+  org: { id: string; name: string; slug: string };
+  tokens: { accessToken: string; refreshToken: string };
 }
 
 export default function LoginPage() {
@@ -31,7 +32,7 @@ export default function LoginPage() {
       });
 
       if (res.success && res.data) {
-        setTokens(res.data.accessToken, res.data.refreshToken);
+        setTokens(res.data.tokens.accessToken, res.data.tokens.refreshToken);
         router.push('/dashboard');
       } else {
         setError(res.error?.message ?? 'Invalid credentials');

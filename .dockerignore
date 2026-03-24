@@ -1,6 +1,8 @@
 node_modules
 .next
 dist
+!packages/shared/dist
+!packages/observability/dist
 build
 .turbo
 .git

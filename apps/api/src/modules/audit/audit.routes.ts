@@ -1,5 +1,5 @@
 import type { FastifyInstance, FastifyPluginCallback } from 'fastify';
-import fp from 'fastify-plugin';
+
 import type { PrismaClient } from '@prisma/client';
 import { createAuditEntrySchema, paginationSchema } from '@surrogate-os/shared';
 import { z } from 'zod';
@@ -87,7 +87,4 @@ const auditRoutesCallback: FastifyPluginCallback<AuditRoutesOptions> = (
   done();
 };
 
-export const auditRoutes = fp(auditRoutesCallback, {
-  name: 'audit-routes',
-  fastify: '5.x',
-});
+export const auditRoutes = auditRoutesCallback;

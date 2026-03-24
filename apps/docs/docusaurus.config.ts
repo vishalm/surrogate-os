@@ -7,11 +7,15 @@ const config: Config = {
   tagline: "The AI Identity Engine That Becomes the Employee",
   favicon: "img/favicon.ico",
 
-  url: "https://docs.surrogate-os.com",
-  baseUrl: "/",
+  // For GitHub Pages: https://vishalm.github.io/surrogate-os/
+  // For custom domain: change url and set baseUrl to "/"
+  url: "https://vishalm.github.io",
+  baseUrl: "/surrogate-os/",
 
-  organizationName: "surrogate-os",
+  organizationName: "vishalm",
   projectName: "surrogate-os",
+  trailingSlash: false,
+  deploymentBranch: "gh-pages",
 
   onBrokenLinks: "throw",
 
@@ -89,7 +93,7 @@ const config: Config = {
           position: "left",
         },
         {
-          to: "/docs/technical/architecture",
+          to: "/docs/architecture/overview",
           label: "Architecture",
           position: "left",
         },
@@ -117,7 +121,7 @@ const config: Config = {
           title: "Platform",
           items: [
             { label: "Getting Started", to: "/docs/getting-started/overview" },
-            { label: "Architecture", to: "/docs/technical/architecture" },
+            { label: "Architecture", to: "/docs/architecture/overview" },
             { label: "API Reference", to: "/docs/technical/api-reference" },
             { label: "Safety", to: "/docs/technical/safety" },
           ],
