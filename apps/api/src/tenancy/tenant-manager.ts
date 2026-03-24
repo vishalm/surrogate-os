@@ -455,6 +455,57 @@ export class TenantManager {
           ON "${schemaName}".sop_signatures(sop_id)
       `);
 
+      // Create conversations table
+      await this.prisma.$executeRawUnsafe(`
+        CREATE TABLE IF NOT EXISTS "${schemaName}".conversations (
+          id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+          surrogate_id UUID NOT NULL REFERENCES "${schemaName}".surrogates(id),
+          user_id UUID NOT NULL,
+          title TEXT,
+          status TEXT NOT NULL DEFAULT 'ACTIVE',
+          created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+          updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+        )
+      `);
+      await this.prisma.$executeRawUnsafe(`
+        CREATE INDEX IF NOT EXISTS idx_conversations_user
+          ON "${schemaName}".conversations(user_id)
+      `);
+
+      // Create messages table
+      await this.prisma.$executeRawUnsafe(`
+        CREATE TABLE IF NOT EXISTS "${schemaName}".messages (
+          id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+          conversation_id UUID NOT NULL REFERENCES "${schemaName}".conversations(id),
+          role TEXT NOT NULL,
+          content TEXT NOT NULL,
+          metadata JSONB NOT NULL DEFAULT '{}',
+          created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+        )
+      `);
+      await this.prisma.$executeRawUnsafe(`
+        CREATE INDEX IF NOT EXISTS idx_messages_conversation
+          ON "${schemaName}".messages(conversation_id)
+      `);
+
+      // Create export_history table
+      await this.prisma.$executeRawUnsafe(`
+        CREATE TABLE IF NOT EXISTS "${schemaName}".export_history (
+          id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+          type TEXT NOT NULL,
+          status TEXT NOT NULL DEFAULT 'COMPLETED',
+          record_count INTEGER NOT NULL DEFAULT 0,
+          file_size_bytes BIGINT,
+          options JSONB NOT NULL DEFAULT '{}',
+          exported_by UUID NOT NULL,
+          created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+        )
+      `);
+      await this.prisma.$executeRawUnsafe(`
+        CREATE INDEX IF NOT EXISTS idx_export_history_created_at
+          ON "${schemaName}".export_history(created_at)
+      `);
+
       return schemaName;
     } catch (error) {
       if (error instanceof ValidationError) throw error;

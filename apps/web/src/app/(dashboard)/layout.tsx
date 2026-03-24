@@ -23,17 +23,25 @@ import {
   Cpu,
   Network,
   Play,
+  BarChart3,
+  Activity,
+  Search,
+  MessageSquare,
 } from 'lucide-react';
 import { AuthProvider, useAuth, isAuthenticated, getUserFromToken } from '@/lib/auth';
 import { NotificationBell } from '@/components/notification-bell';
+import { SearchCommand } from '@/components/search-command';
 
 const navItems = [
   { label: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
+  { label: 'Chat', href: '/chat', icon: MessageSquare },
+  { label: 'Analytics', href: '/analytics', icon: BarChart3 },
   { label: 'Fleet', href: '/fleet', icon: Radar },
   { label: 'Surrogates', href: '/surrogates', icon: Bot },
   { label: 'SOPs', href: '/sops', icon: GitBranch },
   { label: 'Executions', href: '/executions', icon: Play },
   { label: 'Audit Log', href: '/audit', icon: ScrollText },
+  { label: 'Activity', href: '/activity', icon: Activity },
   { label: 'Org DNA', href: '/org-dna', icon: Database },
   { label: 'Memory', href: '/memory', icon: Brain },
   { label: 'Debriefs', href: '/debriefs', icon: ClipboardList },
@@ -52,6 +60,7 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const { user, logout } = useAuth();
   const [mounted, setMounted] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -151,12 +160,21 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
             )}
           </div>
           <div className="flex items-center gap-2">
+            <button
+              onClick={() => setSearchOpen(true)}
+              className="rounded-lg p-2 text-[var(--color-text-muted)] transition-colors hover:bg-[var(--color-bg-elevated)] hover:text-[var(--color-text-primary)]"
+              title="Search (Ctrl+K)"
+            >
+              <Search className="h-4.5 w-4.5" />
+            </button>
             <NotificationBell />
           </div>
         </header>
 
         <div className="p-6">{children}</div>
       </main>
+
+      <SearchCommand open={searchOpen} onClose={() => setSearchOpen(false)} />
     </div>
   );
 }

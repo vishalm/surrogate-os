@@ -11,7 +11,9 @@ import {
   EyeOff,
   Check,
   AlertCircle,
+  Download,
 } from 'lucide-react';
+import Link from 'next/link';
 import { Button, Input, Card, Badge } from '@/components/ui';
 import { apiClient } from '@/lib/api';
 import { useAuth } from '@/lib/auth';
@@ -190,21 +192,36 @@ export default function SettingsPage() {
 
       {/* Organization Tab */}
       {activeTab === 'organization' && (
-        <Card header="Organization">
-          <form onSubmit={handleSaveOrg} className="space-y-4">
-            <Input label="Organization Name" value={orgName} onChange={(e) => setOrgName(e.target.value)} required />
-            <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-medium text-[var(--color-text-secondary)]">Slug</label>
-              <input readOnly value={org?.slug ?? ''} className="w-full cursor-not-allowed rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] px-3 py-2 text-sm text-[var(--color-text-muted)]" />
+        <div className="space-y-6">
+          <Card header="Organization">
+            <form onSubmit={handleSaveOrg} className="space-y-4">
+              <Input label="Organization Name" value={orgName} onChange={(e) => setOrgName(e.target.value)} required />
+              <div className="flex flex-col gap-1.5">
+                <label className="text-sm font-medium text-[var(--color-text-secondary)]">Slug</label>
+                <input readOnly value={org?.slug ?? ''} className="w-full cursor-not-allowed rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] px-3 py-2 text-sm text-[var(--color-text-muted)]" />
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <label className="text-sm font-medium text-[var(--color-text-secondary)]">Plan</label>
+                <Badge variant="primary">{org?.plan ?? 'STUDIO'}</Badge>
+              </div>
+              {saveMsg && <p className={saveMsg.type === 'success' ? 'text-sm text-[#22c55e]' : 'text-sm text-[var(--color-danger)]'}>{saveMsg.text}</p>}
+              <div className="pt-2"><Button type="submit" loading={saving}>Save Changes</Button></div>
+            </form>
+          </Card>
+
+          <Card header={<div className="flex items-center gap-2"><Download className="h-4 w-4 text-[var(--color-primary)]" /><span>Data Portability</span></div>}>
+            <div className="space-y-3">
+              <p className="text-sm text-[var(--color-text-secondary)]">
+                Export your organization data for backup and portability, or import data from another Surrogate OS instance. This is one of the five founding commitments.
+              </p>
+              <Link href="/settings/export"
+                className="inline-flex items-center gap-2 rounded-lg border border-[var(--color-border)] px-4 py-2 text-sm font-medium text-[var(--color-text-primary)] transition-colors hover:bg-[var(--color-bg-elevated)]">
+                <Download className="h-4 w-4" />
+                Import & Export
+              </Link>
             </div>
-            <div className="flex flex-col gap-1.5">
-              <label className="text-sm font-medium text-[var(--color-text-secondary)]">Plan</label>
-              <Badge variant="primary">{org?.plan ?? 'STUDIO'}</Badge>
-            </div>
-            {saveMsg && <p className={saveMsg.type === 'success' ? 'text-sm text-[#22c55e]' : 'text-sm text-[var(--color-danger)]'}>{saveMsg.text}</p>}
-            <div className="pt-2"><Button type="submit" loading={saving}>Save Changes</Button></div>
-          </form>
-        </Card>
+          </Card>
+        </div>
       )}
 
       {/* API Keys & LLM Tab */}

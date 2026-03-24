@@ -49,6 +49,10 @@ import { webhookRoutes } from './modules/webhooks/webhooks.routes.js';
 import { notificationRoutes } from './modules/notifications/notifications.routes.js';
 import { complianceRoutes } from './modules/compliance/compliance.routes.js';
 import { executionRoutes } from './modules/execution/execution.routes.js';
+import { analyticsRoutes } from './modules/analytics/analytics.routes.js';
+import { activityRoutes } from './modules/activity/activity.routes.js';
+import { chatRoutes } from './modules/chat/chat.routes.js';
+import { exportRoutes } from './modules/export/export.routes.js';
 
 export async function buildApp(): Promise<FastifyInstance> {
   const prisma = new PrismaClient({
@@ -253,6 +257,26 @@ export async function buildApp(): Promise<FastifyInstance> {
       });
       await apiV1.register(executionRoutes, {
         prefix: '/executions',
+        prisma,
+        tenantManager,
+      });
+      await apiV1.register(analyticsRoutes, {
+        prefix: '/analytics',
+        prisma,
+        tenantManager,
+      });
+      await apiV1.register(activityRoutes, {
+        prefix: '/activity',
+        prisma,
+        tenantManager,
+      });
+      await apiV1.register(chatRoutes, {
+        prefix: '/chat',
+        prisma,
+        tenantManager,
+      });
+      await apiV1.register(exportRoutes, {
+        prefix: '/export',
         prisma,
         tenantManager,
       });
