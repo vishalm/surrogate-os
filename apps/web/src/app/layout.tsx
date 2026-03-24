@@ -10,6 +10,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: 'Surrogate OS',
   description: 'AI Identity Engine — Multi-Tenant Platform',
+  icons: {
+    icon: '/icon.svg',
+  },
 };
 
 export default function RootLayout({
