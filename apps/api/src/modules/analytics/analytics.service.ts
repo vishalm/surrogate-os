@@ -134,10 +134,10 @@ export class AnalyticsService {
       this.count(tenant, `SELECT COUNT(*) as count FROM surrogates WHERE status != 'ARCHIVED'`),
       this.count(tenant, `SELECT COUNT(*) as count FROM sops`),
       this.count(tenant, `SELECT COUNT(*) as count FROM sessions`),
-      this.count(tenant, `SELECT COUNT(*) as count FROM decisions`),
+      this.count(tenant, `SELECT COUNT(*) as count FROM decision_outcomes`),
       this.numericValue(
         tenant,
-        `SELECT AVG(confidence) as value FROM decisions WHERE confidence IS NOT NULL`,
+        `SELECT AVG(confidence) as value FROM decision_outcomes WHERE confidence IS NOT NULL`,
       ),
       this.numericValue(
         tenant,
@@ -207,7 +207,7 @@ export class AnalyticsService {
       tenant.orgSlug,
       `SELECT
          (SELECT COUNT(*) FROM sessions WHERE surrogate_id = $1::uuid) AS total_sessions,
-         (SELECT AVG(confidence) FROM decisions d
+         (SELECT AVG(confidence) FROM decision_outcomes d
           JOIN sessions s ON s.id = d.session_id
           WHERE s.surrogate_id = $1::uuid AND d.confidence IS NOT NULL) AS avg_confidence,
          (SELECT
@@ -314,7 +314,7 @@ export class AnalyticsService {
       `SELECT
          EXTRACT(HOUR FROM d.created_at) AS hour_bucket,
          COUNT(*) AS decision_count
-       FROM decisions d
+       FROM decision_outcomes d
        JOIN sessions s ON s.id = d.session_id
        ${where}
        GROUP BY hour_bucket
@@ -351,7 +351,7 @@ export class AnalyticsService {
       ),
       this.count(
         tenant,
-        `SELECT COUNT(*) as count FROM decisions WHERE created_at > NOW() - INTERVAL '24 hours'`,
+        `SELECT COUNT(*) as count FROM decision_outcomes WHERE created_at > NOW() - INTERVAL '24 hours'`,
       ),
     ]);
 

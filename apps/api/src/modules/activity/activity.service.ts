@@ -385,16 +385,19 @@ export class ActivityService {
     const map = new Map<string, string>();
     if (userIds.length === 0) return map;
 
-    // Build $1::uuid, $2::uuid, ... placeholders
-    const placeholders = userIds.map((_, i) => `$${i + 1}::uuid`).join(', ');
-    const rows = await this.tenantManager.executeInTenant<UserRow[]>(
-      tenant.orgSlug,
-      `SELECT id, name, email FROM users WHERE id IN (${placeholders})`,
-      userIds,
-    );
+    try {
+      // Build $1::uuid, $2::uuid, ... placeholders
+      const placeholders = userIds.map((_, i) => `$${i + 1}::uuid`).join(', ');
+      const rows = await this.prisma.$queryRawUnsafe<UserRow[]>(
+        `SELECT id, name, email FROM public.users WHERE id IN (${placeholders})`,
+        ...userIds,
+      );
 
-    for (const row of rows) {
-      map.set(row.id, row.name || row.email);
+      for (const row of rows) {
+        map.set(row.id, row.name || row.email);
+      }
+    } catch {
+      // Users table may not be accessible — return empty map gracefully
     }
     return map;
   }

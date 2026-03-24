@@ -66,7 +66,7 @@ function mapDeviceRow(row: DeviceRow) {
     lastHeartbeat: row.last_heartbeat,
     metadata: row.metadata,
     errorCount: row.error_count,
-    uptimeSeconds: row.uptime_seconds,
+    uptimeSeconds: Number(row.uptime_seconds),
     createdAt: row.created_at,
     updatedAt: row.updated_at,
   };
