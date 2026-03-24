@@ -90,7 +90,7 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 space-y-1 px-3 py-4">
+        <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4">
           {navItems.map((item) => {
             const isActive =
               pathname === item.href ||
@@ -175,6 +175,17 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
       </main>
 
       <SearchCommand open={searchOpen} onClose={() => setSearchOpen(false)} />
+
+      {/* Floating Chat Button */}
+      {pathname !== '/chat' && (
+        <button
+          onClick={() => router.push('/chat')}
+          className="fixed bottom-6 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[var(--color-primary)] text-white shadow-lg transition-all hover:scale-110 hover:shadow-xl active:scale-95"
+          title="Chat with Surrogates"
+        >
+          <MessageSquare className="h-6 w-6" />
+        </button>
+      )}
     </div>
   );
 }

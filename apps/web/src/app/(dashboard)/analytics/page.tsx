@@ -56,20 +56,20 @@ interface Insight {
 
 // ── Constants ────────────────────────────────────────────────────────
 
-const PERIOD_OPTIONS = [
+const PERIOD_OPTIONS: { label: string; value: string; period: string }[] = [
   { label: '7d', value: '7', period: 'day' },
   { label: '30d', value: '30', period: 'day' },
   { label: '90d', value: '90', period: 'week' },
   { label: '1y', value: '365', period: 'month' },
-] as const;
+];
 
-const METRIC_OPTIONS = [
+const METRIC_OPTIONS: { label: string; value: string }[] = [
   { label: 'Sessions Created', value: 'sessions_created' },
   { label: 'Decisions Made', value: 'decisions_made' },
   { label: 'SOPs Generated', value: 'sops_generated' },
   { label: 'Compliance Checks', value: 'compliance_checks' },
   { label: 'Executions Completed', value: 'executions_completed' },
-] as const;
+];
 
 const INSIGHT_ICONS: Record<string, typeof Lightbulb> = {
   trend: TrendingUp,

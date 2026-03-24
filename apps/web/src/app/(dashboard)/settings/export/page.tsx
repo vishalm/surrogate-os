@@ -122,7 +122,7 @@ export default function ExportPage() {
       );
       if (res.success && res.data) {
         setHistory(res.data.data);
-        setHistoryTotal(res.data.pagination.total);
+        setHistoryTotal(res.data.totalPages ?? 1);
       }
     } catch { /* ignore */ }
     finally { setHistoryLoading(false); }
@@ -566,7 +566,7 @@ export default function ExportPage() {
             </Table>
             {historyTotal > PAGE_SIZE && (
               <Pagination
-                currentPage={historyPage}
+                page={historyPage}
                 totalPages={Math.ceil(historyTotal / PAGE_SIZE)}
                 onPageChange={setHistoryPage}
               />

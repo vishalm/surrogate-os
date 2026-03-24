@@ -4,7 +4,7 @@ WORKDIR /app
 # ── Install all monorepo dependencies ─────────────────────────────────
 FROM base AS deps
 # bcrypt requires native compilation tools on Alpine
-RUN sed -i 's/https/http/' /etc/apk/repositories && apk add --no-cache python3 make g++
+RUN apk add --no-cache python3 make g++
 COPY package.json package-lock.json ./
 COPY apps/api/package.json ./apps/api/
 COPY packages/shared/package.json ./packages/shared/

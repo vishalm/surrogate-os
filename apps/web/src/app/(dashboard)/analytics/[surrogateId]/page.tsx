@@ -35,11 +35,11 @@ interface HeatmapPoint {
 
 // ── Constants ────────────────────────────────────────────────────────
 
-const PERIOD_OPTIONS = [
+const PERIOD_OPTIONS: { label: string; value: string; period: string }[] = [
   { label: '7d', value: '7', period: 'day' },
   { label: '30d', value: '30', period: 'day' },
   { label: '90d', value: '90', period: 'week' },
-] as const;
+];
 
 function formatBucket(dateStr: string, period: string) {
   const d = new Date(dateStr);
