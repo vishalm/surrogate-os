@@ -4,11 +4,13 @@ import { z } from 'zod';
 import { LLMService, LLM_PROVIDERS } from './llm.service.js';
 import type { TenantManager } from '../../tenancy/tenant-manager.js';
 import { ValidationError } from '../../lib/errors.js';
+import type { ServiceRegistry } from '../../lib/service-registry.js';
 import { authGuard } from '../../middleware/auth.js';
 
 interface LLMRoutesOptions {
   prisma: PrismaClient;
   tenantManager: TenantManager;
+  registry?: ServiceRegistry;
 }
 
 const generateSOPBodySchema = z.object({
@@ -21,7 +23,9 @@ const llmRoutesCallback: FastifyPluginCallback<LLMRoutesOptions> = (
   opts,
   done,
 ) => {
-  const llmService = new LLMService(opts.prisma, opts.tenantManager);
+  const llmService = opts.registry?.has('LLMService')
+    ? opts.registry.resolve<LLMService>('LLMService')
+    : new LLMService(opts.prisma, opts.tenantManager);
   const guard = authGuard(opts.prisma);
 
   // GET /providers — list available LLM providers and their config fields

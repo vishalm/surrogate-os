@@ -8,12 +8,14 @@ import {
 import { DebriefService } from './debriefs.service.js';
 import type { TenantManager } from '../../tenancy/tenant-manager.js';
 import { ValidationError } from '../../lib/errors.js';
+import type { ServiceRegistry } from '../../lib/service-registry.js';
 import { authGuard } from '../../middleware/auth.js';
 import { parsePagination } from '../../lib/pagination.js';
 
 interface DebriefRoutesOptions {
   prisma: PrismaClient;
   tenantManager: TenantManager;
+  registry?: ServiceRegistry;
 }
 
 const debriefRoutesCallback: FastifyPluginCallback<DebriefRoutesOptions> = (
@@ -21,7 +23,9 @@ const debriefRoutesCallback: FastifyPluginCallback<DebriefRoutesOptions> = (
   opts,
   done,
 ) => {
-  const debriefService = new DebriefService(opts.prisma, opts.tenantManager);
+  const debriefService = opts.registry?.has('DebriefService')
+    ? opts.registry.resolve<DebriefService>('DebriefService')
+    : new DebriefService(opts.prisma, opts.tenantManager);
   const guard = authGuard(opts.prisma);
 
   // POST /sessions — start a new session

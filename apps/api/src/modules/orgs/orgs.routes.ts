@@ -4,10 +4,12 @@ import type { PrismaClient } from '@prisma/client';
 import { updateOrgSchema, UserRole } from '@surrogate-os/shared';
 import { OrgService } from './orgs.service.js';
 import { ValidationError } from '../../lib/errors.js';
+import type { ServiceRegistry } from '../../lib/service-registry.js';
 import { authGuard, requireRole } from '../../middleware/auth.js';
 
 interface OrgRoutesOptions {
   prisma: PrismaClient;
+  registry?: ServiceRegistry;
 }
 
 const orgRoutesCallback: FastifyPluginCallback<OrgRoutesOptions> = (
@@ -15,7 +17,9 @@ const orgRoutesCallback: FastifyPluginCallback<OrgRoutesOptions> = (
   opts,
   done,
 ) => {
-  const orgService = new OrgService(opts.prisma);
+  const orgService = opts.registry?.has('OrgService')
+    ? opts.registry.resolve<OrgService>('OrgService')
+    : new OrgService(opts.prisma);
   const guard = authGuard(opts.prisma);
 
   // GET /me — get current user's org

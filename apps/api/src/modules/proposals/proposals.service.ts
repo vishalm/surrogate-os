@@ -1,4 +1,3 @@
-import Anthropic from '@anthropic-ai/sdk';
 import type { PrismaClient } from '@prisma/client';
 import { AuditAction, ProposalStatus, sopGraphSchema } from '@surrogate-os/shared';
 import type { SOPGraph } from '@surrogate-os/shared';
@@ -7,9 +6,9 @@ import type { TenantManager } from '../../tenancy/tenant-manager.js';
 import { NotFoundError, ValidationError, InternalError } from '../../lib/errors.js';
 import { buildPaginatedResponse, type PaginationParams } from '../../lib/pagination.js';
 import { createAuditEntry } from '../../lib/audit-helper.js';
+import { getLLMSettings, callLLM } from '../../lib/llm-provider.js';
 import { OrgService } from '../orgs/orgs.service.js';
 import { SOPService } from '../sops/sops.service.js';
-import { config } from '../../config/index.js';
 import { computeGraphDiff } from './graph-diff.js';
 import {
   buildSOPImprovementSystemPrompt,
@@ -76,154 +75,12 @@ function mapProposalRow(row: ProposalRow) {
   };
 }
 
-// ── LLM types (same pattern as debriefs.service.ts) ──────────────────
-
-type LLMProvider = 'anthropic' | 'openai' | 'azure-openai' | 'ollama';
-
-interface LLMSettings {
-  provider: LLMProvider;
-  model: string;
-  apiKey?: string;
-  endpoint?: string;
-  apiVersion?: string;
-  deploymentName?: string;
-  maxTokens?: number;
-  temperature?: number;
-}
-
 interface SOPImprovementResult {
   title: string;
   description: string;
   graph: unknown;
   reasoning: string;
   changes: string[];
-}
-
-// ── Provider-specific calls ──────────────────────────────────────────
-
-async function callAnthropic(
-  settings: LLMSettings,
-  systemPrompt: string,
-  userPrompt: string,
-  tool: Anthropic.Tool,
-): Promise<SOPImprovementResult> {
-  const client = new Anthropic({ apiKey: settings.apiKey });
-  const response = await client.messages.create({
-    model: settings.model,
-    max_tokens: settings.maxTokens ?? 4096,
-    system: systemPrompt,
-    tools: [tool],
-    tool_choice: { type: 'tool', name: 'improve_sop' },
-    messages: [{ role: 'user', content: userPrompt }],
-  });
-
-  const toolUseBlock = response.content.find((b) => b.type === 'tool_use');
-  if (!toolUseBlock || toolUseBlock.type !== 'tool_use') {
-    throw new InternalError('Anthropic did not return a tool use response');
-  }
-
-  return toolUseBlock.input as SOPImprovementResult;
-}
-
-async function callOpenAICompatible(
-  settings: LLMSettings,
-  systemPrompt: string,
-  userPrompt: string,
-  tool: Anthropic.Tool,
-): Promise<SOPImprovementResult> {
-  const headers: Record<string, string> = { 'Content-Type': 'application/json' };
-  const isOllama = settings.provider === 'ollama';
-
-  if (isOllama) {
-    const jsonSchemaPrompt = `${systemPrompt}\n\nIMPORTANT: You MUST respond with ONLY valid JSON (no markdown, no explanation before/after). Use this exact schema:\n${JSON.stringify(tool.input_schema, null, 2)}`;
-
-    const body = {
-      model: settings.model,
-      messages: [
-        { role: 'system', content: jsonSchemaPrompt },
-        { role: 'user', content: userPrompt },
-      ],
-      format: 'json',
-      stream: false,
-      options: { num_predict: settings.maxTokens ?? 4096, temperature: settings.temperature ?? 0.7 },
-    };
-
-    const ollamaURL = `${settings.endpoint ?? 'http://host.docker.internal:11434'}/api/chat`;
-    const response = await fetch(ollamaURL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new InternalError(`Ollama API error (${response.status}): ${errorText.substring(0, 300)}`);
-    }
-
-    const json = await response.json() as { message?: { content: string } };
-    const content = json.message?.content;
-    if (!content) throw new InternalError('Ollama returned empty response');
-
-    try {
-      return JSON.parse(content);
-    } catch {
-      throw new InternalError(`Ollama returned invalid JSON: ${content.substring(0, 200)}`);
-    }
-  }
-
-  // OpenAI / Azure OpenAI
-  let baseURL: string;
-  if (settings.provider === 'azure-openai') {
-    const apiVersion = settings.apiVersion ?? '2024-02-01';
-    baseURL = `${settings.endpoint}/openai/deployments/${settings.deploymentName}/chat/completions?api-version=${apiVersion}`;
-    headers['api-key'] = settings.apiKey!;
-  } else {
-    baseURL = 'https://api.openai.com/v1/chat/completions';
-    headers['Authorization'] = `Bearer ${settings.apiKey}`;
-  }
-
-  const openaiTool = {
-    type: 'function' as const,
-    function: {
-      name: tool.name,
-      description: tool.description ?? '',
-      parameters: tool.input_schema,
-    },
-  };
-
-  const body = {
-    model: settings.model,
-    max_tokens: settings.maxTokens ?? 4096,
-    temperature: settings.temperature ?? 0.7,
-    messages: [
-      { role: 'system', content: systemPrompt },
-      { role: 'user', content: userPrompt },
-    ],
-    tools: [openaiTool],
-    tool_choice: { type: 'function', function: { name: 'improve_sop' } },
-  };
-
-  const response = await fetch(baseURL, {
-    method: 'POST',
-    headers,
-    body: JSON.stringify(body),
-  });
-
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new InternalError(`${settings.provider} API error (${response.status}): ${errorText.substring(0, 200)}`);
-  }
-
-  const json = await response.json() as {
-    choices: { message: { tool_calls?: { function: { arguments: string } }[] } }[];
-  };
-
-  const toolCall = json.choices?.[0]?.message?.tool_calls?.[0];
-  if (!toolCall) {
-    throw new InternalError(`${settings.provider} did not return a tool call response`);
-  }
-
-  return JSON.parse(toolCall.function.arguments);
 }
 
 // ── Proposals Service ────────────────────────────────────────────────
@@ -238,33 +95,6 @@ export class ProposalService {
   ) {
     this.orgService = new OrgService(prisma);
     this.sopService = new SOPService(prisma, tenantManager);
-  }
-
-  // ── LLM settings resolution ──────────────────────────────────────
-
-  private async getLLMSettings(orgId: string): Promise<LLMSettings> {
-    const settings = await this.orgService.getRawSettings(orgId);
-
-    const provider = (settings.llmProvider as LLMProvider) ?? 'anthropic';
-    const model = (settings.llmModel as string) || config.ANTHROPIC_MODEL;
-    const apiKey = (settings.llmApiKey as string) || config.ANTHROPIC_API_KEY;
-    const endpoint = settings.llmEndpoint as string | undefined;
-    const apiVersion = settings.llmApiVersion as string | undefined;
-    const deploymentName = settings.llmDeploymentName as string | undefined;
-    const maxTokens = settings.llmMaxTokens as number | undefined;
-    const temperature = settings.llmTemperature as number | undefined;
-
-    if (provider === 'anthropic' && !apiKey) {
-      throw new InternalError('LLM service is not configured. Set your Anthropic API key in Settings.');
-    }
-    if (provider === 'ollama' && !endpoint) {
-      throw new InternalError('Ollama requires an endpoint URL. Configure it in Settings.');
-    }
-    if (provider === 'azure-openai' && (!endpoint || !deploymentName)) {
-      throw new InternalError('Azure OpenAI requires endpoint and deployment name. Configure in Settings.');
-    }
-
-    return { provider, model, apiKey, endpoint, apiVersion, deploymentName, maxTokens, temperature };
   }
 
   // ── Proposal methods ─────────────────────────────────────────────
@@ -291,7 +121,7 @@ export class ProposalService {
     const debrief = debriefRows[0];
 
     // 3. Call LLM to generate improved graph
-    const llmSettings = await this.getLLMSettings(tenant.orgId);
+    const llmSettings = await getLLMSettings(this.orgService, tenant.orgId);
     const systemPrompt = buildSOPImprovementSystemPrompt();
     const userPrompt = buildSOPImprovementPrompt({
       currentGraph,
@@ -304,18 +134,7 @@ export class ProposalService {
     });
     const tool = buildSOPImprovementTool();
 
-    let result: SOPImprovementResult;
-    try {
-      if (llmSettings.provider === 'anthropic') {
-        result = await callAnthropic(llmSettings, systemPrompt, userPrompt, tool);
-      } else {
-        result = await callOpenAICompatible(llmSettings, systemPrompt, userPrompt, tool);
-      }
-    } catch (error) {
-      if (error instanceof InternalError) throw error;
-      const errMsg = error instanceof Error ? error.message : 'Unknown LLM error';
-      throw new InternalError(`LLM call failed (${llmSettings.provider}): ${errMsg}`);
-    }
+    const result = await callLLM<SOPImprovementResult>(llmSettings, systemPrompt, userPrompt, tool);
 
     // 4. Sanitize and validate proposed graph
     const graph = result.graph as { nodes?: unknown[]; edges?: Array<{ condition?: unknown; [k: string]: unknown }> };

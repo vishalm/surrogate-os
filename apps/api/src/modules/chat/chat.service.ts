@@ -1,13 +1,11 @@
-import Anthropic from '@anthropic-ai/sdk';
 import type { PrismaClient } from '@prisma/client';
 import type { PaginatedResponse } from '@surrogate-os/shared';
 import { SOPStatus } from '@surrogate-os/shared';
 import type { TenantContext } from '../../tenancy/tenant-context.js';
 import type { TenantManager } from '../../tenancy/tenant-manager.js';
-import { NotFoundError, ForbiddenError, InternalError } from '../../lib/errors.js';
+import { NotFoundError, ForbiddenError } from '../../lib/errors.js';
 import { buildPaginatedResponse, type PaginationParams } from '../../lib/pagination.js';
-import { getLLMSettings } from '../../lib/llm-provider.js';
-import type { LLMSettings } from '../../lib/llm-provider.js';
+import { getLLMSettings, callChatLLM } from '../../lib/llm-provider.js';
 import { OrgService } from '../orgs/orgs.service.js';
 import { SurrogateService } from '../surrogates/surrogates.service.js';
 import { SOPService } from '../sops/sops.service.js';
@@ -259,7 +257,7 @@ export class ChatService {
 
     // 9. Get org LLM settings and call LLM
     const llmSettings = await getLLMSettings(this.orgService, tenant.orgId);
-    const aiResponse = await this.callChatLLM(llmSettings, systemPrompt, llmMessages);
+    const aiResponse = await callChatLLM(llmSettings, systemPrompt, llmMessages);
 
     // 10. Store AI response message
     const aiMsgRows = await this.tenantManager.executeInTenant<MessageRow[]>(
@@ -400,137 +398,4 @@ export class ChatService {
     return rows[0];
   }
 
-  private async callChatLLM(
-    settings: LLMSettings,
-    systemPrompt: string,
-    messages: { role: 'user' | 'assistant'; content: string }[],
-  ): Promise<string> {
-    try {
-      if (settings.provider === 'anthropic') {
-        return await this.callAnthropicChat(settings, systemPrompt, messages);
-      } else if (settings.provider === 'ollama') {
-        return await this.callOllamaChat(settings, systemPrompt, messages);
-      } else {
-        // OpenAI / Azure OpenAI
-        return await this.callOpenAIChat(settings, systemPrompt, messages);
-      }
-    } catch (error) {
-      if (error instanceof InternalError) throw error;
-      const errMsg = error instanceof Error ? error.message : 'Unknown LLM error';
-      throw new InternalError(`Chat LLM call failed (${settings.provider}): ${errMsg}`);
-    }
-  }
-
-  private async callAnthropicChat(
-    settings: LLMSettings,
-    systemPrompt: string,
-    messages: { role: 'user' | 'assistant'; content: string }[],
-  ): Promise<string> {
-    const client = new Anthropic({ apiKey: settings.apiKey });
-    const response = await client.messages.create({
-      model: settings.model,
-      max_tokens: settings.maxTokens ?? 4096,
-      system: systemPrompt,
-      messages: messages.map((m) => ({
-        role: m.role,
-        content: m.content,
-      })),
-    });
-
-    const textBlock = response.content.find((b) => b.type === 'text');
-    if (!textBlock || textBlock.type !== 'text') {
-      throw new InternalError('Anthropic did not return a text response');
-    }
-
-    return textBlock.text;
-  }
-
-  private async callOllamaChat(
-    settings: LLMSettings,
-    systemPrompt: string,
-    messages: { role: 'user' | 'assistant'; content: string }[],
-  ): Promise<string> {
-    const ollamaURL = `${settings.endpoint ?? 'http://host.docker.internal:11434'}/api/chat`;
-
-    const body = {
-      model: settings.model,
-      messages: [
-        { role: 'system', content: systemPrompt },
-        ...messages.map((m) => ({ role: m.role, content: m.content })),
-      ],
-      stream: false,
-      options: {
-        num_predict: settings.maxTokens ?? 4096,
-        temperature: settings.temperature ?? 0.7,
-      },
-    };
-
-    const response = await fetch(ollamaURL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new InternalError(`Ollama API error (${response.status}): ${errorText.substring(0, 300)}`);
-    }
-
-    const json = (await response.json()) as { message?: { content: string } };
-    if (!json.message?.content) {
-      throw new InternalError('Ollama returned empty response');
-    }
-
-    return json.message.content;
-  }
-
-  private async callOpenAIChat(
-    settings: LLMSettings,
-    systemPrompt: string,
-    messages: { role: 'user' | 'assistant'; content: string }[],
-  ): Promise<string> {
-    const headers: Record<string, string> = { 'Content-Type': 'application/json' };
-    let baseURL: string;
-
-    if (settings.provider === 'azure-openai') {
-      const apiVersion = settings.apiVersion ?? '2024-02-01';
-      baseURL = `${settings.endpoint}/openai/deployments/${settings.deploymentName}/chat/completions?api-version=${apiVersion}`;
-      headers['api-key'] = settings.apiKey!;
-    } else {
-      baseURL = 'https://api.openai.com/v1/chat/completions';
-      headers['Authorization'] = `Bearer ${settings.apiKey}`;
-    }
-
-    const body = {
-      model: settings.model,
-      max_tokens: settings.maxTokens ?? 4096,
-      temperature: settings.temperature ?? 0.7,
-      messages: [
-        { role: 'system', content: systemPrompt },
-        ...messages.map((m) => ({ role: m.role, content: m.content })),
-      ],
-    };
-
-    const response = await fetch(baseURL, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify(body),
-    });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new InternalError(`${settings.provider} API error (${response.status}): ${errorText.substring(0, 200)}`);
-    }
-
-    const json = (await response.json()) as {
-      choices: { message: { content: string } }[];
-    };
-
-    const content = json.choices?.[0]?.message?.content;
-    if (!content) {
-      throw new InternalError(`${settings.provider} returned empty response`);
-    }
-
-    return content;
-  }
 }

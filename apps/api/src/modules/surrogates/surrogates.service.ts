@@ -4,7 +4,7 @@ import { AuditAction, SurrogateStatus } from '@surrogate-os/shared';
 import type { TenantContext } from '../../tenancy/tenant-context.js';
 import type { TenantManager } from '../../tenancy/tenant-manager.js';
 import { NotFoundError } from '../../lib/errors.js';
-import { computeAuditHash } from '../../lib/crypto.js';
+import { createAuditEntry } from '../../lib/audit-helper.js';
 import { buildPaginatedResponse, type PaginationParams } from '../../lib/pagination.js';
 
 interface SurrogateRow {
@@ -20,10 +20,6 @@ interface SurrogateRow {
 
 interface CountRow {
   count: bigint;
-}
-
-interface AuditRow {
-  hash: string;
 }
 
 function mapSurrogateRow(row: SurrogateRow) {
@@ -66,7 +62,7 @@ export class SurrogateService {
     const surrogate = rows[0];
 
     // Create audit entry
-    await this.createAuditEntry(tenant, {
+    await createAuditEntry(this.tenantManager, tenant.orgSlug, {
       surrogateId: surrogate.id,
       userId,
       action: AuditAction.SURROGATE_CREATED,
@@ -162,7 +158,7 @@ export class SurrogateService {
     );
 
     // Create audit entry
-    await this.createAuditEntry(tenant, {
+    await createAuditEntry(this.tenantManager, tenant.orgSlug, {
       surrogateId: id,
       userId,
       action: AuditAction.SURROGATE_UPDATED,
@@ -184,7 +180,7 @@ export class SurrogateService {
     );
 
     // Create audit entry
-    await this.createAuditEntry(tenant, {
+    await createAuditEntry(this.tenantManager, tenant.orgSlug, {
       surrogateId: id,
       userId,
       action: AuditAction.SURROGATE_DELETED,
@@ -194,39 +190,4 @@ export class SurrogateService {
     return mapSurrogateRow(rows[0]);
   }
 
-  private async createAuditEntry(
-    tenant: TenantContext,
-    input: {
-      surrogateId: string | null;
-      userId: string;
-      action: AuditAction;
-      details: Record<string, unknown>;
-    },
-  ): Promise<void> {
-    const now = new Date();
-
-    // Get the last audit entry hash
-    const lastEntries = await this.tenantManager.executeInTenant<AuditRow[]>(
-      tenant.orgSlug,
-      `SELECT hash FROM audit_entries ORDER BY created_at DESC LIMIT 1`,
-    );
-
-    const previousHash = lastEntries.length > 0 ? lastEntries[0].hash : null;
-    const hash = computeAuditHash(previousHash, input.action, now, input.surrogateId);
-
-    await this.tenantManager.executeInTenant(
-      tenant.orgSlug,
-      `INSERT INTO audit_entries (surrogate_id, user_id, action, details, previous_hash, hash, created_at)
-       VALUES ($1::uuid, $2::uuid, $3, $4::jsonb, $5, $6, $7)`,
-      [
-        input.surrogateId,
-        input.userId,
-        input.action,
-        JSON.stringify(input.details),
-        previousHash,
-        hash,
-        now,
-      ],
-    );
-  }
 }

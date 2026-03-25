@@ -24,8 +24,12 @@ import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 import { PrismaClient } from '@prisma/client';
 import { errorHandler } from './lib/errors.js';
+import { createRegistry } from './lib/service-registry.js';
 import { authPlugin } from './middleware/auth.js';
 import { TenantManager } from './tenancy/tenant-manager.js';
+import { OrgService } from './modules/orgs/orgs.service.js';
+import { DebriefService } from './modules/debriefs/debriefs.service.js';
+import { LLMService } from './modules/llm/llm.service.js';
 import { authRoutes } from './modules/auth/auth.routes.js';
 import { orgRoutes } from './modules/orgs/orgs.routes.js';
 import { surrogateRoutes } from './modules/surrogates/surrogates.routes.js';
@@ -53,6 +57,7 @@ import { analyticsRoutes } from './modules/analytics/analytics.routes.js';
 import { activityRoutes } from './modules/activity/activity.routes.js';
 import { chatRoutes } from './modules/chat/chat.routes.js';
 import { exportRoutes } from './modules/export/export.routes.js';
+import { registerEventHandlers } from './lib/event-handlers.js';
 
 export async function buildApp(): Promise<FastifyInstance> {
   const prisma = new PrismaClient({
@@ -60,6 +65,15 @@ export async function buildApp(): Promise<FastifyInstance> {
   });
 
   const tenantManager = new TenantManager(prisma);
+
+  // Create service registry and register shared services
+  const registry = createRegistry(prisma, tenantManager);
+  registry.register('OrgService', new OrgService(prisma));
+  registry.register('DebriefService', new DebriefService(prisma, tenantManager));
+  registry.register('LLMService', new LLMService(prisma, tenantManager));
+
+  // Register cross-module event handlers
+  registerEventHandlers(prisma, tenantManager);
 
   const app = Fastify({
     logger: {
@@ -157,6 +171,7 @@ export async function buildApp(): Promise<FastifyInstance> {
       await apiV1.register(orgRoutes, {
         prefix: '/orgs',
         prisma,
+        registry,
       });
       await apiV1.register(surrogateRoutes, {
         prefix: '/surrogates',
@@ -182,6 +197,7 @@ export async function buildApp(): Promise<FastifyInstance> {
         prefix: '/llm',
         prisma,
         tenantManager,
+        registry,
       });
       await apiV1.register(orgDNARoutes, {
         prefix: '/org-dna',
@@ -197,6 +213,7 @@ export async function buildApp(): Promise<FastifyInstance> {
         prefix: '/debriefs',
         prisma,
         tenantManager,
+        registry,
       });
       await apiV1.register(proposalRoutes, {
         prefix: '/proposals',
