@@ -6,7 +6,7 @@ description: "Kill switches, immutable constraints, authorization levels, and th
 
 # Safety Architecture
 
-Ethics is an **architectural constraint**, not an afterthought. Safety is not a feature — it is the foundation on which every other feature is built.
+Ethics is an **architectural constraint**, not an afterthought. Safety is not a feature it is the foundation on which every other feature is built.
 
 ---
 
@@ -15,7 +15,7 @@ Ethics is an **architectural constraint**, not an afterthought. Safety is not a 
 These are enforced in code and **cannot be overridden** by any config, prompt, or API call:
 
 ```typescript
-// ethics-layer.ts — architectural constants
+// ethics-layer.ts architectural constants
 const IMMUTABLE_CONSTRAINTS = {
   AI_IDENTITY_DISCLOSURE:          'ALWAYS',
   HUMAN_OVERRIDE_POSSIBLE:         'ALWAYS',
@@ -47,8 +47,8 @@ No commercial interest, no technical constraint, and no emergency situation will
 
 ## Five Immutable Principles
 
-### 1. Human Supremacy — Always
-No surrogate overrides a human decision. Every action above a configurable risk threshold requires human authorization — and that threshold **cannot be set to zero**.
+### 1. Human Supremacy Always
+No surrogate overrides a human decision. Every action above a configurable risk threshold requires human authorization and that threshold **cannot be set to zero**.
 
 ### 2. Radical Transparency
 The surrogate always identifies as AI. Every decision is logged with full rationale. Audit logs are immutable and cryptographically signed.
@@ -99,9 +99,9 @@ The surrogate must know when it doesn't know. Over-confident surrogates in clini
 
 **Mitigation strategies:**
 
-1. **Asymmetric calibration** — Deliberately bias toward escalation. "When in doubt, escalate" is hardcoded.
-2. **Ensemble confidence scoring** — Don't rely on self-reported confidence. Compute from: retrieval similarity, SOP alignment, precedent match, reasoning chain consistency.
-3. **Adversarial testing** — Red team every persona for cases where it over-confidently takes wrong action.
+1. **Asymmetric calibration** Deliberately bias toward escalation. "When in doubt, escalate" is hardcoded.
+2. **Ensemble confidence scoring** Don't rely on self-reported confidence. Compute from: retrieval similarity, SOP alignment, precedent match, reasoning chain consistency.
+3. **Adversarial testing** Red team every persona for cases where it over-confidently takes wrong action.
 
 ---
 
@@ -127,10 +127,10 @@ interface SurrogateInterface {
 ### Physical Action Plans
 
 Every physical action plan is evaluated for:
-- **Reversibility** — Can this be undone?
-- **Authorization** — Does a human need to approve?
-- **Safety simulation** — Runs before execution
-- **Emergency stop** — Hardware-level, bypasses software
+- **Reversibility** Can this be undone?
+- **Authorization** Does a human need to approve?
+- **Safety simulation** Runs before execution
+- **Emergency stop** Hardware-level, bypasses software
 
 ```typescript
 interface PhysicalActionPlan {

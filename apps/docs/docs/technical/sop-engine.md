@@ -1,7 +1,7 @@
 ---
 sidebar_position: 3
 title: "SOP Engine"
-description: "The structured operational graph execution system — how SOPs are generated, validated, and traversed at runtime."
+description: "The structured operational graph execution system how SOPs are generated, validated, and traversed at runtime."
 ---
 
 # SOP Engine
@@ -154,7 +154,7 @@ graph LR
     style ID fill:#059669,color:#fff,stroke:none
 ```
 
-Every action is logged with context, compared against SOP-specified outcomes, and analyzed for drift. Systematic deviations that produce better outcomes become SOP update candidates — reviewed and approved by humans before implementation.
+Every action is logged with context, compared against SOP-specified outcomes, and analyzed for drift. Systematic deviations that produce better outcomes become SOP update candidates reviewed and approved by humans before implementation.
 
 ### Shift Debrief System
 

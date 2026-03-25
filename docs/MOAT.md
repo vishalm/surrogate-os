@@ -1,5 +1,5 @@
 # MOAT.md
-## The Defensibility Architecture — Why This Can't Be Easily Copied
+## The Defensibility Architecture Why This Can't Be Easily Copied
 
 ---
 
@@ -14,17 +14,17 @@
 It's the right question. And the answer is not "because the technology is hard."
 The technology is not what makes this defensible.
 
-The answer is a layered architecture of moats — each one independently significant,
+The answer is a layered architecture of moats each one independently significant,
 collectively making the platform's position nearly impossible to replicate even with
 unlimited capital.
 
 ---
 
-## Moat 1: The SOP Corpus — The Irreplaceable Data Asset
+## Moat 1: The SOP Corpus The Irreplaceable Data Asset
 
 The most underappreciated moat in Surrogate OS is not the AI. It is the **SOP corpus**.
 
-Every deployment generates data about what professional decisions look like in practice —
+Every deployment generates data about what professional decisions look like in practice
 anonymized, federated, continuously improving. After 12 months of deployment across 500
 hospital networks:
 
@@ -48,12 +48,12 @@ YEAR 5:  50,000 deployments → corpus has no peer          →  moat is insurmo
 
 A competitor starting in Year 3 faces a corpus gap of 2 years of federated learning
 across thousands of deployments. They cannot buy their way out of that gap.
-They can only close it by deploying — which requires trust — which requires the corpus
+They can only close it by deploying which requires trust which requires the corpus
 to already be good. The circle is closed against them.
 
 ---
 
-## Moat 2: Regulatory Certification — The Permission Moat
+## Moat 2: Regulatory Certification The Permission Moat
 
 The second moat is not about technology at all. It is about **permission to operate**
 in regulated environments.
@@ -94,7 +94,7 @@ The approval timelines in regulated industries are measured in years, not months
 
 ---
 
-## Moat 3: Institutional Memory — The Switching Cost Moat
+## Moat 3: Institutional Memory The Switching Cost Moat
 
 The third moat is inside each customer account: **institutional memory**.
 
@@ -115,7 +115,7 @@ new system could reconstruct without years of redeployment.
 **This is the same moat that makes Epic so dominant in hospital EHR.**
 Once the data and the workflows are in, the switching cost is prohibitive.
 The difference: Epic's moat is about data storage. Our moat is about operational
-knowledge and behavioral calibration — which is even harder to transfer.
+knowledge and behavioral calibration which is even harder to transfer.
 
 **Quantifying the switching cost:**
 
@@ -131,7 +131,7 @@ These numbers make retention essentially guaranteed for engaged deployments.
 
 ---
 
-## Moat 4: The Trust Infrastructure — The Accountability Moat
+## Moat 4: The Trust Infrastructure The Accountability Moat
 
 The fourth moat is the hardest to copy and the least obvious to casual observers.
 
@@ -153,18 +153,18 @@ ANSWER:   "The decision was made by the surrogate acting within SOP_CLINICAL_v2.
            Accountability chain: [Organization] → [Certifying Body] → [Platform]"
 ```
 
-This level of accountability documentation — real-time, immutable, explainable —
+This level of accountability documentation real-time, immutable, explainable
 is what allows a hospital's legal team to approve deployment. It is what allows an
 insurance company to cover the deployment. It is what allows a regulator to certify it.
 
 **No competitor can copy this by writing code.** This accountability architecture is the
-result of years of engagement with regulated industry stakeholders — understanding
+result of years of engagement with regulated industry stakeholders understanding
 exactly what they need to see, in exactly what format, to give deployment approval.
 It is embodied in relationships and compliance expertise, not just in software.
 
 ---
 
-## Moat 5: The Persona Library — The Content Moat
+## Moat 5: The Persona Library The Content Moat
 
 The fifth moat is the breadth and depth of the certified persona library.
 
@@ -180,7 +180,7 @@ Each persona in the library represents 6–12 months of domain expert engagement
 
 **By Year 3, Surrogate OS has 100+ certified personas across 12 verticals.**
 A competitor starting from zero faces a 300+ person-year effort to replicate
-the library — even before the corpus and certification moats kick in.
+the library even before the corpus and certification moats kick in.
 
 And the library itself compounds: each new persona added makes the platform more
 attractive to adjacent customers, which generates more deployment data,
@@ -188,12 +188,12 @@ which improves the corpus, which makes the next persona easier to certify.
 
 ---
 
-## Moat 6: The Humanoid Bridge — The Category Moat
+## Moat 6: The Humanoid Bridge The Category Moat
 
 The sixth moat is the one that is furthest out but potentially largest.
 
-The cognitive layer that runs in Surrogate OS — the identity core, the SOP engine,
-the task translation engine — is exactly what the humanoid robotics industry needs
+The cognitive layer that runs in Surrogate OS the identity core, the SOP engine,
+the task translation engine is exactly what the humanoid robotics industry needs
 and currently does not have.
 
 Figure, Boston Dynamics, Tesla, Apptronik: these companies have built extraordinary
@@ -202,12 +202,12 @@ that can walk and pick things up. They are not selling robots that know they are
 clinical aide in an NHS Trust and behave accordingly.
 
 **Surrogate OS is positioned to become the standard cognitive layer for professional
-humanoid deployment** — not by acquiring robotics companies, but by becoming the
+humanoid deployment** not by acquiring robotics companies, but by becoming the
 software partner that every humanoid manufacturer needs to enter the professional
 services market.
 
 When Figure AI wants to sell robots to hospital networks, they need a certified clinical
-cognitive layer. When that market develops — and it will — the company with the certified
+cognitive layer. When that market develops and it will the company with the certified
 clinical SOP corpus, the NHS governance relationships, and the deployment track record
 is the only viable partner.
 
@@ -218,7 +218,7 @@ to displace once the standards are established.
 
 ---
 
-## The Moat Stack — Why This Is Compound Defensibility
+## The Moat Stack Why This Is Compound Defensibility
 
 Most businesses have one moat. The best businesses have moats that reinforce each other.
 
@@ -244,32 +244,32 @@ defense, not a series of individual barriers.
 
 ---
 
-## The OpenAI Question — Answered Properly
+## The OpenAI Question Answered Properly
 
 *"OpenAI could build this in six months."*
 
 OpenAI could build the SOP generator. They could build the persona interface. They could
 build a version of the identity layer.
 
-What they cannot do in six months — or in three years:
+What they cannot do in six months or in three years:
 
-1. **Accumulate the deployment corpus** — Requires being in the field, in regulated environments,
+1. **Accumulate the deployment corpus** Requires being in the field, in regulated environments,
    with real organizations. OpenAI sells an API. They do not run hospital deployments.
 
-2. **Build the regulatory relationships** — OpenAI's relationship with the NHS, FCA, and IAEA
+2. **Build the regulatory relationships** OpenAI's relationship with the NHS, FCA, and IAEA
    is zero. Building these takes time and organizational commitment that a horizontal API
    company cannot make to every vertical simultaneously.
 
-3. **Develop the domain expertise** — The clinical surrogate requires clinical governance
+3. **Develop the domain expertise** The clinical surrogate requires clinical governance
    expertise. The legal surrogate requires regulatory compliance expertise. OpenAI is
    a technology company. These are domain companies that happen to use advanced technology.
 
-4. **Earn the institutional trust** — The hospital networks, law firms, and financial
+4. **Earn the institutional trust** The hospital networks, law firms, and financial
    institutions that make deployment decisions are not choosing on technology merit alone.
    They are choosing on trust, track record, and regulatory standing. These cannot be
    manufactured.
 
-5. **Enter the humanoid market credibly** — OpenAI has no humanoid hardware relationships,
+5. **Enter the humanoid market credibly** OpenAI has no humanoid hardware relationships,
    no physical deployment track record, and no motivation to build the highly specific
    certified SOP layer that professional humanoid deployment requires.
 
@@ -296,7 +296,7 @@ relationships before they generate revenue.
 The institutional memory moat only deepens if your product is good enough that customers
 stay and expand. That requires continuous product investment and genuine customer success.
 
-**Moats are not things you have. They are things you build — one deployment, one certification,
+**Moats are not things you have. They are things you build one deployment, one certification,
 one relationship, one SOP at a time.**
 
 The founder who commits to building them systematically, from day one, will have a position

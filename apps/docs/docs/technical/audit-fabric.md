@@ -1,7 +1,7 @@
 ---
 sidebar_position: 4
 title: "Audit Fabric"
-description: "Immutable, cryptographically-signed audit trail — the source of truth for every surrogate decision."
+description: "Immutable, cryptographically-signed audit trail the source of truth for every surrogate decision."
 ---
 
 # Audit Fabric
@@ -72,9 +72,9 @@ graph LR
     style N4 fill:#6b7280,color:#fff,stroke:none
 ```
 
-If **Entry N** is modified, its hash changes — which invalidates Entry N+1, which invalidates Entry N+2, and so on. Tampering is detected immediately on any verification check.
+If **Entry N** is modified, its hash changes which invalidates Entry N+1, which invalidates Entry N+2, and so on. Tampering is detected immediately on any verification check.
 
-This provides **mathematical proof** that the audit trail has not been altered — the technical foundation for the regulatory accountability claim.
+This provides **mathematical proof** that the audit trail has not been altered the technical foundation for the regulatory accountability claim.
 
 ---
 
@@ -88,7 +88,7 @@ This provides **mathematical proof** that the audit trail has not been altered �
   "action": {
     "type": "clinical_assessment",
     "sopReference": "SOP-010",
-    "output": "ESI Level 2 — Immediate triage required",
+    "output": "ESI Level 2 Immediate triage required",
     "confidence": 0.991
   },
   "decision": {
@@ -128,11 +128,11 @@ export function computeAuditHash(
 ```
 
 Key properties:
-- **Append-only** — Audit entries are never modified or deleted
-- **Cryptographic chain** — Each entry references the previous hash
-- **Tamper detection** — Any modification invalidates all downstream entries
-- **Per-tenant storage** — Audit entries scoped to tenant schema
-- **7-year retention** — HIPAA/compliance requirement
+- **Append-only** Audit entries are never modified or deleted
+- **Cryptographic chain** Each entry references the previous hash
+- **Tamper detection** Any modification invalidates all downstream entries
+- **Per-tenant storage** Audit entries scoped to tenant schema
+- **7-year retention** HIPAA/compliance requirement
 
 ---
 

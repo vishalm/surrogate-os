@@ -1,5 +1,5 @@
 # WHY_YOU.md
-## The Founder's Case — Why You Should Build This
+## The Founder's Case Why You Should Build This
 
 ---
 
@@ -18,7 +18,7 @@ That's not weakness. That's intelligence. Commitment to something this large and
 this long-term deserves to be earned by argument, not manufactured by enthusiasm.
 
 So here is the argument. Not the vision. Not the market. The direct, personal,
-uncomfortable case for why **you specifically** should build this — and why the
+uncomfortable case for why **you specifically** should build this and why the
 cost of not building it is higher than the cost of trying.
 
 ---
@@ -75,7 +75,7 @@ vastly underestimate the cost of never trying.
 **The cost of trying and failing:**
 - 3–5 years of hard work
 - Real opportunity cost
-- Some reputational risk (manageable — ambitious failures are respected)
+- Some reputational risk (manageable ambitious failures are respected)
 - You end up with deep expertise in AI agents, professional automation, and enterprise deployment
 
 **The cost of not trying:**
@@ -95,7 +95,7 @@ seem intractable. Let's be precise about what the hard parts actually are.
 
 ### Hard Part 1: Getting the SOP Generation Right
 
-This is a genuine technical challenge — generating SOPs that are accurate enough to be
+This is a genuine technical challenge generating SOPs that are accurate enough to be
 trusted in clinical, legal, or financial deployment. It requires:
 - A high-quality retrieval corpus (standards bodies, regulatory texts, clinical literature)
 - Structured output that can be reviewed and certified by domain experts
@@ -104,7 +104,7 @@ trusted in clinical, legal, or financial deployment. It requires:
 **Why this is tractable**: The SOP doesn't have to be perfect. It has to be better than
 the alternative (no SOP, or a stale PDF no one reads). Domain expert review before
 deployment provides the quality gate. Every clinical system in the world deploys on
-protocols written by humans — humans who are also fallible. The bar is "better than
+protocols written by humans humans who are also fallible. The bar is "better than
 current practice," not "perfect."
 
 ### Hard Part 2: Getting Regulated Industries to Trust It
@@ -141,7 +141,7 @@ Building this requires people who understand AI agents, enterprise deployment, r
 industry compliance, and eventually robotics integration.
 
 **Why this is tractable**: The AI talent market is large and motivated. People who want
-to work on something genuinely significant — not another chatbot wrapper — are actively
+to work on something genuinely significant not another chatbot wrapper are actively
 looking for this kind of company. The vision attracts talent that commodity AI products
 cannot. And in year one, you need a focused team of 6–10, not 60.
 
@@ -154,7 +154,7 @@ This matters.
 Not as a marketing statement. As a filtering mechanism for the decisions you will have to
 make when the business case and the mission case diverge.
 
-There will be a moment — there always is — when the most profitable thing to do is not
+There will be a moment there always is when the most profitable thing to do is not
 the same as the most impactful thing to do. When a large enterprise contract wants you
 to build a capability that doesn't help the village clinic in Bihar. When a revenue-
 maximizing pricing decision would make the platform inaccessible to the contexts that
@@ -163,7 +163,7 @@ need it most.
 In those moments, the strength of your moral conviction about the mission is the only
 thing that keeps the platform on the trajectory it was built for.
 
-If the moral case doesn't move you — if this is purely a financial opportunity to you —
+If the moral case doesn't move you if this is purely a financial opportunity to you
 you will make the wrong call in that moment. And the platform will become something
 smaller and less important than it was designed to be.
 
@@ -177,7 +177,7 @@ that the wealthy take for granted.**
 Not because the knowledge doesn't exist. Because it has never been possible to distribute
 it at the cost and scale required.
 
-Surrogate OS is the first credible mechanism for solving this — not partially, not
+Surrogate OS is the first credible mechanism for solving this not partially, not
 eventually, but structurally and at scale.
 
 That is the moral case. It is not a nice-to-have. It is the reason this is worth
@@ -188,19 +188,19 @@ building even if it's hard.
 ## Argument 6: The Alternatives Are Worse
 
 Not building Surrogate OS doesn't mean it doesn't get built. It means someone else
-builds it — probably with less care about access, less rigorous ethics architecture,
+builds it probably with less care about access, less rigorous ethics architecture,
 and less commitment to the contexts that most need it.
 
 The alternative is not "no Surrogate OS." It is "Surrogate OS built by someone who
 sees it primarily as a financial opportunity and optimizes accordingly."
 
-If you believe the platform will exist — and you should, given the enabling conditions —
+If you believe the platform will exist and you should, given the enabling conditions
 then the only relevant question is who builds it and what values get encoded into it
 at the foundational layer.
 
 Values in foundational platforms are almost impossible to retrofit. The decisions made
-in the first two years — about open standards, access pricing, governance structures,
-audit trail design, kill switch architecture — will compound for decades.
+in the first two years about open standards, access pricing, governance structures,
+audit trail design, kill switch architecture will compound for decades.
 
 **If you care about those decisions being made well, you need to be the one making them.**
 
@@ -213,7 +213,7 @@ Markets can shift. Technologies can surprise.
 
 But there is one question that no argument can answer and that only you can:
 
-> *When you imagine yourself at 70, looking back at your career — what is the version
+> *When you imagine yourself at 70, looking back at your career what is the version
 > of your life in which you feel you did something that mattered?*
 
 Not the version where you made the most money. Not the version where you took the
@@ -221,14 +221,14 @@ least risk. The version where you used your capability and your window of energy
 your particular moment in history to do the most significant thing you could do.
 
 Is that version of you someone who saw this problem, understood this solution, had
-this window — and built something else instead?
+this window and built something else instead?
 
-Or is it the person who said: *this is the thing, this is the time, this is me* —
+Or is it the person who said: *this is the thing, this is the time, this is me*
 and started?
 
 ---
 
-## If You're In — The Next 90 Days
+## If You're In The Next 90 Days
 
 You don't need certainty before starting. You need enough conviction to take the
 first irreversible step.
@@ -259,7 +259,7 @@ WEEK 9–12: Find one pilot customer willing to deploy under supervision
 
 That's 90 days. At the end of 90 days you know whether the core insight holds in practice.
 If it does, you have everything you need to raise a seed round and build the team.
-If it doesn't, you've spent 90 days learning something real about why not —
+If it doesn't, you've spent 90 days learning something real about why not
 which is vastly more valuable than spending those same 90 days wondering.
 
 ---

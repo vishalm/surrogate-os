@@ -1,10 +1,10 @@
 ---
 sidebar_position: 2
-title: "Phase 2 — Persona Engine"
+title: "Phase 2 Persona Engine"
 description: "Org DNA ingestion, institutional memory, shift debrief engine, and SOP self-update proposals."
 ---
 
-# Phase 2 — Persona Engine
+# Phase 2 Persona Engine
 
 Phase 2 adds learning capabilities: organizations can ingest their institutional knowledge, surrogates build memory over time, sessions are debriefed for insights, and SOPs evolve through a proposal workflow.
 
@@ -168,4 +168,4 @@ Review requires OWNER or ADMIN role via `PATCH /proposals/:id/review`.
 
 ---
 
-*Previous: [Phase 1 — Studio](/docs/features/phase1-studio) | Next: [Phase 3 — Fleet](/docs/features/phase3-fleet)*
+*Previous: [Phase 1 Studio](/docs/features/phase1-studio) | Next: [Phase 3 Fleet](/docs/features/phase3-fleet)*

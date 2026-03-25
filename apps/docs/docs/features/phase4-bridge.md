@@ -1,10 +1,10 @@
 ---
 sidebar_position: 4
-title: "Phase 4 — Bridge"
+title: "Phase 4 Bridge"
 description: "Humanoid SDK, federated learning, compliance engine, real-time execution, and platform hardening."
 ---
 
-# Phase 4 — Bridge
+# Phase 4 Bridge
 
 Phase 4 extends Surrogate OS beyond software agents: a humanoid SDK for physical device integration, federated learning for cross-org intelligence, a compliance certification engine, real-time SOP execution, and platform hardening for production use.
 
@@ -239,4 +239,4 @@ In-app notification system:
 
 ---
 
-*Previous: [Phase 3 — Fleet](/docs/features/phase3-fleet) | [Architecture Overview](/docs/architecture/overview)*
+*Previous: [Phase 3 Fleet](/docs/features/phase3-fleet) | [Architecture Overview](/docs/architecture/overview)*

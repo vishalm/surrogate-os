@@ -8,9 +8,9 @@ description: "Surrogate OS is a professional identity engine that synthesizes co
 
 <span className="badge--alpha">v2.0-alpha</span>
 
-**Surrogate OS is a professional identity engine.** You give it a role. It synthesizes a complete professional identity — SOPs, knowledge base, behavioral model, compliance layer — and deploys it as an operational AI agent.
+**Surrogate OS is a professional identity engine.** You give it a role. It synthesizes a complete professional identity SOPs, knowledge base, behavioral model, compliance layer and deploys it as an operational AI agent.
 
-The same identity can run as a chat agent, voice assistant, video avatar, autonomous background agent, or — on roadmap — a **humanoid robot**.
+The same identity can run as a chat agent, voice assistant, video avatar, autonomous background agent, or on roadmap a **humanoid robot**.
 
 ```
 INPUT:  "Senior ER Nurse, Royal London Hospital, NHS UK"
@@ -32,7 +32,7 @@ OUTPUT: A fully-operational clinical AI with 147 auto-generated SOPs,
 
 ## The Defining Difference
 
-When a hospital deploys Surrogate OS as a clinical aide, the system doesn't *assist* with nursing tasks — it *operates as a nurse*, with all the procedural rigor, domain knowledge, communication protocols, and escalation judgment that entails.
+When a hospital deploys Surrogate OS as a clinical aide, the system doesn't *assist* with nursing tasks it *operates as a nurse*, with all the procedural rigor, domain knowledge, communication protocols, and escalation judgment that entails.
 
 **The surrogate is not a tool the nurse uses. The surrogate is the nurse when the nurse cannot be there.**
 
@@ -42,23 +42,23 @@ When a hospital deploys Surrogate OS as a clinical aide, the system doesn't *ass
 
 ```mermaid
 graph TB
-  subgraph L4["LAYER 4 — INTERFACES"]
+  subgraph L4["LAYER 4 INTERFACES"]
     direction LR
     L4a["Chat"] ~~~ L4b["Voice"] ~~~ L4c["Avatar"] ~~~ L4d["API"] ~~~ L4e["Humanoid SDK"] ~~~ L4f["IoT Mesh"]
   end
-  subgraph L3["LAYER 3 — SOP ENGINE"]
+  subgraph L3["LAYER 3 SOP ENGINE"]
     direction LR
     L3a["Workflow Gen"] ~~~ L3b["Escalation"] ~~~ L3c["Audit Trail"] ~~~ L3d["Compliance"]
   end
-  subgraph L2["LAYER 2 — IDENTITY CORE"]
+  subgraph L2["LAYER 2 IDENTITY CORE"]
     direction LR
     L2a["Knowledge RAG"] ~~~ L2b["Behavior Model"] ~~~ L2c["Memory"] ~~~ L2d["Goal Stack"]
   end
-  subgraph L1["LAYER 1 — INPUT PROCESSING"]
+  subgraph L1["LAYER 1 INPUT PROCESSING"]
     direction LR
     L1a["Role Parser"] ~~~ L1b["Org DNA"] ~~~ L1c["Jurisdiction"] ~~~ L1d["Personality"]
   end
-  subgraph L0["LAYER 0 — LEARNING INFRASTRUCTURE"]
+  subgraph L0["LAYER 0 LEARNING INFRASTRUCTURE"]
     direction LR
     L0a["Shift Debrief"] ~~~ L0b["SOP Update"] ~~~ L0c["Federated Learning"]
   end
@@ -106,6 +106,6 @@ The same professional identity can be instantiated across six modes:
 
 ## Next Steps
 
-- **[Quick Start](/docs/getting-started/quick-start)** — Generate your first surrogate
-- **[Vision & Thesis](/docs/vision/thesis)** — Understand the central thesis
-- **[Architecture](/docs/technical/architecture)** — Deep dive into the technical stack
+- **[Quick Start](/docs/getting-started/quick-start)** Generate your first surrogate
+- **[Vision & Thesis](/docs/vision/thesis)** Understand the central thesis
+- **[Architecture](/docs/technical/architecture)** Deep dive into the technical stack

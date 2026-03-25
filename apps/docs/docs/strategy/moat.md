@@ -1,7 +1,7 @@
 ---
 sidebar_position: 2
 title: "Defensibility Architecture"
-description: "Six compound moats — SOP corpus, regulatory certification, institutional memory, trust infrastructure, persona library, and the humanoid bridge."
+description: "Six compound moats SOP corpus, regulatory certification, institutional memory, trust infrastructure, persona library, and the humanoid bridge."
 ---
 
 # Defensibility Architecture
@@ -14,7 +14,7 @@ description: "Six compound moats — SOP corpus, regulatory certification, insti
 
 *"OpenAI could build this in six months. Why won't they?"*
 
-The technology is not what makes this defensible. The answer is a layered architecture of **six compound moats** — each independently significant, collectively making the position nearly impossible to replicate.
+The technology is not what makes this defensible. The answer is a layered architecture of **six compound moats** each independently significant, collectively making the position nearly impossible to replicate.
 
 ---
 
@@ -53,7 +53,7 @@ A competitor starting in Year 3 faces a 2-year corpus gap. They cannot buy their
 
 ## Moat 3: Institutional Memory
 
-**The switching cost moat.** Every month a surrogate operates, it learns org-specific knowledge not in any manual — team communication preferences, vendor nuances, regulatory interpretations, resolved edge cases.
+**The switching cost moat.** Every month a surrogate operates, it learns org-specific knowledge not in any manual team communication preferences, vendor nuances, regulatory interpretations, resolved edge cases.
 
 | Duration | Switching Cost |
 |----------|---------------|
@@ -61,7 +61,7 @@ A competitor starting in Year 3 faces a 2-year corpus gap. They cannot buy their
 | Year 3 | $1.8M |
 | Year 5 | $6.4M+ |
 
-This is the same dynamic that makes Epic dominant in hospital EHR — but our moat is about operational knowledge, which is even harder to transfer.
+This is the same dynamic that makes Epic dominant in hospital EHR but our moat is about operational knowledge, which is even harder to transfer.
 
 ---
 
@@ -77,7 +77,7 @@ Our answer is architectural: immutable audit trail, documented rationale, certif
 
 ## Moat 5: The Persona Library
 
-**The content moat.** Each persona requires 6-12 months of domain expert engagement — clinical governance review, standards analysis, pilot deployment, certification.
+**The content moat.** Each persona requires 6-12 months of domain expert engagement clinical governance review, standards analysis, pilot deployment, certification.
 
 By Year 3: 100+ certified personas across 12 verticals = **300+ person-years** of domain expert engagement. A competitor starts from zero.
 
@@ -85,7 +85,7 @@ By Year 3: 100+ certified personas across 12 verticals = **300+ person-years** o
 
 ## Moat 6: The Humanoid Bridge
 
-**The category moat.** Figure, Boston Dynamics, Tesla, Apptronik — they have extraordinary physical platforms. They have **no professional identity layer**.
+**The category moat.** Figure, Boston Dynamics, Tesla, Apptronik they have extraordinary physical platforms. They have **no professional identity layer**.
 
 When Figure AI wants to sell robots to hospital networks, they need a certified clinical cognitive layer. The company with the certified SOP corpus and NHS governance relationships is the only viable partner.
 
@@ -118,15 +118,15 @@ Each moat makes the others stronger. **A competitor must defeat all six simultan
 
 ---
 
-## The OpenAI Question — Answered
+## The OpenAI Question Answered
 
 OpenAI could build the SOP generator and the persona interface. What they **cannot** do:
 
-1. **Accumulate the deployment corpus** — They sell an API, not hospital deployments
-2. **Build the regulatory relationships** — Zero relationship with NHS, FCA, IAEA
-3. **Develop domain expertise** — They are a technology company, not a domain company
-4. **Earn institutional trust** — Cannot be manufactured
-5. **Enter humanoid market credibly** — No hardware relationships or physical deployment track record
+1. **Accumulate the deployment corpus** They sell an API, not hospital deployments
+2. **Build the regulatory relationships** Zero relationship with NHS, FCA, IAEA
+3. **Develop domain expertise** They are a technology company, not a domain company
+4. **Earn institutional trust** Cannot be manufactured
+5. **Enter humanoid market credibly** No hardware relationships or physical deployment track record
 
 **We are not racing OpenAI. We are building what OpenAI makes possible.**
 

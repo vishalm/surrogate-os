@@ -35,27 +35,27 @@ The platform is organized into five conceptual layers, each with distinct respon
 
 ```mermaid
 graph TB
-    subgraph L5["Layer 5 — Interface"]
+    subgraph L5["Layer 5 Interface"]
         direction LR
         Web["Web Dashboard"] & API["REST API"] & Swagger["Swagger UI"]
     end
 
-    subgraph L4["Layer 4 — Learning"]
+    subgraph L4["Layer 4 Learning"]
         direction LR
         Debrief["Shift Debrief"] & Proposals["SOP Proposals"] & Memory["Institutional Memory"] & Federation["Federated Learning"]
     end
 
-    subgraph L3["Layer 3 — Execution"]
+    subgraph L3["Layer 3 Execution"]
         direction LR
         Fleet["Fleet Mgmt"] & Handoff["Handoff Protocol"] & Exec["SOP Execution Engine"] & Humanoid["Humanoid SDK"]
     end
 
-    subgraph L2["Layer 2 — SOP"]
+    subgraph L2["Layer 2 SOP"]
         direction LR
         SOPGen["SOP Generation"] & SOPGraph["SOP Graph Engine"] & Compliance["Compliance Engine"] & Marketplace["SOP Marketplace"]
     end
 
-    subgraph L1["Layer 1 — Identity"]
+    subgraph L1["Layer 1 Identity"]
         direction LR
         Auth["Auth + RBAC"] & Tenant["Multi-Tenancy"] & Surrogate["Surrogate Core"] & OrgDNA["Org DNA"] & Persona["Persona Library"]
     end
@@ -133,9 +133,9 @@ See [Multi-Tenancy Deep Dive](/docs/architecture/multi-tenancy) for implementati
 graph LR
     App["Fastify API"] --> SDK["OpenTelemetry SDK"]
     SDK --> OTEL["OTEL Collector"]
-    OTEL --> Tempo["Tempo — Traces"]
-    OTEL --> Prom["Prometheus — Metrics"]
-    OTEL --> Loki["Loki — Logs"]
+    OTEL --> Tempo["Tempo Traces"]
+    OTEL --> Prom["Prometheus Metrics"]
+    OTEL --> Loki["Loki Logs"]
     Tempo --> Grafana["Grafana"]
     Prom --> Grafana
     Loki --> Grafana
@@ -152,32 +152,32 @@ graph LR
 
 Models shared across all tenants:
 
-- **Org** — Organization with slug, plan (STUDIO/ENTERPRISE/HUMANOID), settings
-- **User** — Members with email, role (OWNER/ADMIN/MEMBER), org association
-- **MarketplaceListing** / **MarketplaceReview** — Cross-org SOP marketplace
-- **FederationContribution** / **FederationSettings** — Federated learning pool
-- **ApiKey** — Scoped API keys with rotation support
-- **Webhook** / **WebhookDelivery** — Event-driven integrations
-- **Notification** — In-app notification system
+- **Org** Organization with slug, plan (STUDIO/ENTERPRISE/HUMANOID), settings
+- **User** Members with email, role (OWNER/ADMIN/MEMBER), org association
+- **MarketplaceListing** / **MarketplaceReview** Cross-org SOP marketplace
+- **FederationContribution** / **FederationSettings** Federated learning pool
+- **ApiKey** Scoped API keys with rotation support
+- **Webhook** / **WebhookDelivery** Event-driven integrations
+- **Notification** In-app notification system
 
 ### Tenant Schema (Raw SQL, per-org)
 
 Each tenant schema (`tenant_{org_slug}`) contains:
 
-- **surrogates** — AI agent definitions with role, domain, jurisdiction
-- **sops** — Versioned SOP graphs with hash-chaining
-- **audit_entries** — Append-only audit log with cryptographic chain
-- **sessions** / **decision_outcomes** — Session tracking
-- **debriefs** — Post-session analysis reports
-- **sop_proposals** — SOP change proposals with approval workflow
-- **org_documents** / **document_chunks** — Org DNA with pgvector embeddings
-- **memory_entries** — STM/LTM institutional memory
-- **handoffs** — D2D/D2H/H2D handoff records
-- **persona_templates** / **persona_versions** — Versioned persona library
-- **bias_checks** — Bias audit results
-- **humanoid_devices** — Registered humanoid/device endpoints
-- **executions** — Real-time SOP execution state
-- **compliance_checks** / **sop_signatures** — Certification records
+- **surrogates** AI agent definitions with role, domain, jurisdiction
+- **sops** Versioned SOP graphs with hash-chaining
+- **audit_entries** Append-only audit log with cryptographic chain
+- **sessions** / **decision_outcomes** Session tracking
+- **debriefs** Post-session analysis reports
+- **sop_proposals** SOP change proposals with approval workflow
+- **org_documents** / **document_chunks** Org DNA with pgvector embeddings
+- **memory_entries** STM/LTM institutional memory
+- **handoffs** D2D/D2H/H2D handoff records
+- **persona_templates** / **persona_versions** Versioned persona library
+- **bias_checks** Bias audit results
+- **humanoid_devices** Registered humanoid/device endpoints
+- **executions** Real-time SOP execution state
+- **compliance_checks** / **sop_signatures** Certification records
 
 ---
 

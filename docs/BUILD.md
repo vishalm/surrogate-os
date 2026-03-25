@@ -1,5 +1,5 @@
 # BUILD.md
-## The Technical Blueprint — How Surrogate OS Is Actually Built
+## The Technical Blueprint How Surrogate OS Is Actually Built
 
 ---
 
@@ -58,7 +58,7 @@ Three principles govern every technical decision in Surrogate OS:
 ## Component 1: The Identity Core
 
 The Identity Core is the persistent state object that defines a surrogate. It is not
-a prompt — it is a structured data object with multiple subsystems.
+a prompt it is a structured data object with multiple subsystems.
 
 ### 1.1 Persona Object Schema
 
@@ -338,7 +338,7 @@ interface AuditEntry {
 
 The audit trail uses a blockchain-style chained hash structure. Every entry
 references the hash of the previous entry. Tampering with any entry invalidates
-all subsequent hashes — making retroactive modification detectable.
+all subsequent hashes making retroactive modification detectable.
 
 ```
 Entry N:   { ...content, hash: H(content + H(N-1)) }
@@ -455,7 +455,7 @@ class ShiftDebrief:
         # 3. Outcome Correlation
         outcomes = self.correlate_with_outcomes(shift_record)
         # "Actions A, B, C correlated with positive outcome X"
-        # "Action D correlated with escalation Y — flag for SOP review"
+        # "Action D correlated with escalation Y flag for SOP review"
 
         # 4. Edge Case Extraction
         edge_cases = self.extract_edge_cases(shift_record)
@@ -505,7 +505,7 @@ ORG A SURROGATE          ORG B SURROGATE         ORG C SURROGATE
 
 No organization's data ever leaves their environment.
 No organization can reconstruct another organization's data from the model updates.
-The global model improves as if it had access to all data — without actually having it.
+The global model improves as if it had access to all data without actually having it.
 
 ---
 
@@ -519,7 +519,7 @@ VECTOR DB:           Weaviate (self-hosted per org for data sovereignty)
 MEMORY STORE:        Redis Enterprise (encrypted, per-org isolation)
 AUDIT DB:            PostgreSQL with append-only tables + cryptographic chain
 ORCHESTRATION:       LangGraph (stateful agent workflows)
-SOP GRAPH ENGINE:    Custom — built on top of directed graph primitives
+SOP GRAPH ENGINE:    Custom built on top of directed graph primitives
 CORPUS RETRIEVAL:    Custom RAG pipeline with jurisdiction-aware routing
 ```
 
@@ -548,7 +548,7 @@ FCA:         SMCR documentation framework, algorithmic decision logging
 
 ---
 
-## The MVP Architecture — What Ships First
+## The MVP Architecture What Ships First
 
 The MVP is not the full system. It is the smallest deployable slice that proves the core thesis.
 
@@ -617,7 +617,7 @@ Customer Success (×2)       Deployment support, pilot management
 
 ---
 
-## The Hardest Technical Problems — Honest Assessment
+## The Hardest Technical Problems Honest Assessment
 
 ### Problem 1: SOP Hallucination in High-Stakes Contexts
 Generated SOPs may contain plausible-sounding but incorrect procedural guidance.

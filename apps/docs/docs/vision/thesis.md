@@ -6,7 +6,7 @@ description: "Professional identity is a composable software object. This is the
 
 # The Central Thesis
 
-> *"Every organization runs on human expertise encoded in human heads. When that person leaves, burns out, or isn't available at 3am — the knowledge vanishes. Surrogate OS is the infrastructure that makes expertise portable, persistent, and deployable anywhere humans need to be — and can't always be."*
+> *"Every organization runs on human expertise encoded in human heads. When that person leaves, burns out, or isn't available at 3am the knowledge vanishes. Surrogate OS is the infrastructure that makes expertise portable, persistent, and deployable anywhere humans need to be and can't always be."*
 
 ---
 
@@ -14,19 +14,19 @@ description: "Professional identity is a composable software object. This is the
 
 ### The Knowledge Bottleneck
 
-Every organization — regardless of size, sector, or geography — faces the same fundamental constraint: **critical operational knowledge is trapped inside individual human beings.**
+Every organization regardless of size, sector, or geography faces the same fundamental constraint: **critical operational knowledge is trapped inside individual human beings.**
 
 This creates cascading failures:
 
-**The Availability Problem** — A senior ER nurse leaves mid-shift. A 3am incident has no expert available. A village clinic has no doctor for 200km. An astronaut on Mars has a 20-minute communication lag to Earth.
+**The Availability Problem** A senior ER nurse leaves mid-shift. A 3am incident has no expert available. A village clinic has no doctor for 200km. An astronaut on Mars has a 20-minute communication lag to Earth.
 
-**The Institutional Memory Problem** — A 25-year employee retires. She takes with her 25 years of judgment calls, workarounds, and organizational nuance. Her replacement gets a PDF handbook that's three years out of date.
+**The Institutional Memory Problem** A 25-year employee retires. She takes with her 25 years of judgment calls, workarounds, and organizational nuance. Her replacement gets a PDF handbook that's three years out of date.
 
-**The Consistency Problem** — Two nurses on the same ward follow subtly different protocols. Standards exist; adherence is inconsistent.
+**The Consistency Problem** Two nurses on the same ward follow subtly different protocols. Standards exist; adherence is inconsistent.
 
-**The Scale Problem** — An excellent specialist can only be in one place at one time.
+**The Scale Problem** An excellent specialist can only be in one place at one time.
 
-**The Burnout Problem** — 40% of nurses intend to leave the profession. 60% of lawyers report regular burnout.
+**The Burnout Problem** 40% of nurses intend to leave the profession. 60% of lawyers report regular burnout.
 
 ---
 
@@ -46,7 +46,7 @@ Every professional role can be decomposed into seven components:
 | 6 | **Goal Hierarchy** | What success looks like for them |
 | 7 | **Memory Fabric** | Context from prior interactions |
 
-If these seven components can be synthesized automatically from a role input and industry standards — and if the resulting identity can be loaded into any output modality — then professional expertise becomes **infinitely scalable, geographically unrestricted, permanently available, and continuously improving**.
+If these seven components can be synthesized automatically from a role input and industry standards and if the resulting identity can be loaded into any output modality then professional expertise becomes **infinitely scalable, geographically unrestricted, permanently available, and continuously improving**.
 
 :::note This is not AGI
 This is not a general reasoning system. This is something more immediately valuable: a **professional identity engine** that generates and operates fully-formed domain experts on demand.
@@ -71,20 +71,20 @@ Personality:   Calm under pressure, direct, empathetic with patients
 
 ### Processing Pipeline
 
-1. **Ontology Mapping** — "Senior ER Nurse" resolves to: acute care nursing → emergency subspecialty → Bands 6-7 NHS → trauma competencies
-2. **Knowledge Corpus Assembly** — NICE Clinical Guidelines, BNF drug database, NHS SOPs, Royal College of Nursing standards
-3. **Behavioral Model Generation** — When to act autonomously vs. escalate, communication style, ethical boundaries
-4. **SOP Synthesis** — Hierarchical SOP tree from regulatory standards
-5. **Personality Calibration** — Assertiveness, empathy, directness, cultural sensitivity
-6. **Memory Initialization** — Short-term and long-term memory slots initialized
+1. **Ontology Mapping** "Senior ER Nurse" resolves to: acute care nursing → emergency subspecialty → Bands 6-7 NHS → trauma competencies
+2. **Knowledge Corpus Assembly** NICE Clinical Guidelines, BNF drug database, NHS SOPs, Royal College of Nursing standards
+3. **Behavioral Model Generation** When to act autonomously vs. escalate, communication style, ethical boundaries
+4. **SOP Synthesis** Hierarchical SOP tree from regulatory standards
+5. **Personality Calibration** Assertiveness, empathy, directness, cultural sensitivity
+6. **Memory Initialization** Short-term and long-term memory slots initialized
 
 ### Output: Hydrated Professional Identity
 
-The result is a surrogate that doesn't just *know about* emergency nursing — it *is* an emergency nurse in operational terms.
+The result is a surrogate that doesn't just *know about* emergency nursing it *is* an emergency nurse in operational terms.
 
 ---
 
-## Persona Architecture — Six Loadable Modules
+## Persona Architecture Six Loadable Modules
 
 | Module | What It Does |
 |--------|-------------|
@@ -117,7 +117,7 @@ PHYSICAL ACTION SEQUENCE:
 4. ASSESS      → Visual assessment of condition
 5. READ        → Monitor readings from bedside display
 6. INTERACT    → Verbal check-in per communication protocol
-7. PALPATE     → [REQUIRES HUMAN AUTH — confidence 99.4%]
+7. PALPATE     → [REQUIRES HUMAN AUTH confidence 99.4%]
 8. DOCUMENT    → Log all readings to EMR wirelessly
 9. FLAG        → Abnormalities trigger escalation
 10. DEPART     → Update position in fleet coordination
@@ -142,7 +142,7 @@ Ethics is an architectural constraint, not an afterthought.
 
 ### Five Immutable Principles
 
-1. **Human Supremacy — Always.** No surrogate overrides a human decision.
+1. **Human Supremacy Always.** No surrogate overrides a human decision.
 2. **Radical Transparency.** The surrogate always identifies as AI. Every decision is logged.
 3. **Identity Integrity.** No mid-operation persona switching without authorized reload.
 4. **Continuous Bias Auditing.** Statistical anomalies trigger automatic alerts within 48 hours.
@@ -164,11 +164,11 @@ Regardless of instruction, configuration, or context:
 
 | Phase | Timeline | Focus |
 |-------|----------|-------|
-| **Phase 1**: Surrogate Studio | Now — 6 months | Core identity engine. 10 personas. 5 enterprise pilots. |
-| **Phase 2**: Living Persona Layer | 6 — 12 months | Continuous learning. Shift Debrief. Federated Learning v1. |
-| **Phase 3**: Fleet Intelligence | 12 — 18 months | Multi-surrogate coordination. 100+ persona library. SOP Marketplace. |
-| **Phase 4**: Humanoid Bridge | 18 — 30 months | Physical surrogates. Task Translation Engine. 3 controlled pilots. |
-| **Phase 5**: Surrogate Civilization | 30 — 60 months | Global health access. Mars mission readiness. Full platform parity. |
+| **Phase 1**: Surrogate Studio | Now 6 months | Core identity engine. 10 personas. 5 enterprise pilots. |
+| **Phase 2**: Living Persona Layer | 6 12 months | Continuous learning. Shift Debrief. Federated Learning v1. |
+| **Phase 3**: Fleet Intelligence | 12 18 months | Multi-surrogate coordination. 100+ persona library. SOP Marketplace. |
+| **Phase 4**: Humanoid Bridge | 18 30 months | Physical surrogates. Task Translation Engine. 3 controlled pilots. |
+| **Phase 5**: Surrogate Civilization | 30 60 months | Global health access. Mars mission readiness. Full platform parity. |
 
 ---
 

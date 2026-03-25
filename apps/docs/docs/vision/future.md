@@ -1,7 +1,7 @@
 ---
 sidebar_position: 3
 title: "The Long Horizon"
-description: "Where Surrogate OS goes — from 2025 to 2055. The near, medium, and long-term future of professional identity engines."
+description: "Where Surrogate OS goes from 2025 to 2055. The near, medium, and long-term future of professional identity engines."
 ---
 
 # The Long Horizon (2025–2055)
@@ -12,7 +12,7 @@ The decisions we make in the next 24 months will encode assumptions into the pla
 
 ---
 
-## Part I — The Near Future (2025–2030)
+## Part I The Near Future (2025–2030)
 
 ### The SOP Becomes the New Credential
 
@@ -32,13 +32,13 @@ Five years of anonymized clinical decision data from 10,000 surrogate deployment
 
 By 2028–2029, controlled deployments in three contexts:
 
-1. **Elder care** — Companion and mobility support (low-stakes physical, high-value presence)
-2. **Hospital logistics** — Specimen transport, supply delivery, linen management
-3. **Construction safety** — Physical site walks, condition checks, worker interaction
+1. **Elder care** Companion and mobility support (low-stakes physical, high-value presence)
+2. **Hospital logistics** Specimen transport, supply delivery, linen management
+3. **Construction safety** Physical site walks, condition checks, worker interaction
 
 ---
 
-## Part II — The Medium Future (2030–2040)
+## Part II The Medium Future (2030–2040)
 
 ### Regulatory Certification Crystallizes
 
@@ -57,11 +57,11 @@ The same identity available in: chat, voice, avatar, AR overlay, exosuit, collab
 
 ### The Access Inflection Point
 
-The cost of deploying a surrogate drops below the cost of the problem it solves in every context globally — including the very poorest. **This is when the vision fully activates.**
+The cost of deploying a surrogate drops below the cost of the problem it solves in every context globally including the very poorest. **This is when the vision fully activates.**
 
 ---
 
-## Part III — The Long Future (2040–2055)
+## Part III The Long Future (2040–2055)
 
 ### Professional Education Transforms
 
@@ -70,14 +70,14 @@ From knowledge transmission to **judgment cultivation**. Medical education spend
 ### Surrogate Governance Emerges as a Field
 
 Questions that need answers:
-- **Consent** — Should patients know when served by a surrogate? (Our position: always yes)
-- **Representation** — How to detect and correct biases encoded from historical data?
-- **Accountability diffusion** — How do accountability structures adapt for human-surrogate systems?
-- **Access equity** — Do the best SOP stacks stratify by wealth, or are they globally available?
+- **Consent** Should patients know when served by a surrogate? (Our position: always yes)
+- **Representation** How to detect and correct biases encoded from historical data?
+- **Accountability diffusion** How do accountability structures adapt for human-surrogate systems?
+- **Access equity** Do the best SOP stacks stratify by wealth, or are they globally available?
 
 ### What Humans Are For
 
-If expert-level professional execution becomes widely available — what is left for humans?
+If expert-level professional execution becomes widely available what is left for humans?
 
 The optimistic answer: **everything that actually requires being human.** Creativity from lived experience. Moral leadership requiring personal courage. Relationships that are intrinsically valuable because of who is present in them.
 
@@ -87,25 +87,25 @@ Without careful design, surrogate intelligence could reduce the economic value o
 
 ---
 
-## Part IV — Scenarios We Must Plan For
+## Part IV Scenarios We Must Plan For
 
 | Scenario | Design Response |
 |----------|----------------|
-| **Regulatory Fragmentation** — Incompatible certification frameworks across jurisdictions | Jurisdiction-aware SOP layering from day one. Base layer globally applicable, compliance overrides per locale. |
-| **Adversarial Persona Injection** — Malicious actors compromise SOP update mechanisms | Cryptographic SOP signing. Chain of custody verified before execution. |
-| **Humanoid Harms** — Physical harm triggers global regulatory backlash | Hard stop architecture, dual-authorization, multi-layer safety system. |
-| **Rapid Commoditization** — Competitors match SOP generation in 3 years | Moat is corpus + certifications + trust, not the generator. |
-| **Superhuman Surrogate** — Model exceeds median physician accuracy by 2028 | Governance framework allows human-surrogate authority balance to evolve with evidence. |
+| **Regulatory Fragmentation** Incompatible certification frameworks across jurisdictions | Jurisdiction-aware SOP layering from day one. Base layer globally applicable, compliance overrides per locale. |
+| **Adversarial Persona Injection** Malicious actors compromise SOP update mechanisms | Cryptographic SOP signing. Chain of custody verified before execution. |
+| **Humanoid Harms** Physical harm triggers global regulatory backlash | Hard stop architecture, dual-authorization, multi-layer safety system. |
+| **Rapid Commoditization** Competitors match SOP generation in 3 years | Moat is corpus + certifications + trust, not the generator. |
+| **Superhuman Surrogate** Model exceeds median physician accuracy by 2028 | Governance framework allows human-surrogate authority balance to evolve with evidence. |
 
 ---
 
-## Part V — Founding Commitments
+## Part V Founding Commitments
 
-1. **SOP Standards Will Be Open** — No lock-in via proprietary formats. Portability is a right.
-2. **Access Pricing Scales With Ability to Pay** — Written into governing documents, not just stated.
-3. **Governance Includes Those Served** — Patient and community representatives on the governance board.
-4. **Audit Trail Is Permanent and Portable** — Belongs to the organization, not to us.
-5. **Kill Switch Is Hardwired** — No commercial interest ever compromises the human's ability to stop any surrogate.
+1. **SOP Standards Will Be Open** No lock-in via proprietary formats. Portability is a right.
+2. **Access Pricing Scales With Ability to Pay** Written into governing documents, not just stated.
+3. **Governance Includes Those Served** Patient and community representatives on the governance board.
+4. **Audit Trail Is Permanent and Portable** Belongs to the organization, not to us.
+5. **Kill Switch Is Hardwired** No commercial interest ever compromises the human's ability to stop any surrogate.
 
 ---
 
@@ -113,7 +113,7 @@ Without careful design, surrogate intelligence could reduce the economic value o
 
 *We knew this was going to be powerful. We knew it had the potential to be concentrated and extractive if we chose wrong. We tried to choose right.*
 
-*If you find that we encoded assumptions that turned out to be harmful — fix them. The platform exists to serve people. Build carefully. The people depending on this don't have a fallback.*
+*If you find that we encoded assumptions that turned out to be harmful fix them. The platform exists to serve people. Build carefully. The people depending on this don't have a fallback.*
 
 ---
 

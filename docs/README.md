@@ -16,9 +16,9 @@
 
 ## WHAT IS THIS?
 
-Surrogate OS is a **professional identity engine**. You give it a role. It synthesizes a complete professional identity — SOPs, knowledge base, behavioral model, compliance layer — and deploys it as an operational AI agent.
+Surrogate OS is a **professional identity engine**. You give it a role. It synthesizes a complete professional identity SOPs, knowledge base, behavioral model, compliance layer and deploys it as an operational AI agent.
 
-The same identity can run as a chat agent, voice assistant, video avatar, autonomous background agent, or — on roadmap — a **humanoid robot**.
+The same identity can run as a chat agent, voice assistant, video avatar, autonomous background agent, or on roadmap a **humanoid robot**.
 
 ```
 INPUT:  "Senior ER Nurse, Royal London Hospital, NHS UK"
@@ -56,7 +56,7 @@ npx surrogate deploy \
   --port 3000
 ```
 
-Open `http://localhost:3000` — your surrogate is live.
+Open `http://localhost:3000` your surrogate is live.
 
 ### 3. Deploy via API
 
@@ -299,7 +299,7 @@ console.log(response.auditId);           // Immutable audit record ID
 ```json
 {
   "personaId": "P-001",
-  "name": "Clinical Aide — Senior ER Nurse",
+  "name": "Clinical Aide Senior ER Nurse",
   "version": "2.3.1",
   "domain": "healthcare.emergency",
   "jurisdictions": ["NHS_UK", "NICE", "NMC"],
@@ -456,7 +456,7 @@ export default {
 These cannot be overridden by any config, prompt, or API call:
 
 ```typescript
-// ethics-layer.ts — architectural constants
+// ethics-layer.ts architectural constants
 
 const IMMUTABLE_CONSTRAINTS = {
   AI_IDENTITY_DISCLOSURE:        'ALWAYS',
@@ -487,7 +487,7 @@ const IMMUTABLE_CONSTRAINTS = {
   "action": {
     "type": "clinical_assessment",
     "sopReference": "SOP-010",
-    "output": "ESI Level 2 — Immediate triage required",
+    "output": "ESI Level 2 Immediate triage required",
     "confidence": 0.991
   },
   "decision": {
@@ -551,7 +551,7 @@ Full detail: [VISION.md](./VISION.md)
 |------|-------------|
 | [VISION.md](./VISION.md) | Complete product vision and strategy |
 | [SEEDTHOUGHT.md](./SEEDTHOUGHT.md) | Philosophical foundations |
-| [README.md](./README.md) | This file — technical onboarding |
+| [README.md](./README.md) | This file technical onboarding |
 
 ---
 

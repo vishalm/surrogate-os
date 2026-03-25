@@ -1,5 +1,5 @@
 # MARKET.md
-## The Market Opportunity — Why Now, Why This, Why You
+## The Market Opportunity Why Now, Why This, Why You
 
 ---
 
@@ -9,7 +9,7 @@
 
 ## The Simple Math
 
-Every professional service — medicine, law, finance, education, engineering, logistics —
+Every professional service medicine, law, finance, education, engineering, logistics
 shares one structural constraint: **it requires a trained human to deliver it**.
 
 Trained humans are:
@@ -22,16 +22,16 @@ Trained humans are:
 This constraint has held for all of recorded history. **It is breaking now.**
 
 For the first time, the accumulated expertise of a professional can be encoded, structured,
-and deployed as a persistent operational identity — in any interface, at any time, at near-zero
+and deployed as a persistent operational identity in any interface, at any time, at near-zero
 marginal cost.
 
 That is the market: every dollar currently spent hiring humans to do the *procedural*,
-*process-driven*, *knowledge-dependent* parts of professional work — work that follows SOPs,
-follows standards, follows escalation logic — is addressable by Surrogate OS.
+*process-driven*, *knowledge-dependent* parts of professional work work that follows SOPs,
+follows standards, follows escalation logic is addressable by Surrogate OS.
 
 ---
 
-## Total Addressable Market — The Numbers
+## Total Addressable Market The Numbers
 
 ### Global Professional Services: $54 Trillion Annually
 
@@ -50,7 +50,7 @@ TOTAL                          ~$54T
 Not all of this is addressable. A surgeon's manual dexterity is not replaceable today.
 A judge's moral authority is not delegatable. A therapist's human presence is not simulatable.
 
-But a significant fraction of professional work — estimates converge around **30–40%** —
+But a significant fraction of professional work estimates converge around **30–40%**
 is procedural execution: following protocols, documenting decisions, monitoring compliance,
 routing information, checking standards, generating reports.
 
@@ -111,7 +111,7 @@ Understanding why they failed is the clearest argument for why Surrogate OS work
 Rule-based systems that tried to encode professional knowledge as explicit if-then logic.
 
 **Why they failed**: Professional expertise is not rules all the way down. It is judgment
-applied within a framework of rules. Expert systems couldn't generalize to novel situations —
+applied within a framework of rules. Expert systems couldn't generalize to novel situations
 and professional work is full of novel situations.
 
 **What Surrogate OS has that they didn't**: LLMs provide the judgment layer on top of the
@@ -120,7 +120,7 @@ rule structure. SOPs encode the rules; the identity core provides the judgment.
 ### Wave 2: Knowledge Management Systems (2000s)
 SharePoint, Confluence, Notion-ancestors. Tried to capture organizational knowledge in documents.
 
-**Why they failed**: Documents don't act. You can store every SOP ever written — it changes
+**Why they failed**: Documents don't act. You can store every SOP ever written it changes
 nothing about what happens at 3am when the junior nurse doesn't know what to do next.
 
 **What Surrogate OS has that they didn't**: The SOP is executable, not just readable.
@@ -134,15 +134,15 @@ execution. RPA works for copy-paste tasks. It breaks the moment the situation de
 the exact script.
 
 **What Surrogate OS has that they didn't**: Judgment-capable execution. The surrogate can
-handle the deviation — it knows the SOP, but it can also recognize when the SOP doesn't
+handle the deviation it knows the SOP, but it can also recognize when the SOP doesn't
 cleanly apply and escalate appropriately.
 
-### Wave 4: Generic AI Assistants (2020s — current)
+### Wave 4: Generic AI Assistants (2020s current)
 ChatGPT, Copilot, generic enterprise AI. Genuinely capable language models applied generally.
 
 **Why they fall short in professional deployment**: No persistent identity. No role-specific
 SOPs. No structured accountability. No audit trail. No escalation logic. No compliance
-certification. No memory across sessions. Powerful tools — not professional agents.
+certification. No memory across sessions. Powerful tools not professional agents.
 
 **What Surrogate OS has that they don't**: The identity layer. The SOP layer. The memory
 layer. The accountability layer. The certification pathway. This is the difference between
@@ -150,7 +150,7 @@ a knowledgeable intern and a trained professional.
 
 ---
 
-## The Timing Argument — Why Now Is Exactly Right
+## The Timing Argument Why Now Is Exactly Right
 
 Three conditions must be simultaneously true for a market this large to be unlockable.
 All three are true right now, for the first time:
@@ -158,21 +158,21 @@ All three are true right now, for the first time:
 ### Condition 1: Sufficient Model Capability ✓
 LLMs as of 2024–2025 pass the threshold for professional-grade reasoning across most
 knowledge domains. Clinical reasoning, legal analysis, financial modeling, engineering
-judgment — these are now within model capability at a level sufficient for supervised
+judgment these are now within model capability at a level sufficient for supervised
 professional deployment.
 
 This was not true in 2020. It may have been marginally true in 2022. It is unambiguously
 true in 2025.
 
 ### Condition 2: Sufficient Physical Platform Maturity ✓
-Boston Dynamics Spot, Figure 01/02, Tesla Optimus, Apptronik Apollo, 1X Neo — humanoid
+Boston Dynamics Spot, Figure 01/02, Tesla Optimus, Apptronik Apollo, 1X Neo humanoid
 and semi-humanoid platforms are now commercially available or in commercial pilot.
 
 The cognitive layer for these platforms has lagged the hardware. A Figure 02 robot is a
 capable physical system with no professional identity. Surrogate OS is the missing piece.
 
 ### Condition 3: Regulatory Readiness ✓
-The EU AI Act (2024), FDA AI/ML Software Action Plan, NHS AI Strategy, FCA AI guidelines —
+The EU AI Act (2024), FDA AI/ML Software Action Plan, NHS AI Strategy, FCA AI guidelines
 regulated industries are actively developing frameworks for AI deployment. The frameworks
 are being written now. Organizations that engage now will shape the frameworks rather than
 comply with frameworks they had no hand in writing.
@@ -183,7 +183,7 @@ cannot buy.
 
 ---
 
-## The Competitive Landscape — Why There Is No Direct Competitor
+## The Competitive Landscape Why There Is No Direct Competitor
 
 There is no company currently doing what Surrogate OS does. There are adjacent players:
 
@@ -209,7 +209,7 @@ Knowledge mgmt       Notion, Confluence    Documents, not operational agents
 ```
 
 The closest analogue is not a software company. It is an **operating system** company.
-Like Windows was to PC software, or iOS was to mobile apps — Surrogate OS is the platform
+Like Windows was to PC software, or iOS was to mobile apps Surrogate OS is the platform
 layer on which a new generation of professional AI applications runs.
 
 Operating system companies, when they win, have the most defensible position in any
@@ -243,12 +243,12 @@ the more irreplaceable the surrogate becomes.
 
 This is a within-customer network effect. The surrogate becomes more valuable to the
 organization every month it is deployed. A five-year-old surrogate deployment knows
-things about an organization that no new employee — human or AI — could replicate without
+things about an organization that no new employee human or AI could replicate without
 years of rebuilding.
 
 ---
 
-## The Revenue Model — How This Compounds to Enormous Scale
+## The Revenue Model How This Compounds to Enormous Scale
 
 ```
 TIER 1: STUDIO ($299/mo)
@@ -289,24 +289,24 @@ At 8x ARR multiple (conservative for high-growth infrastructure): **$2.3B valuat
 
 ## The Investment Thesis In Six Sentences
 
-1. Professional expertise is the world's most valuable constrained resource — it cannot be
+1. Professional expertise is the world's most valuable constrained resource it cannot be
    copied, cannot be teleported, and costs a decade to produce.
 
 2. LLMs have, for the first time, made it possible to encode professional expertise not as
-   a document but as a living operational identity — with judgment, memory, and accountability.
+   a document but as a living operational identity with judgment, memory, and accountability.
 
 3. Surrogate OS builds the identity engine, the SOP layer, and the deployment infrastructure
    that turns this capability into a trusted, certified, auditable professional agent.
 
-4. The same cognitive layer deploys in chat, voice, avatar, and humanoid — meaning the
+4. The same cognitive layer deploys in chat, voice, avatar, and humanoid meaning the
    market is not just enterprise software but the $multi-trillion physical professional
    services market currently served by human bodies.
 
-5. The moat is not the model — it is the accumulated SOP corpus, the regulatory certifications,
+5. The moat is not the model it is the accumulated SOP corpus, the regulatory certifications,
    the institutional memory in deployed organizations, and the trust infrastructure that
    takes years to build.
 
-6. The window to establish this position is 24–36 months — after which regulatory frameworks
+6. The window to establish this position is 24–36 months after which regulatory frameworks
    will crystallize, first-mover certification advantages will be locked in, and the SOP
    corpus of the leading platform will be insurmountably large.
 
@@ -317,7 +317,7 @@ At 8x ARR multiple (conservative for high-growth infrastructure): **$2.3B valuat
 **290 million.**
 
 That is the number of people globally estimated to lack access to adequate healthcare.
-Not because the knowledge doesn't exist — it does. Because there aren't enough people
+Not because the knowledge doesn't exist it does. Because there aren't enough people
 to carry it to them.
 
 Surrogate OS exists to close that gap. First in healthcare. Then in every other domain

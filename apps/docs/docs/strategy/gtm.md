@@ -21,7 +21,7 @@ description: "Beachhead strategy, pilot design, expansion playbook, messaging ar
 - Clearest ROI (72% of nurse time is admin)
 - Most structured SOPs exist (NICE, NHS protocols)
 - UAE is innovation-forward with faster regulatory timelines
-- NHS is globally credible — opens every other health system
+- NHS is globally credible opens every other health system
 
 ### Target Accounts
 
@@ -103,17 +103,17 @@ graph LR
 
 | Persona | Value Prop |
 |---------|-----------|
-| Clinical Director | "Your nurses, fully supported — 24/7." |
+| Clinical Director | "Your nurses, fully supported 24/7." |
 | Managing Partner | "Junior associate work, senior associate speed." |
 | CFO | "Month-end in one day. Every month." |
 | CRO | "Every decision logged. Every SOP followed. Every time." |
 
 ### What We Never Say
 
-- ❌ "AI assistant" — positions us as a chat tool
-- ❌ "Copilot" — Microsoft owns this, implies dependency
-- ❌ "Automation" — implies RPA, fear of replacement
-- ❌ "Replace doctors" — kills deals immediately
+- ❌ "AI assistant" positions us as a chat tool
+- ❌ "Copilot" Microsoft owns this, implies dependency
+- ❌ "Automation" implies RPA, fear of replacement
+- ❌ "Replace doctors" kills deals immediately
 - ✅ "Professional identity engine"
 - ✅ "Extends your team without headcount"
 

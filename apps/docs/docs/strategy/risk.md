@@ -1,7 +1,7 @@
 ---
 sidebar_position: 4
 title: "Risk Register"
-description: "Honest assessment of every meaningful risk — product, market, execution, and ethical — with specific mitigation strategies."
+description: "Honest assessment of every meaningful risk product, market, execution, and ethical with specific mitigation strategies."
 ---
 
 # Risk Register
@@ -67,7 +67,7 @@ NHS procurement takes 18 months. Year 1 ARR is 20% of projection.
 
 **Mitigation:**
 1. **UAE as fast-follower.** Innovation-forward, faster to close, creates international credibility.
-2. **NHS Innovation pathways.** AI Lab, AHSN network — bypass standard procurement.
+2. **NHS Innovation pathways.** AI Lab, AHSN network bypass standard procurement.
 3. **Runway for the slow case.** Financial model solvent at 18-month sales cycles.
 4. **Studio tier as revenue bridge.** $299/month accounts close quickly.
 

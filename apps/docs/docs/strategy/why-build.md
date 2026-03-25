@@ -1,7 +1,7 @@
 ---
 sidebar_position: 5
 title: "Why Build This"
-description: "The founder's case — why the window is closing, why the hard parts are tractable, and why the moral case is as strong as the business case."
+description: "The founder's case why the window is closing, why the hard parts are tractable, and why the moral case is as strong as the business case."
 ---
 
 # Why Build This
@@ -38,7 +38,7 @@ Conservative industries adopt slowly through pilots with heavy oversight. The NH
 Phase 4, not phase 1. By then you have revenue, proven track record, and a working cognitive layer that robotics companies want to license.
 
 ### Hiring the Right Team
-The AI talent market is large and motivated. People who want to work on something genuinely significant — not another chatbot wrapper — are actively looking.
+The AI talent market is large and motivated. People who want to work on something genuinely significant not another chatbot wrapper are actively looking.
 
 ---
 

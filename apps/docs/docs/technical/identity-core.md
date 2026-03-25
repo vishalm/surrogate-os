@@ -1,12 +1,12 @@
 ---
 sidebar_position: 2
 title: "Identity Core"
-description: "The persistent state object that defines a surrogate — persona schema, knowledge index, and memory fabric."
+description: "The persistent state object that defines a surrogate persona schema, knowledge index, and memory fabric."
 ---
 
 # Identity Core
 
-The Identity Core is the persistent state object that defines a surrogate. It is not a prompt — it is a structured data object with multiple subsystems.
+The Identity Core is the persistent state object that defines a surrogate. It is not a prompt it is a structured data object with multiple subsystems.
 
 ---
 

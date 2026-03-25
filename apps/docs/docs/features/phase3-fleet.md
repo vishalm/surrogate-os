@@ -1,10 +1,10 @@
 ---
 sidebar_position: 3
-title: "Phase 3 — Fleet"
+title: "Phase 3 Fleet"
 description: "Fleet management, handoff protocol, persona library with versioning, SOP marketplace, and bias audit."
 ---
 
-# Phase 3 — Fleet
+# Phase 3 Fleet
 
 Phase 3 scales from single surrogates to fleet operations: monitoring multiple surrogates, coordinating handoffs between agents and humans, managing reusable persona templates, sharing SOPs across organizations, and auditing for bias.
 
@@ -203,4 +203,4 @@ Each bias check produces:
 
 ---
 
-*Previous: [Phase 2 — Persona Engine](/docs/features/phase2-persona) | Next: [Phase 4 — Bridge](/docs/features/phase4-bridge)*
+*Previous: [Phase 2 Persona Engine](/docs/features/phase2-persona) | Next: [Phase 4 Bridge](/docs/features/phase4-bridge)*

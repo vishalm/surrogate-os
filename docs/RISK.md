@@ -1,5 +1,5 @@
 # RISK.md
-## The Honest Risk Register — Everything That Could Go Wrong and Why We Build Anyway
+## The Honest Risk Register Everything That Could Go Wrong and Why We Build Anyway
 
 ---
 
@@ -11,26 +11,26 @@
 ## Preface: Why Write This Document
 
 Most pitch decks have a slide labeled "Risks" that says things like "regulatory uncertainty"
-and "market adoption" — five words that convey nothing and reveal nothing.
+and "market adoption" five words that convey nothing and reveal nothing.
 
 This document is the opposite. It is a serious, specific, honest assessment of every
-meaningful risk this platform faces — with a precise description of what could go wrong,
+meaningful risk this platform faces with a precise description of what could go wrong,
 an honest assessment of the probability and severity, and a mitigation strategy that
 actually engages with the risk.
 
 The purpose is not to talk you out of building. It is to ensure that if you build,
-you build with your eyes open — and with the mitigation strategies already in place
+you build with your eyes open and with the mitigation strategies already in place
 before the risk materializes.
 
 ---
 
 ## Risk Category 1: Product Risks
 
-### Risk 1.1 — SOP Hallucination in High-Stakes Contexts
+### Risk 1.1 SOP Hallucination in High-Stakes Contexts
 
 **What could go wrong:**
 The SOP generation pipeline produces a procedural SOP that sounds clinically plausible
-but contains an error — a wrong drug interaction threshold, an incorrect escalation
+but contains an error a wrong drug interaction threshold, an incorrect escalation
 trigger, a missed step in a critical procedure. The SOP is deployed, a clinical
 decision is made based on it, and a patient is harmed.
 
@@ -46,28 +46,28 @@ generation is a known failure mode of current LLMs.
 **Mitigation:**
 
 1. **The expert validation gate is non-negotiable.** No SOP ever deploys without sign-off
-   from a qualified domain expert. This is not a feature to be added later — it is the
+   from a qualified domain expert. This is not a feature to be added later it is the
    foundational quality control mechanism from day one.
 
 2. **SOPs are generated for review, not for direct deployment.** The mental model is:
    the SOP generator produces a high-quality draft. A human expert treats it as they
-   would a junior colleague's work — reviews it, corrects it, approves it.
+   would a junior colleague's work reviews it, corrects it, approves it.
 
 3. **Confidence-calibrated action thresholds.** The surrogate operates below its SOP
    confidence level for any clinical action. Anything below 95% confidence → escalate.
    Aggressive escalation is better than confident error.
 
 4. **Scope limiting.** In initial deployments, surrogates are scoped to
-   documentation, monitoring, and information tasks — NOT clinical decision-making.
+   documentation, monitoring, and information tasks NOT clinical decision-making.
    The transition to advisory and then to action-supporting happens only with
    accumulated evidence and explicit governance approval at each stage.
 
 ---
 
-### Risk 1.2 — Institutional Memory Breach
+### Risk 1.2 Institutional Memory Breach
 
 **What could go wrong:**
-The institutional memory system for one organization leaks to another — either through
+The institutional memory system for one organization leaks to another either through
 a bug in namespace isolation, a misconfiguration in the vector DB, or a supply chain
 compromise. Organization A's patient-related interaction patterns become accessible
 to Organization B.
@@ -92,11 +92,11 @@ simultaneously. Regulatory fines + reputational destruction.
 
 ---
 
-### Risk 1.3 — Confidence Overstatement (The Dunning-Kruger Problem)
+### Risk 1.3 Confidence Overstatement (The Dunning-Kruger Problem)
 
 **What could go wrong:**
 The surrogate consistently reports high confidence on decisions where it should be
-uncertain — not because the model is arrogant, but because confidence calibration
+uncertain not because the model is arrogant, but because confidence calibration
 in LLMs is a known hard problem. A surrogate that should escalate instead acts,
 because it incorrectly believes it is certain.
 
@@ -119,14 +119,14 @@ misplaced confidence is worse than not acting.
    signal is below threshold.
 
 3. **Adversarial testing before deployment.** Every new surrogate persona goes through
-   a structured adversarial evaluation — red team specifically looking for cases
+   a structured adversarial evaluation red team specifically looking for cases
    where it over-confidently takes a wrong action.
 
 ---
 
 ## Risk Category 2: Market Risks
 
-### Risk 2.1 — Regulated Industry Adoption Takes Longer Than Projected
+### Risk 2.1 Regulated Industry Adoption Takes Longer Than Projected
 
 **What could go wrong:**
 The 90-day sales cycle assumption is wrong. NHS procurement takes 18 months.
@@ -144,7 +144,7 @@ Healthcare procurement is notoriously slow.
 1. **UAE as the fast-follower market.** Dubai, Abu Dhabi, and Singapore have
    more innovation-forward regulatory environments for healthcare AI. They are
    simultaneously prestigious reference customers and faster to close.
-   Build UAE pilots in parallel with NHS engagement — they close faster and
+   Build UAE pilots in parallel with NHS engagement they close faster and
    create international credibility.
 
 2. **NHS Innovation pathway exploitation.** NHS England has specific fast-track
@@ -161,7 +161,7 @@ Healthcare procurement is notoriously slow.
 
 ---
 
-### Risk 2.2 — A Well-Funded Competitor Enters With the Same Concept
+### Risk 2.2 A Well-Funded Competitor Enters With the Same Concept
 
 **What could go wrong:**
 A16Z or Sequoia funds a team building essentially the same thing, with more capital,
@@ -186,9 +186,9 @@ watching the AI and robotics markets.
    second year.
 
 3. **The differentiation is execution, not idea.** The insight that expertise should
-   be portable is not rare. The ability to execute in regulated environments —
+   be portable is not rare. The ability to execute in regulated environments
    building the governance, the compliance architecture, the trust relationships,
-   the expert validation network — is extremely rare. Execute faster than they can.
+   the expert validation network is extremely rare. Execute faster than they can.
 
 4. **Niche specificity as defense.** Own one vertical completely before expanding.
    A generalist competitor who launches across all verticals simultaneously
@@ -197,7 +197,7 @@ watching the AI and robotics markets.
 
 ---
 
-### Risk 2.3 — Large Incumbents Launch a Competing Product
+### Risk 2.3 Large Incumbents Launch a Competing Product
 
 **What could go wrong:**
 Epic launches "Epic AI Surrogate." Salesforce Health Cloud adds a "Clinical AI Agent"
@@ -214,7 +214,7 @@ already pay for.
 
 1. **Be certified before they are.** Epic can build a feature. Epic cannot get
    clinical governance certification in 6 months. If we have NHS-certified SOP stacks
-   and they don't, the feature doesn't displace us — it validates the category.
+   and they don't, the feature doesn't displace us it validates the category.
 
 2. **Depth of persona vs. breadth of feature.** An EHR vendor adding a "SOP generator"
    will build a horizontal feature. Our clinical surrogate is a vertical product with
@@ -230,11 +230,11 @@ already pay for.
 
 ## Risk Category 3: Execution Risks
 
-### Risk 3.1 — Team Can't Hire Fast Enough
+### Risk 3.1 Team Can't Hire Fast Enough
 
 **What could go wrong:**
-The core technical capabilities — LLM application architecture, regulated industry
-compliance engineering, domain expert network — are expensive and scarce.
+The core technical capabilities LLM application architecture, regulated industry
+compliance engineering, domain expert network are expensive and scarce.
 The team stays at 4–6 people too long, slowing product development to a crawl
 while better-funded competitors move faster.
 
@@ -245,7 +245,7 @@ while better-funded competitors move faster.
 **Mitigation:**
 
 1. **The mission attracts the mission-aligned.** Engineers who want to build something
-   genuinely significant — not another ChatGPT wrapper — exist and are looking.
+   genuinely significant not another ChatGPT wrapper exist and are looking.
    The vision document, the moral case, and the genuine importance of the problem
    are hiring tools. Use them.
 
@@ -256,15 +256,15 @@ while better-funded competitors move faster.
 
 3. **Stage the hiring to the revenue.** Year 1: core 6–8 person team focused on
    clinical vertical. Hire generalists who can flex across roles. Year 2: revenue
-   funds specialization. Don't hire ahead of the money — hire at the money.
+   funds specialization. Don't hire ahead of the money hire at the money.
 
 ---
 
-### Risk 3.2 — First Major Deployment Fails Publicly
+### Risk 3.2 First Major Deployment Fails Publicly
 
 **What could go wrong:**
-The first NHS pilot deploys, generates a high-profile error — a drug interaction
-missed, a wrong escalation, a data privacy incident — and the story becomes
+The first NHS pilot deploys, generates a high-profile error a drug interaction
+missed, a wrong escalation, a data privacy incident and the story becomes
 "AI surrogate fails in hospital." Every other target customer cancels their
 interest. The brand takes a reputational hit that takes years to recover.
 
@@ -295,12 +295,12 @@ interest. The brand takes a reputational hit that takes years to recover.
 
 ## Risk Category 4: Ethical and Societal Risks
 
-### Risk 4.1 — The Platform Concentrates Benefits, Not Distributes Them
+### Risk 4.1 The Platform Concentrates Benefits, Not Distributes Them
 
 **What could go wrong:**
 Despite the stated mission of access for all, the business realities push pricing
 toward large enterprise contracts with well-resourced institutions. The platform
-becomes a sophisticated tool for wealthy healthcare systems to become more efficient —
+becomes a sophisticated tool for wealthy healthcare systems to become more efficient
 while the rural clinic in Bihar, the village school in Kenya, and the small NGO
 in earthquake-affected Turkey never see it.
 
@@ -319,7 +319,7 @@ in earthquake-affected Turkey never see it.
 
 2. **The SOP corpus is a public good (partially).**
    Base-level SOP content for WHO Essential Health Package roles, basic legal
-   aid, and primary education is made freely available — not locked behind the
+   aid, and primary education is made freely available not locked behind the
    platform paywall. Organizations in low-income settings can use these base SOPs
    even if they can't afford the full platform.
 
@@ -330,18 +330,18 @@ in earthquake-affected Turkey never see it.
 
 ---
 
-### Risk 4.2 — The Humanoid Creates Harm at Scale
+### Risk 4.2 The Humanoid Creates Harm at Scale
 
 **What could go wrong:**
 A humanoid surrogate deployment, at scale, causes physical harm. Not a single incident
-managed with a pilot protocol — but a systematic failure across multiple deployments.
+managed with a pilot protocol but a systematic failure across multiple deployments.
 The harm is amplified by the scale of deployment in a way that a human error at
 the same scale would not be.
 
 **Probability:** Low in the near term (deployments are controlled and supervised).
 Higher in the long term as deployments scale and supervision decreases.
 
-**Severity:** Potentially catastrophic — for individuals harmed and for the platform.
+**Severity:** Potentially catastrophic for individuals harmed and for the platform.
 
 **Mitigation:**
 
@@ -354,7 +354,7 @@ Higher in the long term as deployments scale and supervision decreases.
 2. **Scale slowly, certify at each scale level.**
    The deployment model is: 1 → 5 → 20 → 100 humanoids per setting.
    Each scale level requires a new safety assessment and governance committee
-   review before proceeding. Scale is not a business decision — it is a
+   review before proceeding. Scale is not a business decision it is a
    safety committee decision.
 
 3. **Design for the failure mode, not the success case.**
@@ -395,7 +395,7 @@ The pattern across all mitigations is the same: **governance before speed**.
 
 The instinct in startup culture is to move fast and figure out the governance later.
 In regulated professional services, that instinct is wrong. The governance IS the
-product — it is what makes trust possible, and trust is the prerequisite for adoption.
+product it is what makes trust possible, and trust is the prerequisite for adoption.
 
 Build the governance first. Build the audit trail first. Build the kill switch first.
 Build the expert validation network first. Then build the product on top of that foundation.

@@ -123,7 +123,7 @@ There is **no direct competitor**. Adjacent players exist:
 | Studio | 10,000 customers | $36M |
 | Enterprise | 2,000 customers | $192M |
 | Humanoid | 200 deployments | $36M |
-| SOP Marketplace | — | $22M |
+| SOP Marketplace | | $22M |
 | **Total** | | **$286M ARR** |
 
 At 8x ARR multiple: **$2.3B valuation**.

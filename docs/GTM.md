@@ -1,5 +1,5 @@
 # GTM.md
-## Go-To-Market Strategy — How We Win the First $10M ARR
+## Go-To-Market Strategy How We Win the First $10M ARR
 
 ---
 
@@ -15,7 +15,7 @@ It is a platform that requires the customer to fundamentally change how they thi
 about professional operations.
 
 That means the GTM strategy is not about selling. It is about **demonstrating proof
-of transformation** — in the customer's specific context, with their specific workflows,
+of transformation** in the customer's specific context, with their specific workflows,
 against their specific problem.
 
 The sequence: **Prove it → Land it → Expand it → Reference it → Scale it.**
@@ -34,9 +34,9 @@ then use that as the reference architecture for the next.
 Why here first:
 - Highest urgency of the problem (clinical staff shortages are a crisis, documented)
 - Clearest ROI (nursing admin burden is measured and published: 72% of a nurse's time)
-- Most structured SOPs already exist (NICE, NHS protocols — high-quality retrieval corpus)
+- Most structured SOPs already exist (NICE, NHS protocols high-quality retrieval corpus)
 - UAE is innovation-forward with fewer regulatory barriers than US/EU for initial pilots
-- NHS is globally credible — an NHS-deployed surrogate opens every other health system
+- NHS is globally credible an NHS-deployed surrogate opens every other health system
 
 ### The Beachhead Accounts
 
@@ -125,7 +125,7 @@ EXPANSION TRIGGER 4: Network-level (multiple Trusts in ICB)
 ```
 
 Average expansion timeline in regulated healthcare IT: 18–24 months per stage.
-Once in, enterprise healthcare accounts almost never churn — switching costs are too high.
+Once in, enterprise healthcare accounts almost never churn switching costs are too high.
 
 ### The Vertical Expansion Playbook
 
@@ -182,7 +182,7 @@ FLYWHEEL EFFECT:
 
 ```
 SYSTEM INTEGRATORS:
-  Accenture Health, Deloitte Digital, KPMG — large NHS/enterprise deployers
+  Accenture Health, Deloitte Digital, KPMG large NHS/enterprise deployers
   Value: Reach thousands of accounts through their existing relationships
   Structure: Reseller + implementation partner, 20–30% margin
 
@@ -213,17 +213,17 @@ Start with the pain, not the product.
 **For Managing Partners (Legal):**
 > "Your best associates are drowning in due diligence.
 >  Every hour they spend on document review is an hour they don't spend on the judgment
->  work that actually develops them — and that clients actually pay your rates for."
+>  work that actually develops them and that clients actually pay your rates for."
 
 **For CFOs / Finance Directors:**
 > "Your finance team closes the month in 8 days. The benchmark best-in-class is 2 days.
 >  The difference is the manual orchestration, the email chasing, the manual data pulls.
->  None of that requires human judgment — it requires human time."
+>  None of that requires human judgment it requires human time."
 
 ### The One-Sentence Value Proposition (by persona)
 
 ```
-CLINICAL DIRECTOR:    "Your nurses, fully supported — 24/7."
+CLINICAL DIRECTOR:    "Your nurses, fully supported 24/7."
 MANAGING PARTNER:     "Junior associate work, senior associate speed."
 CFO:                  "Month-end in one day. Every month."
 CHIEF RISK OFFICER:   "Every decision logged. Every SOP followed. Every time."

@@ -120,11 +120,11 @@ class TenantManager {
 ```
 
 Key properties:
-- **Schema isolation** — Each org gets its own PostgreSQL schema
-- **BYOK encryption** — Org holds the encryption key, not us
-- **Vector DB namespaces** — Per-org partitions in Weaviate
-- **Auth middleware** — Decorates every request with tenant context
-- **Zero cross-org access** — Impossible by architecture, not just policy
+- **Schema isolation** Each org gets its own PostgreSQL schema
+- **BYOK encryption** Org holds the encryption key, not us
+- **Vector DB namespaces** Per-org partitions in Weaviate
+- **Auth middleware** Decorates every request with tenant context
+- **Zero cross-org access** Impossible by architecture, not just policy
 
 ---
 
@@ -135,12 +135,12 @@ All infrastructure runs via Docker Compose for local development:
 ```yaml
 # infra/docker-compose.yml provides:
 services:
-  postgres:        # Port 5432 — Primary database
-  otel-collector:  # Port 4317/4318 — Telemetry ingestion
-  tempo:           # Port 3200 — Trace storage
-  loki:            # Port 3100 — Log aggregation
-  prometheus:      # Port 9090 — Metrics scraping
-  grafana:         # Port 4000 — Dashboards
+  postgres:        # Port 5432 Primary database
+  otel-collector:  # Port 4317/4318 Telemetry ingestion
+  tempo:           # Port 3200 Trace storage
+  loki:            # Port 3100 Log aggregation
+  prometheus:      # Port 9090 Metrics scraping
+  grafana:         # Port 4000 Dashboards
 ```
 
 ### Trace Flow

@@ -1,9 +1,9 @@
-# SURROGATE OS — PRODUCT VISION
+# SURROGATE OS PRODUCT VISION
 ### The AI Identity Engine That Becomes the Employee
 
 ---
 
-> *"Every organization runs on human expertise encoded in human heads. When that person leaves, burns out, or isn't available at 3am — the knowledge vanishes. Surrogate OS is the infrastructure that makes expertise portable, persistent, and deployable anywhere humans need to be — and can't always be."*
+> *"Every organization runs on human expertise encoded in human heads. When that person leaves, burns out, or isn't available at 3am the knowledge vanishes. Surrogate OS is the infrastructure that makes expertise portable, persistent, and deployable anywhere humans need to be and can't always be."*
 
 ---
 
@@ -12,7 +12,7 @@
 1. [The Problem We're Solving](#1-the-problem-were-solving)
 2. [The Central Thesis](#2-the-central-thesis)
 3. [What Surrogate OS Is](#3-what-surrogate-os-is)
-4. [The Identity Engine — Core Concept](#4-the-identity-engine--core-concept)
+4. [The Identity Engine Core Concept](#4-the-identity-engine--core-concept)
 5. [The SOP Auto-Generation System](#5-the-sop-auto-generation-system)
 6. [Persona Architecture](#6-persona-architecture)
 7. [The Five-Layer Technical Stack](#7-the-five-layer-technical-stack)
@@ -21,7 +21,7 @@
 10. [Organizational Use Cases](#10-organizational-use-cases)
 11. [Extreme Use Cases](#11-extreme-use-cases)
 12. [Ethics and Safety Architecture](#12-ethics-and-safety-architecture)
-13. [The Living Persona — Continuous Learning](#13-the-living-persona--continuous-learning)
+13. [The Living Persona Continuous Learning](#13-the-living-persona--continuous-learning)
 14. [Fleet Consciousness](#14-fleet-consciousness)
 15. [Business Model](#15-business-model)
 16. [Five-Phase Roadmap](#17-five-phase-roadmap)
@@ -33,7 +33,7 @@
 
 ### The Knowledge Bottleneck
 
-Every organization — regardless of size, sector, or geography — faces the same fundamental constraint: **critical operational knowledge is trapped inside individual human beings.**
+Every organization regardless of size, sector, or geography faces the same fundamental constraint: **critical operational knowledge is trapped inside individual human beings.**
 
 This creates cascading failures:
 
@@ -50,7 +50,7 @@ Two nurses on the same ward follow subtly different protocols. Two lawyers at th
 An excellent specialist can only be in one place at one time. The best pediatric neurologist in Southeast Asia can't serve the 10,000 children who need her. The best corporate restructuring lawyer can't advise every mid-market company that needs her judgment.
 
 **The Burnout Problem**
-40% of nurses intend to leave the profession. 60% of lawyers report regular burnout. A significant portion of every knowledge worker's day is consumed by documentation, repetitive decision-making, and administrative overhead that offers zero intellectual value to them — but critical operational value to the organization.
+40% of nurses intend to leave the profession. 60% of lawyers report regular burnout. A significant portion of every knowledge worker's day is consumed by documentation, repetitive decision-making, and administrative overhead that offers zero intellectual value to them but critical operational value to the organization.
 
 ### What Currently Exists and Fails
 
@@ -58,11 +58,11 @@ Current AI tools address symptoms, not the root cause:
 
 - **General-purpose LLMs** (ChatGPT, Claude, Gemini): Broad knowledge, no operational identity, no SOP adherence, no institutional memory, no deployment continuity.
 - **Vertical SaaS** (Epic, Salesforce, SAP): Excellent at structured workflow execution, zero general reasoning, cannot adapt to novel situations.
-- **AI copilots** (GitHub Copilot, Harvey AI): Domain-specific assistance where the professional remains the operating entity — these are tools, not surrogates.
+- **AI copilots** (GitHub Copilot, Harvey AI): Domain-specific assistance where the professional remains the operating entity these are tools, not surrogates.
 - **RPA systems**: Automate deterministic tasks only. Completely fail when judgment is required.
 - **Humanoid robots** (Boston Dynamics, Figure, Tesla Optimus): Capable physical platforms with no coherent professional identity or operational intelligence.
 
-**The gap:** No existing system can be given a professional role and autonomously operate within that role's complete behavioral, knowledge, and compliance requirements — while being deployable as a digital agent *and* a physical robot from the same identity layer.
+**The gap:** No existing system can be given a professional role and autonomously operate within that role's complete behavioral, knowledge, and compliance requirements while being deployable as a digital agent *and* a physical robot from the same identity layer.
 
 That is the gap Surrogate OS fills.
 
@@ -72,7 +72,7 @@ That is the gap Surrogate OS fills.
 
 **Professional identity is a composable software object.**
 
-Every professional role — from ER nurse to M&A lawyer to nuclear plant operator to Mars mission specialist — can be decomposed into:
+Every professional role from ER nurse to M&A lawyer to nuclear plant operator to Mars mission specialist can be decomposed into:
 
 1. A **knowledge corpus** (what they know)
 2. A **behavioral model** (how they act and decide)
@@ -82,7 +82,7 @@ Every professional role — from ER nurse to M&A lawyer to nuclear plant operato
 6. A **goal hierarchy** (what success looks like for them)
 7. A **memory fabric** (context from prior interactions)
 
-If these seven components can be synthesized automatically from a role input and industry standards — and if the resulting identity can be loaded into any output modality (chat, voice, avatar, or humanoid) — then professional expertise becomes **infinitely scalable, geographically unrestricted, permanently available, and continuously improving**.
+If these seven components can be synthesized automatically from a role input and industry standards and if the resulting identity can be loaded into any output modality (chat, voice, avatar, or humanoid) then professional expertise becomes **infinitely scalable, geographically unrestricted, permanently available, and continuously improving**.
 
 This is not AGI. This is not a general reasoning system. This is something more immediately valuable: a **professional identity engine** that generates and operates fully-formed domain experts on demand.
 
@@ -96,7 +96,7 @@ Surrogate OS is an **AI identity engine** that:
 2. **Synthesizes** a complete professional identity (knowledge, SOPs, behavior model, compliance layer)
 3. **Deploys** that identity as an operational AI agent across any interface
 4. **Learns** continuously from every interaction, improving the identity over time
-5. **Scales** horizontally — fleet deployment with shared consciousness
+5. **Scales** horizontally fleet deployment with shared consciousness
 
 ### What It Is NOT
 
@@ -107,13 +107,13 @@ Surrogate OS is an **AI identity engine** that:
 
 ### The Defining Difference
 
-When a hospital deploys Surrogate OS as a clinical aide, the system doesn't *assist* with nursing tasks — it *operates as a nurse*, with all the procedural rigor, domain knowledge, communication protocols, and escalation judgment that entails.
+When a hospital deploys Surrogate OS as a clinical aide, the system doesn't *assist* with nursing tasks it *operates as a nurse*, with all the procedural rigor, domain knowledge, communication protocols, and escalation judgment that entails.
 
 The surrogate is not a tool the nurse uses. **The surrogate is the nurse when the nurse cannot be there.**
 
 ---
 
-## 4. THE IDENTITY ENGINE — CORE CONCEPT
+## 4. THE IDENTITY ENGINE CORE CONCEPT
 
 The Identity Engine is the central innovation. It transforms a role specification into a fully-hydrated professional entity in real-time.
 
@@ -130,26 +130,26 @@ Personality:   Calm under pressure, direct, empathetic with patients
 
 ### Processing: Identity Synthesis Pipeline
 
-**Stage 1 — Ontology Mapping**
+**Stage 1 Ontology Mapping**
 The role input is mapped to a structured professional ontology. "Senior ER Nurse" resolves to: acute care nursing → emergency subspecialty → Bands 6-7 NHS → trauma competencies → specific scope of practice boundaries.
 
-**Stage 2 — Knowledge Corpus Assembly**
+**Stage 2 Knowledge Corpus Assembly**
 Assembles a role-specific knowledge base from NICE Clinical Guidelines, BNF drug database, NHS SOPs, Royal College of Nursing standards, peer-reviewed emergency medicine literature, and equipment operation protocols.
 
-**Stage 3 — Behavioral Model Generation**
+**Stage 3 Behavioral Model Generation**
 A complete decision tree is generated: when to act autonomously vs. escalate, when to override a requested action (patient safety), communication style calibration across stakeholder types, stress response protocols, and ethical boundaries specific to this role.
 
-**Stage 4 — SOP Synthesis** *(See Section 5)*
+**Stage 4 SOP Synthesis** *(See Section 5)*
 
-**Stage 5 — Personality Calibration**
+**Stage 5 Personality Calibration**
 Assertiveness level, empathy expression mode, communication directness, humor availability (low in trauma settings), and cultural sensitivity parameters.
 
-**Stage 6 — Memory Initialization**
+**Stage 6 Memory Initialization**
 Short-term memory (current shift context) and long-term memory slots (organizational institutional knowledge, patient history patterns, team dynamics) are initialized.
 
 **Output: Hydrated Professional Identity**
 
-The result is a surrogate that doesn't just *know about* emergency nursing — it *is* an emergency nurse in operational terms, with all the judgment, process adherence, and professional identity that entails.
+The result is a surrogate that doesn't just *know about* emergency nursing it *is* an emergency nurse in operational terms, with all the judgment, process adherence, and professional identity that entails.
 
 ---
 
@@ -161,7 +161,7 @@ Most organizational SOPs are: written once and rarely updated, too generic to be
 
 ### Surrogate OS SOP Generation
 
-**Step 1 — Standards Corpus Query**
+**Step 1 Standards Corpus Query**
 The SOP engine queries a global library of industry standards and regulatory frameworks:
 - ISO standards (ISO 9001, ISO 45001, ISO 27001)
 - Regulatory frameworks (NHS, OSHA, NRC, FAA, IAEA, FCA, GDPR, HIPAA)
@@ -169,7 +169,7 @@ The SOP engine queries a global library of industry standards and regulatory fra
 - Peer-reviewed procedure literature
 - Incident investigation databases (what went wrong and why)
 
-**Step 2 — Role-Specific SOP Construction**
+**Step 2 Role-Specific SOP Construction**
 A hierarchical SOP tree is constructed:
 
 ```
@@ -197,17 +197,17 @@ ROLE: SENIOR ER NURSE
     └── SOP-031: Incident and Near-Miss Reporting
 ```
 
-**Step 3 — Escalation Tree Generation**
+**Step 3 Escalation Tree Generation**
 For every SOP: trigger conditions, action steps, decision forks, escalation triggers, documentation requirements, and failure modes.
 
-**Step 4 — Org-Specific Customization**
-If the organization provides its own documentation, the engine customizes generated SOPs to reflect organizational context — bridging the gap between industry standard practice and this specific organization's actual way of operating.
+**Step 4 Org-Specific Customization**
+If the organization provides its own documentation, the engine customizes generated SOPs to reflect organizational context bridging the gap between industry standard practice and this specific organization's actual way of operating.
 
-**Step 5 — Compliance Validation**
+**Step 5 Compliance Validation**
 Every SOP is validated against the loaded regulatory framework. Conflicting procedures are flagged, modified, or blocked.
 
-**Step 6 — Living Updates**
-SOPs are version-controlled. As regulations change, as the surrogate learns, and as the organization updates its practices, the SOP tree updates — with a full audit trail of every change.
+**Step 6 Living Updates**
+SOPs are version-controlled. As regulations change, as the surrogate learns, and as the organization updates its practices, the SOP tree updates with a full audit trail of every change.
 
 ---
 
@@ -228,19 +228,19 @@ SOPs are version-controlled. As regulations change, as the surrogate learns, and
 | P-009 | Elder Companion | Care | CQC / Skills for Care | Phase 4 |
 | P-010 | Mars Mission Specialist | Deep Space | NASA Flight Rules / ESA ECSS | Phase 4 |
 
-### Persona Components — Six Loadable Modules
+### Persona Components Six Loadable Modules
 
-**Module 1: Knowledge Base** — Domain-specific knowledge corpus. RAG-powered retrieval from a curated, quality-controlled library. Updated continuously as source materials evolve.
+**Module 1: Knowledge Base** Domain-specific knowledge corpus. RAG-powered retrieval from a curated, quality-controlled library. Updated continuously as source materials evolve.
 
-**Module 2: Behavioral Model** — The decision engine. A structured model of how this professional role makes decisions: heuristics, risk tolerances, ethical constraints, and escalation criteria.
+**Module 2: Behavioral Model** The decision engine. A structured model of how this professional role makes decisions: heuristics, risk tolerances, ethical constraints, and escalation criteria.
 
-**Module 3: Communication Protocols** — How this role communicates across stakeholder types. A nurse communicates differently with a consultant, a frightened patient, a patient's family, a junior colleague, and a hospital administrator. Each mode is explicitly modeled.
+**Module 3: Communication Protocols** How this role communicates across stakeholder types. A nurse communicates differently with a consultant, a frightened patient, a patient's family, a junior colleague, and a hospital administrator. Each mode is explicitly modeled.
 
-**Module 4: Compliance Layer** — Not just a list of regulations, but an operational understanding of what compliance requires in practice — including how to handle conflicting requirements and how to document decisions.
+**Module 4: Compliance Layer** Not just a list of regulations, but an operational understanding of what compliance requires in practice including how to handle conflicting requirements and how to document decisions.
 
-**Module 5: Goal Hierarchy** — Daily objectives, weekly targets, longer-term OKRs. Allows the surrogate to prioritize among competing demands in a way that reflects the role's actual accountability structure.
+**Module 5: Goal Hierarchy** Daily objectives, weekly targets, longer-term OKRs. Allows the surrogate to prioritize among competing demands in a way that reflects the role's actual accountability structure.
 
-**Module 6: Personality Calibration** — The human texture. Tone, assertiveness, empathy expression, communication directness, cultural sensitivity. This is what makes the surrogate feel like a professional colleague rather than a system.
+**Module 6: Personality Calibration** The human texture. Tone, assertiveness, empathy expression, communication directness, cultural sensitivity. This is what makes the surrogate feel like a professional colleague rather than a system.
 
 ### Persona Versioning
 
@@ -272,15 +272,15 @@ Personas are versioned like software:
 └──────────────────────────────────────────────────────────┘
 ```
 
-**Layer 0: Learning Infrastructure** — Post-session behavior analysis, SOP self-update with human approval, federated learning coordinator (no private data shared), and explainability logging.
+**Layer 0: Learning Infrastructure** Post-session behavior analysis, SOP self-update with human approval, federated learning coordinator (no private data shared), and explainability logging.
 
-**Layer 1: Input Processing** — NLP role parsing, organizational document ingestion, jurisdiction routing, and personality seed configuration.
+**Layer 1: Input Processing** NLP role parsing, organizational document ingestion, jurisdiction routing, and personality seed configuration.
 
-**Layer 2: Identity Core** — Domain RAG knowledge base, structured decision engine (LLM for reasoning within defined behavioral parameters), two-tier memory fabric (STM + LTM), emotion proxy for stress detection, and live goal stack.
+**Layer 2: Identity Core** Domain RAG knowledge base, structured decision engine (LLM for reasoning within defined behavioral parameters), two-tier memory fabric (STM + LTM), emotion proxy for stress detection, and live goal stack.
 
-**Layer 3: SOP Engine** — On-demand workflow generation, escalation management with confidence thresholds, immutable cryptographically-signed audit trail, real-time compliance validation, and drift detection.
+**Layer 3: SOP Engine** On-demand workflow generation, escalation management with confidence thresholds, immutable cryptographically-signed audit trail, real-time compliance validation, and drift detection.
 
-**Layer 4: Interfaces** — Natural language (chat + voice), avatar system, tool-use framework (APIs, code, files, web), Humanoid SDK for motor control integration, and IoT mesh for industrial deployments.
+**Layer 4: Interfaces** Natural language (chat + voice), avatar system, tool-use framework (APIs, code, files, web), Humanoid SDK for motor control integration, and IoT mesh for industrial deployments.
 
 ---
 
@@ -303,7 +303,7 @@ The same professional identity can be instantiated across six modes:
 
 ### The Core Insight
 
-A humanoid robot without a coherent professional identity is a physical platform without a purpose. The cognitive and operational identity layer — the thing that knows *how to behave* as a specific professional — is precisely what's missing from current humanoid deployments.
+A humanoid robot without a coherent professional identity is a physical platform without a purpose. The cognitive and operational identity layer the thing that knows *how to behave* as a specific professional is precisely what's missing from current humanoid deployments.
 
 Surrogate OS provides that layer. The same identity that operates a chat interface can, with the addition of a physical embodiment layer, operate a humanoid robot as the same professional.
 
@@ -322,7 +322,7 @@ PHYSICAL ACTION SEQUENCE:
 4. ASSESS      → Visual assessment of condition (colour, breathing, alertness)
 5. READ        → Monitor readings from bedside display
 6. INTERACT    → Verbal check-in per communication protocol
-7. PALPATE     → [REQUIRES HUMAN AUTH — confidence 99.4%, awaiting yes]
+7. PALPATE     → [REQUIRES HUMAN AUTH confidence 99.4%, awaiting yes]
 8. DOCUMENT    → Log all readings + observations to EMR wirelessly
 9. FLAG        → Abnormalities trigger immediate escalation to duty nurse
 10. DEPART     → Exit, update position in fleet coordination system
@@ -413,7 +413,7 @@ Loaded with IAEA protocols, plant-specific P&IDs, SCRAM procedures, and Emergenc
 
 ICS Incident Commander support, search and rescue deconfliction across sectors, START triage at field hospital intake, resource logistics with predictive depletion alerts, missing persons database management, and multilingual public information. Humanoid surrogates enter IDLH environments for search and reconnaissance.
 
-### 11.4 Village Medical Aide — Global Health Access
+### 11.4 Village Medical Aide Global Health Access
 
 400 million people have no access to healthcare. WHO Primary Health Care protocols, 60+ local languages, symptom triage within safe-to-advise scope, essential medicine prescribing within pre-approved list with remote medical oversight, automatic telemedicine escalation, and maternal health monitoring.
 
@@ -427,8 +427,8 @@ Ethics is an architectural constraint, not an afterthought.
 
 ### The Five Immutable Principles
 
-**Principle 1: Human Supremacy — Always**
-No surrogate overrides a human decision. The surrogate advises, prepares options, and executes within delegated authority. Ultimate decision-making rests with humans. Every action above a configurable risk threshold requires human authorization — and that threshold cannot be set to zero.
+**Principle 1: Human Supremacy Always**
+No surrogate overrides a human decision. The surrogate advises, prepares options, and executes within delegated authority. Ultimate decision-making rests with humans. Every action above a configurable risk threshold requires human authorization and that threshold cannot be set to zero.
 
 **Principle 2: Radical Transparency**
 The surrogate always identifies as AI. No deception about its nature. Every decision is logged with full rationale, accessible to the organization and applicable regulators. Audit logs are immutable and cryptographically signed.
@@ -455,7 +455,7 @@ Regardless of instruction, configuration, or context:
 
 ---
 
-## 13. THE LIVING PERSONA — CONTINUOUS LEARNING
+## 13. THE LIVING PERSONA CONTINUOUS LEARNING
 
 ### The Learning Loop
 
@@ -463,7 +463,7 @@ Regardless of instruction, configuration, or context:
 DEPLOYMENT → ACTION → OUTCOME → DEBRIEF → SOP UPDATE → IMPROVED DEPLOYMENT
 ```
 
-Every action is logged with context, compared against SOP-specified outcomes, and analyzed for drift. Systematic deviations that produce better outcomes become SOP update candidates — reviewed and approved by humans before implementation. Approved updates contribute to the federated learning pool for the persona cluster, benefiting all surrogates in the same role without sharing private organizational data.
+Every action is logged with context, compared against SOP-specified outcomes, and analyzed for drift. Systematic deviations that produce better outcomes become SOP update candidates reviewed and approved by humans before implementation. Approved updates contribute to the federated learning pool for the persona cluster, benefiting all surrogates in the same role without sharing private organizational data.
 
 ### Institutional Memory
 
@@ -475,7 +475,7 @@ The surrogate builds organizational-specific institutional memory over time: pat
 
 Multiple surrogates in the same organization operate as a coordinated fleet, not isolated agents.
 
-**Shared Situational Awareness:** Real-time operational picture shared across all surrogates — task allocation, priority queue, resource availability, escalation queue status.
+**Shared Situational Awareness:** Real-time operational picture shared across all surrogates task allocation, priority queue, resource availability, escalation queue status.
 
 **Automatic Load Balancing:** New tasks are assessed against current fleet load and routed to the optimal surrogate.
 
@@ -511,7 +511,7 @@ Additional revenue streams: SOP Marketplace (curated industry packs by professio
 
 **Data moat:** Each deployed surrogate improves the SOP library. More deployments = better system for all. Compounding advantage.
 
-**Compliance moat:** Regulatory certification in specific jurisdictions (NHS, OSHA, NRC) is expensive and slow to obtain — and creates a significant barrier to entry.
+**Compliance moat:** Regulatory certification in specific jurisdictions (NHS, OSHA, NRC) is expensive and slow to obtain and creates a significant barrier to entry.
 
 **Integration moat:** Deep integrations with existing clinical, legal, and operational software create switching costs.
 
@@ -548,14 +548,14 @@ We are building toward a world where:
 
 **Professionals are liberated from administration.** Nurses spend time caring for people, not completing forms. Lawyers solve complex problems, not draft boilerplate agreements. Teachers inspire children, not chase data.
 
-**Physical AI has a brain.** The humanoid robots filling our hospitals, factories, and care homes — and eventually other planets — have a cognitive layer that knows how to behave as a specific professional, with all the judgment, process rigor, and accountability that requires.
+**Physical AI has a brain.** The humanoid robots filling our hospitals, factories, and care homes and eventually other planets have a cognitive layer that knows how to behave as a specific professional, with all the judgment, process rigor, and accountability that requires.
 
-**The workforce becomes a right, not a privilege.** Every organization — regardless of size, location, or resources — has access to expert operational intelligence. The village clinic competes with the major urban hospital on the quality of its decision support.
+**The workforce becomes a right, not a privilege.** Every organization regardless of size, location, or resources has access to expert operational intelligence. The village clinic competes with the major urban hospital on the quality of its decision support.
 
 This requires getting the technology right, getting the ethics right, and building trust slowly in constrained environments with strong human oversight.
 
-But the endgame — a world where professional expertise is as accessible as electricity — is worth building toward.
+But the endgame a world where professional expertise is as accessible as electricity is worth building toward.
 
 ---
 
-*SURROGATE OS — VISION DOCUMENT v2.0 | Classification: Public Product Vision | 2025*
+*SURROGATE OS VISION DOCUMENT v2.0 | Classification: Public Product Vision | 2025*

@@ -1,10 +1,10 @@
 ---
 sidebar_position: 1
-title: "Phase 1 — Studio"
+title: "Phase 1 Studio"
 description: "Core surrogate management, SOP generation, graph visualization, RBAC, and audit trail."
 ---
 
-# Phase 1 — Studio
+# Phase 1 Studio
 
 Phase 1 establishes the foundational platform: surrogate lifecycle management, LLM-powered SOP generation, role-based access control, and a tamper-evident audit trail.
 
@@ -143,4 +143,4 @@ The chain can be verified via `GET /api/v1/audit/:id/verify` which walks the cha
 
 ---
 
-*Next: [Phase 2 — Persona Engine](/docs/features/phase2-persona)*
+*Next: [Phase 2 Persona Engine](/docs/features/phase2-persona)*
