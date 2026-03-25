@@ -25,7 +25,7 @@
 
 ---
 
-Surrogate OS synthesizes complete professional identities and deploys them as operational AI agents across chat, voice, avatar, and humanoid interfaces. It doesn't just answer questions &mdash; it *becomes* the employee.
+Surrogate OS synthesizes complete professional identities and deploys them as operational AI agents across chat, voice, avatar, and humanoid interfaces. It doesn't just answer questions  it *becomes* the employee.
 
 ## Key Features
 
@@ -33,7 +33,7 @@ Surrogate OS synthesizes complete professional identities and deploys them as op
 |---------|-------------|
 | **Surrogate Studio** | Create and manage AI professional identities with persona configuration |
 | **SOP Engine** | LLM-generated decision graphs (9 node types) with versioning and certification |
-| **Surrogate Chat** | Real-time conversational interface &mdash; talk to your surrogates directly |
+| **Surrogate Chat** | Real-time conversational interface  talk to your surrogates directly |
 | **Execution Engine** | Live SOP traversal with decision recording and escalation handling |
 | **Fleet Management** | Monitor all surrogates in real-time with health metrics and handoff protocols |
 | **Institutional Memory** | Short-term and long-term memory with pattern detection and promotion |
@@ -186,11 +186,11 @@ Full documentation is available at **[vishalm.github.io/surrogate-os](https://vi
 
 ## Five Founding Commitments
 
-1. **Open SOP Standard** &mdash; Portable, interoperable decision graph format
-2. **Data Portability** &mdash; Full org export/import, never locked in
-3. **Bias Transparency** &mdash; LLM-powered auditing with anomaly detection
-4. **Human-in-the-Loop** &mdash; Kill switches, escalation nodes, checkpoint approvals
-5. **Privacy by Design** &mdash; Schema-per-tenant isolation, differential privacy in federation
+1. **Open SOP Standard**  Portable, interoperable decision graph format
+2. **Data Portability**  Full org export/import, never locked in
+3. **Bias Transparency**  LLM-powered auditing with anomaly detection
+4. **Human-in-the-Loop**  Kill switches, escalation nodes, checkpoint approvals
+5. **Privacy by Design**  Schema-per-tenant isolation, differential privacy in federation
 
 ## Contributing
 
