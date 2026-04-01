@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e293b;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)" />
+
+  <!-- Accent line at top -->
+  <rect x="0" y="0" width="1200" height="4" fill="url(#accent)" />
+
+  <!-- Grid pattern overlay -->
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.5" opacity="0.5"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#grid)" />
+
+  <!-- Decorative circles -->
+  <circle cx="950" cy="150" r="180" fill="#6366f1" opacity="0.06" />
+  <circle cx="1000" cy="200" r="120" fill="#8b5cf6" opacity="0.08" />
+  <circle cx="200" cy="500" r="150" fill="#6366f1" opacity="0.04" />
+
+  <!-- Logo mark -->
+  <rect x="80" y="160" width="56" height="56" rx="12" fill="url(#accent)" />
+  <text x="108" y="198" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="700" fill="white" text-anchor="middle">S</text>
+
+  <!-- Title -->
+  <text x="80" y="280" font-family="system-ui, -apple-system, sans-serif" font-size="64" font-weight="800" fill="white" letter-spacing="-2">
+    Surrogate OS
+  </text>
+
+  <!-- Subtitle -->
+  <text x="80" y="330" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="400" fill="#94a3b8">
+    The AI Identity Engine
+  </text>
+
+  <!-- Description -->
+  <text x="80" y="390" font-family="system-ui, -apple-system, sans-serif" font-size="20" fill="#64748b">
+    Synthesize AI employees from role descriptions.
+  </text>
+  <text x="80" y="418" font-family="system-ui, -apple-system, sans-serif" font-size="20" fill="#64748b">
+    Deploy across chat, voice, and humanoid interfaces.
+  </text>
+
+  <!-- Stats bar -->
+  <rect x="80" y="465" width="700" height="60" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1" />
+
+  <!-- Stat items -->
+  <text x="120" y="502" font-family="system-ui, -apple-system, monospace" font-size="18" font-weight="700" fill="#6366f1">571</text>
+  <text x="164" y="502" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#94a3b8">Tests</text>
+
+  <text x="260" y="502" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#475569">/</text>
+
+  <text x="310" y="502" font-family="system-ui, -apple-system, monospace" font-size="18" font-weight="700" fill="#6366f1">130+</text>
+  <text x="368" y="502" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#94a3b8">Endpoints</text>
+
+  <text x="490" y="502" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#475569">/</text>
+
+  <text x="540" y="502" font-family="system-ui, -apple-system, monospace" font-size="18" font-weight="700" fill="#6366f1">6</text>
+  <text x="562" y="502" font-family="system-ui, -apple-system, sans-serif" font-size="16" fill="#94a3b8">Compliance Frameworks</text>
+
+  <!-- Open source badge -->
+  <rect x="80" y="555" width="140" height="36" rx="18" fill="none" stroke="#6366f1" stroke-width="1.5" />
+  <text x="150" y="578" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#6366f1" text-anchor="middle">Open Source</text>
+
+  <!-- URL -->
+  <text x="250" y="578" font-family="system-ui, -apple-system, monospace" font-size="14" fill="#475569">github.com/vishalm/surrogate-os</text>
+</svg>

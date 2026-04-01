@@ -103,7 +103,23 @@ const config: Config = {
             "https://github.com/vishalm/surrogate-os/tree/main/apps/docs/",
           showLastUpdateTime: false,
         },
-        blog: false,
+        blog: {
+          showReadingTime: true,
+          blogTitle: "Surrogate OS Blog",
+          blogDescription:
+            "News, deep dives, and engineering insights from the Surrogate OS team.",
+          blogSidebarCount: "ALL",
+          blogSidebarTitle: "All Posts",
+          feedOptions: {
+            type: ["rss", "atom"],
+            title: "Surrogate OS Blog",
+            description:
+              "News, deep dives, and engineering insights from the Surrogate OS team.",
+            copyright: `Copyright ${new Date().getFullYear()} Surrogate OS`,
+          },
+          editUrl:
+            "https://github.com/vishalm/surrogate-os/tree/main/apps/docs/",
+        },
         theme: {
           customCss: "./src/css/custom.css",
         },
@@ -192,6 +208,11 @@ const config: Config = {
         {
           to: "/docs/strategy/market",
           label: "Strategy",
+          position: "left",
+        },
+        {
+          to: "/blog",
+          label: "Blog",
           position: "left",
         },
         {
