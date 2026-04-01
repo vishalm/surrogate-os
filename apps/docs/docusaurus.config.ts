@@ -4,7 +4,8 @@ import type * as Preset from "@docusaurus/preset-classic";
 
 const config: Config = {
   title: "Surrogate OS",
-  tagline: "The AI Identity Engine That Becomes the Employee",
+  tagline:
+    "Synthesize AI employees from role descriptions. Deploy across chat, voice, and humanoid interfaces.",
   favicon: "img/favicon.ico",
 
   // For GitHub Pages: https://vishalm.github.io/surrogate-os/
@@ -28,6 +29,69 @@ const config: Config = {
     defaultLocale: "en",
     locales: ["en"],
   },
+
+  headTags: [
+    {
+      tagName: "meta",
+      attributes: {
+        property: "og:type",
+        content: "website",
+      },
+    },
+    {
+      tagName: "meta",
+      attributes: {
+        property: "og:title",
+        content: "Surrogate OS — AI Identity Engine",
+      },
+    },
+    {
+      tagName: "meta",
+      attributes: {
+        property: "og:description",
+        content:
+          "Synthesize AI employees from role descriptions. Deploy across chat, voice, and humanoid interfaces.",
+      },
+    },
+    {
+      tagName: "meta",
+      attributes: {
+        property: "og:image",
+        content:
+          "https://vishalm.github.io/surrogate-os/img/surrogate-os-social.png",
+      },
+    },
+    {
+      tagName: "meta",
+      attributes: {
+        name: "twitter:card",
+        content: "summary_large_image",
+      },
+    },
+    {
+      tagName: "meta",
+      attributes: {
+        name: "twitter:title",
+        content: "Surrogate OS — AI Identity Engine",
+      },
+    },
+    {
+      tagName: "meta",
+      attributes: {
+        name: "twitter:description",
+        content:
+          "Synthesize AI employees from role descriptions. Deploy across chat, voice, and humanoid interfaces.",
+      },
+    },
+    {
+      tagName: "meta",
+      attributes: {
+        name: "twitter:image",
+        content:
+          "https://vishalm.github.io/surrogate-os/img/surrogate-os-social.png",
+      },
+    },
+  ],
 
   presets: [
     [
@@ -53,12 +117,40 @@ const config: Config = {
       {
         name: "keywords",
         content:
-          "AI, professional identity, SOP, surrogate, healthcare AI, humanoid, enterprise AI",
+          "ai agents, llm platform, ai workforce, digital employees, ai identity engine, surrogate os, multi-agent system, compliance ai",
       },
       {
         name: "description",
         content:
           "Surrogate OS synthesizes complete professional identities and deploys them as operational AI agents across chat, voice, avatar, and humanoid interfaces.",
+      },
+      { name: "og:type", content: "website" },
+      {
+        name: "og:title",
+        content: "Surrogate OS — AI Identity Engine",
+      },
+      {
+        name: "og:description",
+        content:
+          "Synthesize AI employees from role descriptions. Deploy across chat, voice, and humanoid interfaces.",
+      },
+      {
+        name: "og:image",
+        content: "https://vishalm.github.io/surrogate-os/img/surrogate-os-social.png",
+      },
+      { name: "twitter:card", content: "summary_large_image" },
+      {
+        name: "twitter:title",
+        content: "Surrogate OS — AI Identity Engine",
+      },
+      {
+        name: "twitter:description",
+        content:
+          "Synthesize AI employees from role descriptions. Deploy across chat, voice, and humanoid interfaces.",
+      },
+      {
+        name: "twitter:image",
+        content: "https://vishalm.github.io/surrogate-os/img/surrogate-os-social.png",
       },
     ],
     colorMode: {

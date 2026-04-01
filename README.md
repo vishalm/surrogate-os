@@ -1,207 +1,215 @@
 <p align="center">
-  <img src="apps/docs/static/img/logo.svg" alt="Surrogate OS" width="80" height="80" />
+  <img src="apps/docs/static/img/logo.svg" alt="Surrogate OS" width="100" height="100" />
 </p>
 
 <h1 align="center">Surrogate OS</h1>
 
+<h3 align="center">The AI Identity Engine</h3>
+
 <p align="center">
-  <strong>The AI Identity Engine That Becomes the Employee</strong>
+  <strong>Synthesize complete AI employees from a role description.<br/>Deploy across chat, voice, AR, and humanoid interfaces.</strong>
 </p>
 
 <p align="center">
-  <a href="https://vishalm.github.io/surrogate-os/">Documentation</a> &bull;
-  <a href="https://vishalm.github.io/surrogate-os/docs/getting-started/quick-start">Quick Start</a> &bull;
-  <a href="https://vishalm.github.io/surrogate-os/docs/architecture/overview">Architecture</a> &bull;
-  <a href="https://vishalm.github.io/surrogate-os/docs/api/endpoints">API Reference</a>
+  <a href="https://github.com/vishalm/surrogate-os/actions"><img src="https://img.shields.io/github/actions/workflow/status/vishalm/surrogate-os/ci.yml?branch=main&label=build&logo=github" alt="Build Status" /></a>
+  <img src="https://img.shields.io/badge/tests-571_passing-brightgreen?logo=vitest" alt="Tests" />
+  <img src="https://img.shields.io/badge/TypeScript-strict-blue?logo=typescript" alt="TypeScript" />
+  <a href="https://github.com/vishalm/surrogate-os/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-green" alt="License MIT" /></a>
+  <img src="https://img.shields.io/badge/docker-8_services-blue?logo=docker" alt="Docker" />
+  <a href="https://github.com/vishalm/surrogate-os/pulls"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen" alt="PRs Welcome" /></a>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/TypeScript-5.x-blue?logo=typescript" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/Node.js-22-green?logo=node.js" alt="Node.js" />
-  <img src="https://img.shields.io/badge/Tests-571_passing-brightgreen" alt="Tests" />
-  <img src="https://img.shields.io/badge/Docker-8_containers-blue?logo=docker" alt="Docker" />
-  <img src="https://img.shields.io/badge/License-BSL_1.1-orange" alt="License" />
+  <a href="https://vishalm.github.io/surrogate-os/">Docs</a> &middot;
+  <a href="#quick-start">Quick Start</a> &middot;
+  <a href="#architecture">Architecture</a> &middot;
+  <a href="https://vishalm.github.io/surrogate-os/docs/api/endpoints">API Reference</a> &middot;
+  <a href="ROADMAP.md">Roadmap</a>
 </p>
 
 ---
 
-Surrogate OS synthesizes complete professional identities and deploys them as operational AI agents across chat, voice, avatar, and humanoid interfaces. It doesn't just answer questions  it *becomes* the employee.
+## What is Surrogate OS?
+
+Surrogate OS is a platform that creates professional AI surrogates — digital employees with domain expertise, regulatory compliance, and institutional memory. Define a role (Senior ER Nurse, M&A Legal Advisor), and the system generates decision-making SOPs, enforces compliance across six frameworks (HIPAA, GDPR, EU AI Act), and learns from every interaction. Think of it as an operating system for AI workers that actually *become* the employee.
+
+---
 
 ## Key Features
 
-| Feature | Description |
-|---------|-------------|
-| **Surrogate Studio** | Create and manage AI professional identities with persona configuration |
-| **SOP Engine** | LLM-generated decision graphs (9 node types) with versioning and certification |
-| **Surrogate Chat** | Real-time conversational interface  talk to your surrogates directly |
-| **Execution Engine** | Live SOP traversal with decision recording and escalation handling |
-| **Fleet Management** | Monitor all surrogates in real-time with health metrics and handoff protocols |
-| **Institutional Memory** | Short-term and long-term memory with pattern detection and promotion |
-| **Org DNA Ingestion** | Embed organizational knowledge via pgvector for RAG |
-| **Shift Debriefs** | LLM-powered session analysis with improvement recommendations |
-| **SOP Self-Update** | Automatic SOP improvement proposals from debrief insights |
-| **Persona Library** | Versioned templates with rollback, import/export, and instantiation |
-| **SOP Marketplace** | Publish, discover, and install SOPs across organizations |
-| **Bias Audit** | LLM-powered anomaly detection and fairness analysis |
-| **Compliance Engine** | 6 regulatory frameworks (HIPAA, GDPR, CQC, FCA, SOX, EU AI Act) with Ed25519 SOP signing |
-| **Humanoid SDK** | Interface abstraction from chat to fully autonomous with kill-switch controls |
-| **Federated Learning** | Cross-org insights with differential privacy (Laplacian noise, gradient clipping) |
-| **Analytics** | Time-series metrics, decision heatmaps, domain breakdowns, CSV export |
-| **Data Portability** | Full org export/import (one of 5 founding commitments) |
+### Identity & Expertise
+
+- **Surrogate Studio** — Create AI professional identities from a role description
+- **Persona Templates** — Versioned persona library with rollback, import/export
+- **SOP Generation** — LLM-powered decision graphs (9 node types) with certification
+
+### Intelligence
+
+- **Institutional Memory** — Short-term and long-term memory with pattern promotion
+- **Shift Debriefs** — Automated session analysis with improvement recommendations
+- **SOP Self-Update** — Automatic improvement proposals from debrief insights
+- **Org DNA** — Embed organizational knowledge via pgvector for RAG retrieval
+
+### Compliance & Safety
+
+- **6 Regulatory Frameworks** — HIPAA, GDPR, CQC, FCA, SOX, EU AI Act
+- **Ed25519 SOP Signing** — Cryptographic certification of decision procedures
+- **Bias Auditing** — LLM-powered anomaly detection and fairness analysis
+- **Human-in-the-Loop** — Kill switches, escalation nodes, checkpoint approvals
+
+### Operations
+
+- **Fleet Management** — Monitor all surrogates in real-time with health metrics
+- **Handoff Protocol** — Seamless surrogate-to-surrogate and surrogate-to-human transfers
+- **Execution Engine** — Live SOP traversal with decision recording
+
+### Enterprise
+
+- **Multi-Tenant** — Schema-per-tenant isolation with 25+ tables per org
+- **API Keys & Webhooks** — Programmatic access and event-driven integrations
+- **Federated Learning** — Cross-org insights with differential privacy
+- **Data Portability** — Full org export/import, zero lock-in
+
+### Interface
+
+- **Surrogate Chat** — Real-time conversations with your AI employees
+- **Humanoid SDK** — Interface abstraction from chat to fully autonomous
+- **SOP Marketplace** — Publish, discover, and install SOPs across organizations
+
+---
 
 ## Architecture
 
 ```
-surrogate-os/
-  apps/
-    api/          # Fastify API (25 route modules, ~130 endpoints)
-    web/          # Next.js 14 Dashboard (47 pages, 20 nav items)
-    docs/         # Docusaurus documentation site
-  packages/
-    shared/       # Types, schemas, constants (Zod validation)
-    observability/# OpenTelemetry tracing, metrics, structured logging
-  infra/          # Docker Compose (8 containers)
+┌─────────────────────────────────────────┐
+│           Interface Layer               │
+│    Chat · Voice · AR · Humanoid         │
+├─────────────────────────────────────────┤
+│          Execution Layer                │
+│   SOP Engine · Session · Decisions      │
+├─────────────────────────────────────────┤
+│          Intelligence Layer             │
+│  Memory · Debriefs · Proposals · DNA    │
+├─────────────────────────────────────────┤
+│           Identity Layer                │
+│  Surrogates · Personas · SOPs · Certs   │
+├─────────────────────────────────────────┤
+│         Infrastructure Layer            │
+│ Multi-Tenant · OTEL · Prisma · pgvector │
+└─────────────────────────────────────────┘
 ```
 
-**Stack:** TypeScript, Fastify, Next.js 14, Prisma, PostgreSQL 16, pgvector, OpenTelemetry, Grafana, Prometheus, Loki, Tempo
+**Loosely coupled** — Event bus (15 event types), service registry (DI), unified LLM provider across 4 providers.
 
-**Multi-tenancy:** Schema-per-tenant isolation with 25+ tenant tables per org.
-
-**Loosely coupled:** Event bus (15 event types), service registry (DI), unified LLM provider (4 providers: Anthropic, OpenAI, Azure, Ollama).
+---
 
 ## Quick Start
 
-### Prerequisites
-
-- Docker Desktop
-- Node.js 22+
-
-### Run with Docker Compose
+Get running in under 2 minutes:
 
 ```bash
-# Clone
 git clone https://github.com/vishalm/surrogate-os.git
-cd surrogate-os
-
-# Start everything (8 containers)
-cd infra
-cp .env.example .env  # Add your ANTHROPIC_API_KEY
-docker compose up -d --build
-
-# Seed the database
-docker compose exec api npx tsx prisma/seed.ts
+cd surrogate-os/infra
+docker compose up -d
 ```
-
-**Services:**
 
 | Service | URL |
 |---------|-----|
-| Web Dashboard | http://localhost:3000 |
-| API Server | http://localhost:3001 |
-| API Docs (Swagger) | http://localhost:3001/docs |
-| Grafana | http://localhost:4000 (admin/admin) |
-| Prometheus | http://localhost:9090 |
+| Web Dashboard | [localhost:3000](http://localhost:3000) |
+| API Server | [localhost:3001](http://localhost:3001) |
+| Swagger Docs | [localhost:3001/docs](http://localhost:3001/docs) |
+| Grafana | [localhost:4000](http://localhost:4000) |
 
 **Login:** `admin@acme.com` / `Password123!`
 
-### Local Development
+> Set your `ANTHROPIC_API_KEY` in `infra/.env` to enable LLM features. See the [Quick Start Guide](https://vishalm.github.io/surrogate-os/docs/getting-started/quick-start) for details.
 
-```bash
-# Install dependencies
-npm install
+---
 
-# Build shared packages
-cd packages/shared && npx tsc && cd ../..
-cd packages/observability && npx tsc && cd ../..
+## Tech Stack
 
-# Start infrastructure
-cd infra && docker compose up -d postgres loki tempo prometheus grafana otel-collector
+| Layer | Technology |
+|-------|-----------|
+| Frontend | Next.js 15, React, Tailwind CSS |
+| Backend | Fastify, Node.js 22 |
+| Database | PostgreSQL 16, Prisma ORM, pgvector |
+| Observability | OpenTelemetry, Grafana, Prometheus, Loki, Tempo |
+| Infrastructure | Docker Compose (8 containers) |
+| Language | TypeScript (strict mode) |
 
-# Run API (dev mode)
-cd apps/api && npm run dev
+---
 
-# Run Web (dev mode)
-cd apps/web && npm run dev
-```
+## Platform Stats
 
-## Testing
+| Metric | Count |
+|--------|-------|
+| API Modules | 25 |
+| API Endpoints | ~130 |
+| Dashboard Pages | 47 |
+| Tests Passing | 571 |
+| Docker Services | 8 |
+| Compliance Frameworks | 6 |
+| LLM Providers | 4 |
 
-```bash
-# Run all API tests (341 tests)
-cd apps/api && npx vitest run
+---
 
-# Run shared tests (230 tests)
-cd packages/shared && npx vitest run
+## LLM Providers
 
-# Watch mode
-cd apps/api && npx vitest
-```
+Surrogate OS supports multiple LLM backends, configurable per-organization:
 
-**571 tests** across 20 test files covering: crypto, pagination, errors, graph validation, graph diff, SOP executor, SOP signing, differential privacy, task translator, event bus, service registry, compliance frameworks, humanoid interfaces, webhooks, audit helpers, and all Zod schemas.
+| Provider | Type |
+|----------|------|
+| **Anthropic Claude** | Cloud |
+| **OpenAI** | Cloud |
+| **Azure OpenAI** | Cloud |
+| **Ollama** | Local / Self-hosted |
 
-## API Overview
+Switch providers in **Settings > LLM Configuration** without changing any surrogate definitions.
 
-25 route modules under `/api/v1`:
-
-| Module | Endpoints | Description |
-|--------|-----------|-------------|
-| `/auth` | 4 | Login, register, refresh, invite |
-| `/orgs` | 4 | Org CRUD + settings |
-| `/surrogates` | 5 | Surrogate lifecycle |
-| `/sops` | 5 | SOP versioning + status transitions |
-| `/llm` | 1 | LLM-powered SOP generation |
-| `/chat` | 5 | Surrogate conversations |
-| `/executions` | 10 | Live SOP execution |
-| `/debriefs` | 9 | Sessions + debrief generation |
-| `/proposals` | 5 | SOP improvement proposals |
-| `/fleet` | 5 | Fleet monitoring |
-| `/handoffs` | 5 | Surrogate handoff protocol |
-| `/personas` | 9 | Persona templates |
-| `/marketplace` | 8 | SOP marketplace |
-| `/memory` | 7 | Institutional memory |
-| `/org-dna` | 5 | Document embeddings |
-| `/bias` | 6 | Bias auditing |
-| `/compliance` | 8 | Regulatory compliance |
-| `/humanoid` | 7 | Device management |
-| `/federation` | 7 | Federated learning |
-| `/analytics` | 8 | Reporting + export |
-| `/activity` | 3 | Activity feed + search |
-| `/export` | 6 | Data portability |
-| `/api-keys` | 4 | API key management |
-| `/webhooks` | 6 | Webhook management |
-| `/notifications` | 4 | In-app notifications |
+---
 
 ## Documentation
 
-Full documentation is available at **[vishalm.github.io/surrogate-os](https://vishalm.github.io/surrogate-os/)**:
+Full documentation is available at **[vishalm.github.io/surrogate-os](https://vishalm.github.io/surrogate-os/)**
 
 - [Quick Start Guide](https://vishalm.github.io/surrogate-os/docs/getting-started/quick-start)
 - [Architecture Overview](https://vishalm.github.io/surrogate-os/docs/architecture/overview)
 - [Multi-Tenancy Deep Dive](https://vishalm.github.io/surrogate-os/docs/architecture/multi-tenancy)
 - [API Endpoints Reference](https://vishalm.github.io/surrogate-os/docs/api/endpoints)
-- [Phase 1: Surrogate Studio](https://vishalm.github.io/surrogate-os/docs/features/phase1-studio)
-- [Phase 2: Living Persona](https://vishalm.github.io/surrogate-os/docs/features/phase2-persona)
-- [Phase 3: Fleet Intelligence](https://vishalm.github.io/surrogate-os/docs/features/phase3-fleet)
-- [Phase 4: Humanoid Bridge](https://vishalm.github.io/surrogate-os/docs/features/phase4-bridge)
+- [Feature Phases](https://vishalm.github.io/surrogate-os/docs/features/phase1-studio)
 
-## Five Founding Commitments
-
-1. **Open SOP Standard**  Portable, interoperable decision graph format
-2. **Data Portability**  Full org export/import, never locked in
-3. **Bias Transparency**  LLM-powered auditing with anomaly detection
-4. **Human-in-the-Loop**  Kill switches, escalation nodes, checkpoint approvals
-5. **Privacy by Design**  Schema-per-tenant isolation, differential privacy in federation
+---
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup, coding conventions, and PR guidelines.
+We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup, coding conventions, and PR guidelines.
+
+Looking for a place to start? Check out issues labeled [`good first issue`](https://github.com/vishalm/surrogate-os/labels/good%20first%20issue).
+
+---
+
+## Roadmap
+
+See [ROADMAP.md](ROADMAP.md) for planned features and the development timeline.
+
+---
 
 ## License
 
-Business Source License 1.1 (BSL-1.1). See [LICENSE](LICENSE) for details.
+[MIT](LICENSE)
 
 ---
 
 <p align="center">
-  <em>"The workforce is a right, not a privilege."</em>
+  <a href="https://star-history.com/#vishalm/surrogate-os&Date">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=vishalm/surrogate-os&type=Date&theme=dark" />
+      <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=vishalm/surrogate-os&type=Date" />
+      <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=vishalm/surrogate-os&type=Date" width="600" />
+    </picture>
+  </a>
+</p>
+
+<p align="center">
+  If you find Surrogate OS useful, consider giving it a <a href="https://github.com/vishalm/surrogate-os">star</a>.
 </p>
